@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Notenportal</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/login.css" rel="stylesheet">
+    <script src="assets/login.js"></script>
+</head>
+<body>
+    <div class="login-page">
+        <div class="form">
+            <p class="title">Notenportal I1a</p>
+            <p class="registered" id="registered" style="display: none;">Erfolgreich registriert!</p>
+            <p class="failed" id="nouser" style="display: none;">Dieser Benutzer existiert nicht!</p>
+            <p class="failed" id="failed" style="display: none;">Login fehlgeschlagen! <br /> Versuche es nochmal</p>
+            <p class="failed" id="duplicateuser" style="display: none;">Dieser Benutzer existiert bereits! Wähle ein anderen Namen.</p>
+          <form class="register-form" action="/register" method="POST">
+            <input type="text" name="username_reg" id="username_reg" placeholder="benutzername" required/>
+            <input type="text" name="email" id="email" placeholder="email addresse"/>
+            <input type="password" name="password_reg" id="password_reg" placeholder="passwort" required/>
+            <button>erstellen</button>
+            <p class="message">Bereits registriert? <a onclick="ShowLogin();">Log dich ein</a></p>
+          </form>
+          <form class="login-form" action="/login" method="POST">
+            <input type="text" name="username" id="username" placeholder="benutzername" required/>
+            <input type="password" name="password" id="password" placeholder="passwort" required/>
+            <button>login</button>
+            <p class="message">Noch nicht registriert? <a onclick="ShowRegister();">Erstelle ein Konto</a></p>
+          </form>
+        </div>
+      </div>
+</body>
+</html>

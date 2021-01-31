@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<head>
+    <title>Notenportal</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="assets/styles.css" rel="stylesheet">
+</head>
+<body>
+    <div class="topnav" id="topnav">
+        <a class="active" href="/home">Start</a>
+        <div class="dropdown">
+        <a href="/home" class="dropbtn">Deine Noten</a>
+        <div class="dropdown-content">
+            <a href="/german">Deutsch</a>
+            <a href="/english">Englisch</a>
+            <a href="/french">Französisch</a>
+            <a href="/history">Geschichte</a>
+            <a href="/economics">WIR</a>
+            <a href="/finances">FRW</a>
+            <a href="/mathematics">Mathematik</a>
+            <a href="/system_technology">Systemtechnik</a>
+            <a href="/app_development">App Entwicklung</a>
+            <a class="unneccessary" href="/sports">Sport</a>
+        </div>
+        </div>
+        <a href="/calculator">Noten-Rechner</a>
+        <a class="logout" href="/logout">Ausloggen</a>
+        <a class="user" id="uname">Benutzer</a>
+    </div>
+<br />
+<div id="wrapper_show" class="wrapper">
+    <h2 id="your_grades">Subject: Deine Noten</h2>
+    <table id="subj_table">
+        <thead>
+        <tr id="row_head">
+            <th id="th_date">Datum</th>
+            <th id="th_desc">Beschreibung</th>
+            <th id="th_weight" class="weight">Gewicht</th>
+            <th class="grade" id="th_grade">Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="subj_row1">
+            <td id="subj_date1">00/00/0000</td>
+            <td id="subj_desc1">Keine Note gefunden</td>
+            <td id="subj_weight1" class="weight">0</td>
+            <td class="grade" id="subj_grade1">0</td>
+        </tr>
+        </tbody>
+        <tfoot>
+            <tr class="subj_row_foot">
+                <td id="desc_avg" class="td_avg_desc" colspan="3">Durchschnittsnote:</td>
+                <td id="grade_avg" class="td_avg">0</td>
+            </tr>
+            <tr class="subj_row_foot">
+                <td id="desc_points" class="td_points_desc" colspan="3">Punkte:</td>
+                <td id="grade_points" class="td_points">0</td>
+            </tr>
+
+        </tfoot>
+    </table>
+
+</div>
+
+
+<div id="wrapper_add" class="wrapper">
+    <h2 id="add_grades">Subject: Note hinzufügen</h2>
+    <form action="/subj_upload" method="POST">
+    <table id="subj_table_add">
+        <thead>
+        <tr id="row_head_add">
+            <th id="th_date_add">Datum</th>
+            <th id="th_desc_add">Beschreibung</th>
+            <th id="th_weight_add">Gewicht (als Dezimalzahl)</th>
+            <th class="grade" id="th_grade_add">Note</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr id="subj_row1_add">
+            <td id="subj_date1_add" ><input type="date" id="subj_date1_input" name="subj_date1_input"/></td>
+            <td id="subj_desc1_add"><input type="text" id="subj_desc1_input" name="subj_desc1_input"/></td>
+            <td id="subj_weight1_add"><input type="number" min="0" max="1" step="0.05" id="subj_weight1_input" name="subj_weight1_input"/></td>
+            <td class="grade" id="subj_grade1_add"><input type="number" min="0" max="6" step="0.05" id="subj_grade1_input" name="subj_grade1_input"/></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+        <td colspan="4"><button value="Note hinzufügen" class="grade_btn"><span>Note hinzufügen</span></button></td>
+        </tr>
+        </tfoot>
+    </table>
+    </form>
+</div>
+
+<!-- Scirpts -->
+<script type="text/javascript" src="assets/grades.js"></script>
+<script type="text/javascript" src="assets/grades_nav.js"></script>
+</body>
