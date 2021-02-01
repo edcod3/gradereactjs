@@ -501,7 +501,7 @@ function Calculator(req, res) {
 }
 
 function UploadGrades(req, res) {
-        //console.log(req.body);
+        console.log(req.body);
         var ins = {
             date: req.body.date,
             desc: req.body.desc,
@@ -509,17 +509,27 @@ function UploadGrades(req, res) {
             grade: req.body.grade
         }
         //var sqlinsert = res.locals.con.escape(ins.date) + ", " + res.locals.con.escape(ins.desc) + ", " + res.locals.con.escape(ins.weight) + ", " + res.locals.con.escape(ins.grade);
-        table_name = script.pathExtract(req.headers.referer, req.headers.origin);
+        //let table_name = script.pathExtract(req.headers.referer, req.headers.origin);
+        var table_name = req.body.subject
         res.locals.con.query("INSERT INTO ?? (`date`, `desc`, `weight`, `grade`, `token`) VALUES (?,?,?,?,?)", [table_name, ins.date, ins.desc, ins.weight, ins.grade, req.session.token], function (err, result) {
             if (err) {return ErrHandler(res, err);}
+            const success_json = {
+                type: "inserted_grade",
+                bool: true,
+                subject: table_name
+            }
+            console.log(success_json);
+            res.json(success_json);
             //console.log(result);
-        var referer = script.pathExtract(req.headers.referer, req.headers.origin);
-        JSDOM.fromFile(uri_upload, options).then( function (dom) {
-            var document = dom.window.document;
-            var subj_href = document.getElementById("btn_subj");
-            subj_href.href = "/" + referer;
-            res.send(document.documentElement.innerHTML);
-        })
+            /*
+            var referer = script.pathExtract(req.headers.referer, req.headers.origin);
+            JSDOM.fromFile(uri_upload, options).then( function (dom) {
+                var document = dom.window.document;
+                var subj_href = document.getElementById("btn_subj");
+                subj_href.href = "/" + referer;
+                res.send(document.documentElement.innerHTML);
+            })
+            */
         })
 }
 

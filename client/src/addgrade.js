@@ -1,9 +1,11 @@
 import React, {useState} from 'react'
+import {Redirect} from 'react-router-dom'
 import axios from 'axios'
 import { SubjName } from './utils/scripts'
 
 export default function AddGrade(props) {
 
+    //Include Credentials for Session Persistence
     axios.defaults.withCredentials = true
 
     const [gradeInput, setgradeInput] = useState({date: '', desc: '', weight: '', grade: ''})
@@ -14,14 +16,34 @@ export default function AddGrade(props) {
         }
       }
 
+/*To-Do: 
+    - Add grades to DB with nodeJS
+    - NodeJS success JSON response
+    - Show Message for successfull grade insertion
+*/
     function AddGrade(event) {
         event.preventDefault();
         console.log(gradeInput);
-        /*To-Do: 
-            - Add grades to DB with nodeJS
-            - NodeJS success JSON response
-            - Show Message for successfull grade insertion
-        */
+        const req_body = {
+            date: gradeInput.date,
+            desc: gradeInput.desc,
+            weight: gradeInput.weight,
+            grade: gradeInput.grade,
+            subject: props.subj
+
+        }
+        axios.post("http://localhost:8000/subj_upload", req_body, { headers: {'Content-Type': 'application/json'} })
+        .then(res => {
+            if (res.data.type === "inserted_grade" || res.data.bool === true) {
+                console.log(res.data);
+                const subj_path = "/" + res.data.subject
+                return <Redirect to={{pathname: "/uploaded", state: {subject: subj_path}}} />
+            } else {
+                console.log("didn't add grade. Response: " + res.data);
+                alert("Note konnte nicht hinzugefügt werden. Versuche es nochmals!")
+            }
+        })
+        .catch(err => console.log(err))
     }
 
     return (

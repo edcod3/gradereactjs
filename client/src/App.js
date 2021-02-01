@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Login from './login';
 import Home from './home';
 import Subject from './subject';
+import UploadedGrade from './gradeuploaded'; 
 
 function App() {
   const [loggedIn, setloggedIn] = useState(false)
@@ -63,6 +64,7 @@ function App() {
           }
           </Route>)
       })}
+      <Route path="/uploaded" exact render={(props) => <UploadedGrade {...props}/> } />
       <Route path="/">
         {(loggedIn)
         ? <Redirect to="/home" />

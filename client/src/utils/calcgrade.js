@@ -61,9 +61,20 @@ function CalculateweightedGrades(weightFiltered, gradeValues) {
     return CalculatedGrades;
 }
 
+function CalculateweightedGrades2(weightFiltered, gradeValues) {
+    var weightedGrades = [];
+    for (let i = 0; i < Math.min(gradeValues.length, weightFiltered.length); i++) {
+        let weightedGrade = gradeValues[i] * weightFiltered[i];
+        weightedGrades.push(weightedGrade);
+    }
+    let WeightedGradeSum = weightedGrades.reduce((a, b) => a+b)
+    let weight_sum = weightFiltered.reduce((a,b) => a+b)
+    const avg = WeightedGradeSum / weight_sum
+    return avg;
+}
+
 export default function CalcGradeAvg (weights, grades) {
-    let weightedGrades = CalculateweightedGrades(weights, grades)
-    let AvgGrade = GetAvg(weightedGrades)
+    let AvgGrade = CalculateweightedGrades2(weights, grades)
     let points = CalcPoints(AvgGrade)
     return [AvgGrade, points]
 }
