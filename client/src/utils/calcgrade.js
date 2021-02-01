@@ -13,6 +13,7 @@ function CalcPoints(val) {
     return TrueRoundedGrade;
 }
 
+/*
 function GetAvg(listValues) {
     var gradeSum = listValues.reduce(function(a, b){
             return a + b;
@@ -60,6 +61,7 @@ function CalculateweightedGrades(weightFiltered, gradeValues) {
     //console.log(CalculatedGrades);
     return CalculatedGrades;
 }
+*/
 
 function CalculateweightedGrades2(weightFiltered, gradeValues) {
     var weightedGrades = [];

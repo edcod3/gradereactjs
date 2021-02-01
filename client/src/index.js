@@ -3,6 +3,9 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {BrowserRouter as Router, useLocation} from 'react-router-dom';
+//React Alert Pop-Up
+import { transitions, positions, Provider as AlertProvider } from 'react-alert'
+import AlertTemplate from './utils/alert-template'
 import './assets/styles.css'
 
 function PageLocation () {
@@ -17,6 +20,19 @@ function PageLocation () {
   }, [location])
 }
 
+const alert_opts = {
+    // you can also just use 'bottom center'
+    position: positions.TOP_CENTER,
+    timeout: 6000,
+    offset: '80px',
+    //type: types.SUCCESS,
+    // you can also just use 'scale'
+    transition: transitions.FADE,
+    containerStyle: {
+      zIndex: 100
+    }
+}
+
 function Main () {
   PageLocation();
   return <App />
@@ -25,9 +41,11 @@ function Main () {
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Main />
-    </Router>
+    <AlertProvider template={AlertTemplate} {...alert_opts}>
+      <Router>
+        <Main />
+      </Router>
+    </AlertProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );

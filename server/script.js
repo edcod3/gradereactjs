@@ -121,6 +121,24 @@ function CalculateweightGrade(weightFiltered, gradeValues) {
     //console.log(CalculatedGrades);
     return CalculatedGrades;
 }
+
+function CalculateweightedGrades2(weightFiltered, gradeValues) {
+    var weightedGrades = [];
+    for (let i = 0; i < Math.min(gradeValues.length, weightFiltered.length); i++) {
+        let weightedGrade = gradeValues[i] * weightFiltered[i];
+        weightedGrades.push(weightedGrade);
+    }
+    if (gradeValues.length >= 1) {
+        let WeightedGradeSum = weightedGrades.reduce((a, b) => a+b);
+        let weight_sum = weightFiltered.reduce((a,b) => a+b);
+        let raw_avg = WeightedGradeSum / weight_sum;
+        const avg = raw_avg.toFixed(2);
+        return avg
+    } else {
+        return "NaN"
+    }
+}
+
 const tables = new Array("app_development","economics","english","finances","french","german","history","mathematics","sports","system_technology");
 const germtables = new Array("App Entwicklung", "Wirtschaft/Recht", "Englisch", "Finanz-/Rechnungswesen", "Französisch", "Deutsch", "Geschichte", "Mathematik", "Sport", "Systemtechnik");
 
@@ -134,8 +152,9 @@ function OutputSubj(rawsubj) {
 
 //Home Function
 module.exports.HomeAvg = function (weight, grades, subj) {
-    var gradeCalculatedValues = CalculateweightGrade(weight, grades);
-    var AvgGrade = GetAvg(gradeCalculatedValues);
+    //var gradeCalculatedValues = CalculateweightGrade(weight, grades);
+    var AvgGrade = CalculateweightedGrades2(weight, grades);
+    //var AvgGrade = GetAvg(gradeCalculatedValues);
     var SubjPoints = CalcPoints(AvgGrade);
     var germsubj = OutputSubj(subj); 
     var AvgObj = {

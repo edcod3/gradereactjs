@@ -6,6 +6,7 @@ import AddGrade from './addgrade'
 
 export default function Subject(props) {
 
+    const [reload, setReload] = useState(false)
     const [AvgPoints, setAvgPoints] = useState({avg: 0, points: 0})
     const [subjData, setsubjData] = useState([])
 
@@ -23,7 +24,13 @@ export default function Subject(props) {
         setAvgPoints({avg: avg, points: points})
     }
 
+    const ReloadPage = () => {
+        setReload(!reload)
+    }
+
     useEffect(() => {
+        setsubjData([])
+        setAvgPoints({avg: 0, points: 0})
         //console.log(subj_url)
         axios.get(subj_url, {headers: {'Content-Type': 'application/json'}})
             .then(res => {
@@ -32,7 +39,7 @@ export default function Subject(props) {
                 setsubjData(res.data.response)
             })
             .catch(err => console.log(err))
-    }, [subj_url])
+    }, [subj_url, reload])
 
     return (
         <div>
@@ -68,17 +75,17 @@ export default function Subject(props) {
                 <tfoot>
                 <tr class="subj_row_foot">
                     <td id="desc_avg" class="td_avg_desc" colspan="3">Durchschnittsnote:</td>
-                    {<td id="grade_avg" className={(AvgPoints.avg < 3.75) ? "failed td_avg" : "td_avg"} >{(isNaN(AvgPoints.avg)) ? "Kein Durchschnitt" : AvgPoints.avg }</td>
+                    {<td id="grade_avg" className={(AvgPoints.avg < 3.75) ? "failed td_avg" : "td_avg"} >{(isNaN(AvgPoints.avg)) ? "Kein Durchschnitt" : AvgPoints.avg.toFixed(2) }</td>
                     }
                 </tr>
                 <tr class="subj_row_foot">
                     <td id="desc_points" class="td_points_desc" colspan="3">Punkte:</td>
-                    <td id="grade_points" class={(AvgPoints.points < 0) ? "failed td_points" : "td_points"}>{(AvgPoints.points) ? AvgPoints.points : "Keine Punkte" }</td>
+                    <td id="grade_points" class={(AvgPoints.points < 0) ? "failed td_points" : "td_points"}>{(AvgPoints.points || AvgPoints.points === 0) ? AvgPoints.points : "Keine Punkte" }</td>
                 </tr>
                 </tfoot>
             </table>
             </div>
-            <AddGrade subj={props.subj}/>
+            <AddGrade subj={props.subj} reload={ReloadPage}/>
         </div>
     )
 }

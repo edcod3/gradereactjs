@@ -23,10 +23,17 @@ export default function Home() {
             let grade_arr = res.data.response
             let grades = grade_arr.filter(subj => subj.grade !== "NaN").map(subj => parseFloat(subj.grade))
             let points_arr = grade_arr.filter(subj => subj.points !== null).map(subj => subj.points)
-            const totpoints = points_arr.reduce((a,b) => a+b)
-            const avg = GetAvg(grades)
-            setAvgPoints({avg: avg, points: totpoints})
-            setgradeVals(grade_arr)
+            if (points_arr.length >= 1) {
+                let totpoints = points_arr.reduce((a,b) => a+b)
+                let avg = GetAvg(grades)
+                setAvgPoints({avg: avg, points: totpoints})
+                setgradeVals(grade_arr)
+            } else {
+                let totpoints = "Keine Punkte"
+                let avg = GetAvg(grades)
+                setAvgPoints({avg: avg, points: totpoints})
+                setgradeVals(grade_arr)
+            }
         })
         
     }, [])
@@ -73,7 +80,7 @@ export default function Home() {
                 <tr className="home_row_foot">
                     <td className="none"></td>
                     <td id="desc_avg" className="td_avg_desc" colSpan="1">Gesamtdurchschnitt:</td>
-                    <td id="home_avg" className="td_avg">{AvgPoints.avg.toFixed(2)}</td>
+                    <td id="home_avg" className="td_avg">{(Math.round(AvgPoints.avg) === 0) ? "Kein Durchschnitt" : AvgPoints.avg.toFixed(2)}</td>
                 </tr>
             </tfoot>
         </table>
