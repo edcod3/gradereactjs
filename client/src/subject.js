@@ -3,9 +3,11 @@ import axios from 'axios'
 import CalcGradeAvg from './utils/calcgrade'
 import { SubjName } from './utils/scripts'
 import AddGrade from './addgrade'
+import UpdateGrade from './updategrade'
 
 export default function Subject(props) {
 
+    const [updateRow, setupdateRow] = useState()
     const [reload, setReload] = useState(false)
     const [AvgPoints, setAvgPoints] = useState({avg: 0, points: 0})
     const [subjData, setsubjData] = useState([])
@@ -25,6 +27,11 @@ export default function Subject(props) {
     }
 
     const ReloadPage = () => {
+        setReload(!reload)
+    }
+
+    const CloseUpdate = () => {
+        setupdateRow()
         setReload(!reload)
     }
 
@@ -48,6 +55,7 @@ export default function Subject(props) {
                 <table id="subj_table">
                 <thead>
                 <tr id="row_head">
+                    <th id="th_edit">Eintrag editieren</th>
                     <th id="th_date">Datum</th>
                     <th id="th_desc">Beschreibung</th>
                     <th id="th_weight" class="weight">Gewicht</th>
@@ -57,12 +65,17 @@ export default function Subject(props) {
                 <tbody>
                     {(subjData.length > 0)
                         ?   subjData.map((row, i) => {
-                            return(<tr key={`${props.subj}_row${i}`}>
-                                    <td key={`${props.subj}_date${i}`}>{row.date}</td>
-                                    <td key={`${props.subj}_desc${i}`}>{row.desc}</td>
-                                    <td key={`${props.subj}_weight${i}`} class="weight">{row.weight}</td>
-                                    <td key={`${props.subj}_grade${i}`} class="grade">{row.grade}</td>
-                                </tr>)
+                                if (updateRow === i) {
+                                    return(<UpdateGrade row={row} index={i} close={CloseUpdate}/>)
+                                } else {
+                                    return(<tr key={`${props.subj}_row${i}`}>
+                                            <td class="edit-td"><button onClick={() => setupdateRow(i)}><i class="material-icons" style={{fontSize: "22px"}}>mode_edit</i></button></td>
+                                            <td key={`${props.subj}_date${i}`}>{row.date}</td>
+                                            <td key={`${props.subj}_desc${i}`}>{row.desc}</td>
+                                            <td key={`${props.subj}_weight${i}`} class="weight">{row.weight}</td>
+                                            <td key={`${props.subj}_grade${i}`} class="grade">{row.grade}</td>
+                                        </tr>)
+                                }
                             })
                         :   <tr id="subj_row1">
                                 <td id="subj_date1">{today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()}</td>
@@ -74,12 +87,12 @@ export default function Subject(props) {
                 </tbody>
                 <tfoot>
                 <tr class="subj_row_foot">
-                    <td id="desc_avg" class="td_avg_desc" colspan="3">Durchschnittsnote:</td>
+                    <td id="desc_avg" class="td_avg_desc" colspan="4">Durchschnittsnote:</td>
                     {<td id="grade_avg" className={(AvgPoints.avg < 3.75) ? "failed td_avg" : "td_avg"} >{(isNaN(AvgPoints.avg)) ? "Kein Durchschnitt" : AvgPoints.avg.toFixed(2) }</td>
                     }
                 </tr>
                 <tr class="subj_row_foot">
-                    <td id="desc_points" class="td_points_desc" colspan="3">Punkte:</td>
+                    <td id="desc_points" class="td_points_desc" colspan="4">Punkte:</td>
                     <td id="grade_points" class={(AvgPoints.points < 0) ? "failed td_points" : "td_points"}>{(AvgPoints.points || AvgPoints.points === 0) ? AvgPoints.points : "Keine Punkte" }</td>
                 </tr>
                 </tfoot>

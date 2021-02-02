@@ -7,6 +7,12 @@ export function capitalize(string) {
     }
 }
 
+export function FormatDate(rawdate) {
+    let formateddate = rawdate.split(".");
+    let newdate = formateddate[2] + "-" + formateddate[1] + "-" + formateddate[0];
+    return newdate
+}
+
 export function SubjName (rawsubj) {
     const tables =  {
                     app_development: "App Entwicklung",

@@ -463,6 +463,19 @@ th {
   color: white;
 }
 
+table .edit-td {
+  width: 60px;
+  padding: 0px;
+}
+.edit-td button {
+  background: none;
+  border: none;
+  margin: 0;
+  padding: 0px;
+  width: inherit;
+  height: inherit;
+}
+
 .subj_row_foot, .home_row_foot {
   background-color: #eaf7ff !important;
 }
