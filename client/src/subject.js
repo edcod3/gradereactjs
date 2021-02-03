@@ -66,7 +66,7 @@ export default function Subject(props) {
                     {(subjData.length > 0)
                         ?   subjData.map((row, i) => {
                                 if (updateRow === i) {
-                                    return(<UpdateGrade row={row} index={i} close={CloseUpdate}/>)
+                                    return(<UpdateGrade row={row} index={i} table={props.subj} close={CloseUpdate}/>)
                                 } else {
                                     return(<tr key={`${props.subj}_row${i}`}>
                                             <td class="edit-td"><button onClick={() => setupdateRow(i)}><i class="material-icons" style={{fontSize: "22px"}}>mode_edit</i></button></td>

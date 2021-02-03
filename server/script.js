@@ -46,6 +46,7 @@ module.exports.GetSQLValues = function (result2) {
     var sqldesc = JSON.stringify(result2.desc);
     var sqldate2 = sqldate.replace(/['"]+/g, "").split("T")[0].split("-");
     var trueValues = {
+        id: JSON.stringify(result2.id),
         weight: JSON.stringify(result2.weight),
         grade: JSON.stringify(result2.grade),
         date: sqldate2[2] + "." + sqldate2[1] + "." + sqldate2[0],

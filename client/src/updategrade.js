@@ -1,9 +1,16 @@
 import React, {useState} from 'react'
+import axios from 'axios'
+import { useAlert } from 'react-alert'
 import { FormatDate } from './utils/scripts'
 
 export default function UpdateGrade(props) {
 
-    const [updateVal, setupdateVal] = useState({date: FormatDate(props.row.date), desc: props.row.desc, weight: props.row.weight, grade: props.row.grade})
+    const alert = useAlert()
+
+    //Enable express-session persistence
+    axios.defaults.withCredentials = true;
+
+    const [updateVal, setupdateVal] = useState({date: FormatDate(props.row.date), desc: props.row.desc, weight: props.row.weight, grade: props.row.grade, id: props.row.id, table: props.table})
 
     const gradeUpdateVal = (name) => {
         return({target: {value} }) => {
@@ -11,8 +18,28 @@ export default function UpdateGrade(props) {
         }
     }
 
+
+    /*
+    To-Do: 
+        - Test Grade Update
+        - Debug (if necessary)
+        - reload Subject Grades on successful update
+    */
+     
     function handleUpdate() {
         console.log(updateVal)
+        console.log(props.table)
+        axios.post('http://localhost:8000/subj_update', updateVal, {headers: {'Content-Type': 'application/json'}})
+            .then(res => {
+                console.log(res.data)
+                if (res.data.type === "inserted_grade" && res.data.bool === true) {
+                    //props.close()
+                    alert.success("Eintrag wurde erfolgreich aktualisiert!")
+                } else {
+                    alert.error("Eintrag konnte nicht aktualisiert werden. Versuche es nochmals!")
+                }
+            })
+            .catch(err => console.log(err))
         //props.close();
     }
 

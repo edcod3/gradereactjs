@@ -229,6 +229,11 @@ app.post('/subj_upload', function (req, res) {
     UploadGrades(req, res);
 })
 
+//Grade Update
+app.post('/subj_update', function(req, res) {
+    UpdateGrades(req, res)
+})
+
 /* ----------------- */
 
 /* Test Stuff */
@@ -532,6 +537,21 @@ function UploadGrades(req, res) {
             */
         })
 }
+
+function UpdateGrades(req, res) {
+    console.log(req.body);
+    let updarray = [req.body.table, req.body.date, req.body.desc, req.body.weight, req.body.grade, req.body.id]
+    res.locals.con.query("UPDATE ?? SET date = ?, desc = ?, weight = ?, grade = ? WHERE id = ?", updarray, function (err, result) {
+        if (err) {return ErrHandler(res, err)}
+        const updated_json = {
+            type: "updated_grade",
+            bool: true
+        };
+        console.log(updated_json);
+        res.json(updated_json);
+    })
+}
+
 
 //Error Handling 
 
