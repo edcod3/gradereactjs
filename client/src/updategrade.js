@@ -21,9 +21,9 @@ export default function UpdateGrade(props) {
 
     /*
     To-Do: 
-        - Test Grade Update
-        - Debug (if necessary)
-        - reload Subject Grades on successful update
+        - Test Grade Update -> Done
+        - Debug (if necessary) -> Done
+        - reload Subject Grades on successful update -> Done
     */
      
     function handleUpdate() {
@@ -32,8 +32,8 @@ export default function UpdateGrade(props) {
         axios.post('http://localhost:8000/subj_update', updateVal, {headers: {'Content-Type': 'application/json'}})
             .then(res => {
                 console.log(res.data)
-                if (res.data.type === "inserted_grade" && res.data.bool === true) {
-                    //props.close()
+                if (res.data.type === "updated_grade" && res.data.bool === true) {
+                    props.close()
                     alert.success("Eintrag wurde erfolgreich aktualisiert!")
                 } else {
                     alert.error("Eintrag konnte nicht aktualisiert werden. Versuche es nochmals!")
@@ -49,7 +49,7 @@ export default function UpdateGrade(props) {
             <td><input type="date" value={updateVal.date} onChange={gradeUpdateVal("date")} required/></td>
             <td><input type="text" value={updateVal.desc} onChange={gradeUpdateVal("desc")} required/></td>
             <td><input type="number" min="0" max="1" step="0.01" value={updateVal.weight} onChange={gradeUpdateVal("weight")} required/></td>
-            <td class="grade"><input type="number" min="0" max="6" step="0.05" value={updateVal.grade} onChange={gradeUpdateVal("grade")} required/></td>
+            <td className="grade"><input type="number" min="0" max="6" step="0.05" value={updateVal.grade} onChange={gradeUpdateVal("grade")} required/></td>
         </tr>
     )
 }

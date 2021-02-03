@@ -223,15 +223,22 @@ app.get('/calculator', function (req, res) {
 
 /* -------------- */
 
-/* Subject Upload */
 
+/* GradeJS Managment*/
+
+//Subject/Grade Upload
 app.post('/subj_upload', function (req, res) {
     UploadGrades(req, res);
 })
 
 //Grade Update
 app.post('/subj_update', function(req, res) {
-    UpdateGrades(req, res)
+    UpdateGrades(req, res);
+})
+
+//Grade Deletion
+app.post('/subj_delete', function(req, res) {
+    DeleteGrade(req, res);
 })
 
 /* ----------------- */
@@ -540,8 +547,8 @@ function UploadGrades(req, res) {
 
 function UpdateGrades(req, res) {
     console.log(req.body);
-    let updarray = [req.body.table, req.body.date, req.body.desc, req.body.weight, req.body.grade, req.body.id]
-    res.locals.con.query("UPDATE ?? SET date = ?, desc = ?, weight = ?, grade = ? WHERE id = ?", updarray, function (err, result) {
+    let updarray = [req.body.table, req.body.date, req.body.desc, req.body.weight, req.body.grade, req.body.id, req.session.token]
+    res.locals.con.query("UPDATE ?? SET `date`=?, `desc`=?, `weight`=?, `grade`=? WHERE `id`=? AND `token`=?", updarray, function (err, result) {
         if (err) {return ErrHandler(res, err)}
         const updated_json = {
             type: "updated_grade",
@@ -549,6 +556,20 @@ function UpdateGrades(req, res) {
         };
         console.log(updated_json);
         res.json(updated_json);
+    })
+}
+
+function DeleteGrade (req, res) {
+    console.log(req.body);
+    let sqldelarray = [req.body.table, req.body.index, req.session.token];
+    res.locals.con.query("DELETE FROM ?? WHERE `id`=? AND `token`=?", sqldelarray, function (err, result) {
+        if (err) {return ErrHandler(res, err)}
+        const deleted_json = {
+            type: "deleted_grade",
+            bool: true
+        };
+        console.log(deleted_json);
+        res.json(deleted_json);
     })
 }
 

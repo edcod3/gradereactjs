@@ -1,9 +1,13 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios' 
+import { useAlert } from 'react-alert'
+import { confirmAlert } from 'react-confirm-alert'
 import CalcGradeAvg from './utils/calcgrade'
 import { SubjName } from './utils/scripts'
 import AddGrade from './addgrade'
 import UpdateGrade from './updategrade'
+//Import react-confirm-alert CSS
+import './assets/react-confirm-alert.css';
 
 export default function Subject(props) {
 
@@ -13,6 +17,8 @@ export default function Subject(props) {
     const [subjData, setsubjData] = useState([])
 
     const today = new Date();
+    
+    const alert = useAlert();
 
     //Enable express-session persistence
     axios.defaults.withCredentials = true;
@@ -41,16 +47,47 @@ export default function Subject(props) {
         //console.log(subj_url)
         axios.get(subj_url, {headers: {'Content-Type': 'application/json'}})
             .then(res => {
-                //console.log(res.data)
+                //console.log(res.data.response)
                 GetAvg(res.data.response)
                 setsubjData(res.data.response)
             })
             .catch(err => console.log(err))
     }, [subj_url, reload])
 
+    function deleteRow(row_index) {
+        axios.post("http://localhost:8000/subj_delete", {index: row_index, table: props.subj}, {headers: {'Content-Type': 'application/json'}})
+        .then(res => {
+            if (res.data.type === "deleted_grade" && res.data.bool === true) {
+                //console.log(res.data);
+                ReloadPage()
+                alert.success("Note wurde erfolgreich gelöscht!")
+            } else {
+                //console.log("didn't add grade. Response: " + res.data);
+                alert.error("Note konnte nicht gelöscht werden. Versuche es nochmals!")
+            }
+        })
+        .catch(err => console.log(err))
+    }
+
+    function confirmDelete(index, rowid) {
+        confirmAlert({
+            title: 'Sollte diese Note gelöscht werden?',
+            message:  `Note: ${subjData[index].grade} (${subjData[index].desc})`,
+            buttons: [
+              {
+                label: 'Ja',
+                onClick: () => deleteRow(rowid)
+              },
+              {
+                label: 'Nein'
+              }
+            ]
+        })
+    }
+
     return (
         <div>
-            <div id="wrapper_show" class="wrapper">
+            <div id="wrapper_show" className="wrapper">
                 <h2 id="your_grades">{SubjName(props.subj)}: Deine Noten</h2>
                 <table id="subj_table">
                 <thead>
@@ -58,8 +95,8 @@ export default function Subject(props) {
                     <th id="th_edit">Eintrag editieren</th>
                     <th id="th_date">Datum</th>
                     <th id="th_desc">Beschreibung</th>
-                    <th id="th_weight" class="weight">Gewicht</th>
-                    <th class="grade" id="th_grade">Note</th>
+                    <th id="th_weight" className="weight">Gewicht</th>
+                    <th className="grade" id="th_grade">Note</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -69,31 +106,32 @@ export default function Subject(props) {
                                     return(<UpdateGrade row={row} index={i} table={props.subj} close={CloseUpdate}/>)
                                 } else {
                                     return(<tr key={`${props.subj}_row${i}`}>
-                                            <td class="edit-td"><button onClick={() => setupdateRow(i)}><i class="material-icons" style={{fontSize: "22px"}}>mode_edit</i></button></td>
+                                            <td className="edit-td"><button onClick={() => setupdateRow(i)}><i className="material-icons" style={{fontSize: "22px"}}>mode_edit</i></button><button onClick={() => confirmDelete(i, row.id)}><i className="material-icons" style={{fontSize: "22px", color: "red"}}>delete_forever</i></button></td>
                                             <td key={`${props.subj}_date${i}`}>{row.date}</td>
                                             <td key={`${props.subj}_desc${i}`}>{row.desc}</td>
-                                            <td key={`${props.subj}_weight${i}`} class="weight">{row.weight}</td>
-                                            <td key={`${props.subj}_grade${i}`} class="grade">{row.grade}</td>
+                                            <td key={`${props.subj}_weight${i}`} className="weight">{row.weight}</td>
+                                            <td key={`${props.subj}_grade${i}`} className="grade">{row.grade}</td>
                                         </tr>)
                                 }
                             })
                         :   <tr id="subj_row1">
+                                <td className="edit-td"><button onClick={() => alert.error("Keine Noten vorhanden!")}><i className="material-icons" style={{fontSize: "22px"}}>mode_edit</i></button></td>
                                 <td id="subj_date1">{today.getDate()+'/'+(today.getMonth()+1)+'/'+today.getFullYear()}</td>
                                 <td id="subj_desc1">Keine Noten gefunden!</td>
-                                <td id="subj_weight1" class="weight">0</td>
-                                <td class="grade" id="subj_grade1">0</td>
+                                <td id="subj_weight1" className="weight">0</td>
+                                <td className="grade" id="subj_grade1">0</td>
                             </tr>
                     }
                 </tbody>
                 <tfoot>
-                <tr class="subj_row_foot">
-                    <td id="desc_avg" class="td_avg_desc" colspan="4">Durchschnittsnote:</td>
-                    {<td id="grade_avg" className={(AvgPoints.avg < 3.75) ? "failed td_avg" : "td_avg"} >{(isNaN(AvgPoints.avg)) ? "Kein Durchschnitt" : AvgPoints.avg.toFixed(2) }</td>
+                <tr className="subj_row_foot">
+                    <td id="desc_avg" className="td_avg_desc" colSpan="4">Durchschnittsnote:</td>
+                    {<td id="grade_avg" className={(AvgPoints.avg < 3.75) ? "failed td_avg" : "td_avg"} >{(AvgPoints.avg === "NaN") ? "Kein Durchschnitt" : AvgPoints.avg.toFixed(2) }</td>
                     }
                 </tr>
-                <tr class="subj_row_foot">
-                    <td id="desc_points" class="td_points_desc" colspan="4">Punkte:</td>
-                    <td id="grade_points" class={(AvgPoints.points < 0) ? "failed td_points" : "td_points"}>{(AvgPoints.points || AvgPoints.points === 0) ? AvgPoints.points : "Keine Punkte" }</td>
+                <tr className="subj_row_foot">
+                    <td id="desc_points" className="td_points_desc" colSpan="4">Punkte:</td>
+                    <td id="grade_points" className={(AvgPoints.points < 0) ? "failed td_points" : "td_points"}>{(AvgPoints.points || AvgPoints.points === 0) ? AvgPoints.points : "Keine Punkte" }</td>
                 </tr>
                 </tfoot>
             </table>

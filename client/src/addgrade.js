@@ -60,7 +60,7 @@ export default function AddGrade(props) {
     }*/
 
     return (
-        <div id="wrapper_add" class="wrapper">
+        <div id="wrapper_add" className="wrapper">
         <h2 id="add_grades">{SubjName(props.subj)}: Note hinzufügen</h2>
         <form onSubmit={AddGrade}>
             <table id="subj_table_add">
@@ -69,7 +69,7 @@ export default function AddGrade(props) {
                     <th id="th_date_add">Datum</th>
                     <th id="th_desc_add">Beschreibung</th>
                     <th id="th_weight_add">Gewicht (als Dezimalzahl)</th>
-                    <th class="grade" id="th_grade_add">Note</th>
+                    <th className="grade" id="th_grade_add">Note</th>
                 </tr>
             </thead>
             <tbody>
@@ -77,12 +77,12 @@ export default function AddGrade(props) {
                     <td><input type="date" value={gradeInput.date} onChange={gradeInputVal("date")} required/></td>
                     <td><input type="text" value={gradeInput.desc} onChange={gradeInputVal("desc")} required/></td>
                     <td><input type="number" min="0" max="1" step="0.01" value={gradeInput.weight} onChange={gradeInputVal("weight")} required/></td>
-                    <td class="grade"><input type="number" min="0" max="6" step="0.05" value={gradeInput.grade} onChange={gradeInputVal("grade")} required/></td>
+                    <td className="grade"><input type="number" min="0" max="6" step="0.05" value={gradeInput.grade} onChange={gradeInputVal("grade")} required/></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <td colspan="4"><button value="Note hinzufügen" class="grade_btn" type="submit"><span>Note hinzufügen</span></button></td>
+                    <td colSpan="4"><button value="Note hinzufügen" className="grade_btn" type="submit"><span>Note hinzufügen</span></button></td>
                 </tr>
             </tfoot>
             </table>

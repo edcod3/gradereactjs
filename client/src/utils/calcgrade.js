@@ -69,10 +69,14 @@ function CalculateweightedGrades2(weightFiltered, gradeValues) {
         let weightedGrade = gradeValues[i] * weightFiltered[i];
         weightedGrades.push(weightedGrade);
     }
-    let WeightedGradeSum = weightedGrades.reduce((a, b) => a+b)
-    let weight_sum = weightFiltered.reduce((a,b) => a+b)
-    const avg = WeightedGradeSum / weight_sum
-    return avg;
+    if (weightedGrades.length >= 1) {
+        let WeightedGradeSum = weightedGrades.reduce((a, b) => a+b)
+        let weight_sum = weightFiltered.reduce((a,b) => a+b)
+        const avg = WeightedGradeSum / weight_sum
+        return avg;
+    } else {
+        return "NaN"
+    }
 }
 
 export default function CalcGradeAvg (weights, grades) {
