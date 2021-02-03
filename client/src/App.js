@@ -4,7 +4,7 @@ import Navbar from './Navbar';
 import Login from './login';
 import Home from './home';
 import Subject from './subject';
-import Notenrechner from './notenrechner'
+import Calculator from './notenrechner'
 
 function App() {
   const [loggedIn, setloggedIn] = useState(false)
@@ -64,11 +64,12 @@ function App() {
           }
           </Route>)
       })}
-      <Route path="/calculator"/>
-        {(loggedIn)
-          ? <Notenrechner />
+      <Route path="/calculator" exact>
+        { (loggedIn)
+          ? <Calculator />
           : <Redirect to="/login" />
         }
+      </Route>
       <Route path="/">
         {(loggedIn)
         ? <Redirect to="/home" />

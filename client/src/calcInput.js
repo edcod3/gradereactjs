@@ -1,11 +1,10 @@
 import React from 'react'
 
-export default function TInput() {
-    const inputArray = [1,2,3]
+export default function TInput(props) {
     const inputString = ["subject", "desc", "weight"] 
     return (
-        inputArray.map(inpNum => {
-        return <td><input type="text" id={inputString[inpNum] + inpNum}></input></td>
+        inputString.map(inpNum => {
+        return <td key={"td_" + inpNum + props.id}><input type="text" id={inpNum + props.id}></input></td>
         })
     )
 }

@@ -10,7 +10,8 @@ export default function AddGrade(props) {
 
     const alert = useAlert()
 
-    const [gradeInput, setgradeInput] = useState({date: '', desc: '', weight: '', grade: ''})
+    const initialgradeInp = {date: '', desc: '', weight: '', grade: ''}
+    const [gradeInput, setgradeInput] = useState(initialgradeInp)
 
     const gradeInputVal = (name) => {
         return({target: {value} }) => {
@@ -39,6 +40,7 @@ export default function AddGrade(props) {
             if (res.data.type === "inserted_grade" || res.data.bool === true) {
                 //console.log(res.data);
                 //const subj_path = "/" + res.data.subject
+                setgradeInput(initialgradeInp)
                 props.reload()
                 alert.success("Note wurde erfolgreich hochgeladen!")
             } else {

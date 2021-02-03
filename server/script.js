@@ -40,9 +40,16 @@ module.exports.pathExtract = function (ref, origin) {
     return path.replace("/", "")
 }
 
+function DateFormat (date) {
+    let curr_date = new Date(date);
+    curr_date.setDate(curr_date.getDate() + 1);
+    let new_date = curr_date.toISOString();
+    return new_date
+}
 
 module.exports.GetSQLValues = function (result2) {
-    var sqldate = JSON.stringify(result2.date);
+    //var sqldate = JSON.stringify(result2.date);
+    var sqldate = DateFormat(result2.date);
     var sqldesc = JSON.stringify(result2.desc);
     var sqldate2 = sqldate.replace(/['"]+/g, "").split("T")[0].split("-");
     var trueValues = {
