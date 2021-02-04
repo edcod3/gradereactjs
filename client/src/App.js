@@ -6,6 +6,7 @@ import Login from './login';
 import Home from './home';
 import Subject from './subject';
 import Calculator from './notenrechner'
+import { subjtables } from './utils/scripts'
 
 function App() {
 
@@ -13,7 +14,8 @@ function App() {
   axios.defaults.withCredentials = true;
 
   const [loggedIn, setloggedIn] = useState(false)
-  const tables = ["app_development","economics","english","finances","french","german","history","mathematics","sports","system_technology"];
+  const tables = subjtables
+  //const tables = ["app_development","economics","english","finances","french","german","history","mathematics","sports","system_technology"];
 //  const [redirect, setRedirect] = useState("/login")
 
   useEffect(() => {

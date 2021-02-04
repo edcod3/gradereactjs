@@ -38,3 +38,5 @@ export function SessionLogout(err) {
         console.log(err.response.data)
     }
 }
+
+export const subjtables = ["app_development","economics","english","finances","french","german","history","mathematics","sports","system_technology"]

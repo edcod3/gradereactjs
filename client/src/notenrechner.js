@@ -1,16 +1,24 @@
 import React, {useState} from 'react'
+import axios from 'axios'
 //import {useRef} from 'react'
 //import TInput from "./redundatn/calcInput";
 import CalcGradeAvg from './utils/calcgrade.js'
+import {subjtables, SubjName, SessionLogout} from './utils/scripts'
 
 export default function Calculator() {
+
+    //Enable express-session persistence
+    axios.defaults.withCredentials = true;
+    
     const [gradeVal, setgradeVal] = useState({avg: 0, points: 'Keine Punkte'})
     //const gradeInps = useRef({})
     //const [gradeInputs, setgradeInputs] = useState([])
     //const [weightInputs, setweightInputs] = useState([])
-    const [displayGrade, setDG] = useState(false);
-    const [rows, setRows] = useState([{id: 1, weight: '', grade: ''}, {id: 2, weight: '', grade: ''}])
+    const [displayGrade, setDG] = useState(false)
+    const intialRows = [{id: 1, weight: '', grade: ''}]
+    const [rows, setRows] = useState(intialRows)
     const [addval, calcval]=["Reihe hinzufügen", "Calculate Grade!"]
+    const tables = subjtables
 
     /*const GetVals = () => {
         const ValArray = [];
@@ -64,45 +72,75 @@ export default function Calculator() {
     }*/
 
     function AddRow() {
+        let lastrowid = rows.length - 1
+        let newrow = rows[lastrowid].id + 1
         setRows(prevRows => {
-            return [...prevRows, {id: rows.length + 1, weight: '', grade: ''}]
+            return [...prevRows, {id: newrow, weight: '', grade: ''}]
         })
     }
 
     /* To-Do:
-            - Add weight inclusion for grade calculation
+            - Add weight inclusion for grade calculation -> Done
             - Implement Selection of subjects to prefill input rows
-            - Replace useRef with useState OR understand how useRef works and implement properly
     */
+    function GetSubjData(event) {
+      console.log(`${event.target.value}`)
+      if (`${event.target.value}` !== "" ) {
+        const subj_url = 'http://localhost:8000/' + event.target.value
+        axios.get(subj_url, {headers: {'Content-Type': 'application/json'}})
+        .then(res => {
+          const newarray = res.data.response.concat(intialRows)
+          setRows(newarray)
+        })
+        .catch(err => SessionLogout(err))
+      } else {
+        setRows(intialRows)
+      }
+    }
 
     return (
         <div id="calc_wrapper" className="wrapper">
         <h2>Noten-Rechner</h2>
+        <h3>Wähle dein Fach</h3>
+        <select id="subjects" onChange={GetSubjData}>
+          <option value="">Wähle ein Fach</option>
+          {tables.map(subj => {
+            return(<option key={subj} value={subj}>{SubjName(subj)}</option>)
+          })}
+        </select>
+        <br />
         <h3>Gib deine Noten ein:</h3>
         <table id="inputTable">
         <tbody id="TableBody">
             <tr>
-                <th>Fach</th>
                 <th>Beschreibung</th>
                 <th>Gewicht</th>
                 <th>Note</th>
             </tr>
             {rows.map(row => {
-                return(<tr key={"row" + row.id}>
-                        <td><input type="text" id={"subj" + row.id}></input></td>
-                        <td><input type="text" id={"desc" + row.id}></input></td>
-                        <td><input type="text" id={"weight" + row.id} value={row.weight} onChange={SetGrade("weight", row.id)}></input></td>
-                        <td><input type="text" id={"grade" + row.id} value={row.grade} onChange={SetGrade("grade", row.id)}></input></td>
-                    </tr>
-            )})}
+                      console.log(row)
+                      if (row.desc) {
+                        return(<tr key={"row" + row.id} className="subjdata">
+                          <td>{row.desc}</td>
+                          <td>{row.weight}</td>
+                          <td>{row.grade}</td>
+                          </tr>
+                        )
+                      } else {
+                        return(<tr key={"row" + row.id}>
+                          <td style={{color: "black"}}>{`Notenrechner (Note ${row.id})`}</td>
+                          <td><input type="text" id={"weight" + row.id} value={row.weight} onChange={SetGrade("weight", row.id)}></input></td>
+                          <td><input type="text" id={"grade" + row.id} value={row.grade} onChange={SetGrade("grade", row.id)}></input></td>
+                        </tr>
+              )}})}
         </tbody>
         <tfoot className="average" id="average_tfoot" style={displayGrade ? {"display": "table-footer-group"}: {"display": "none"} }>
         <tr>
-            <td colSpan="3" id="calc_avg_desc">Deine Durchschnittsnote ist: </td>
+            <td colSpan="2" id="calc_avg_desc"><p>Deine Durchschnittsnote ist: </p></td>
             <td id="calc_avg_grade">{(!gradeVal.avg) ? "Kein Durchschnitt" : gradeVal.avg.toFixed(2)}</td>
         </tr>
         <tr className="average">
-              <td id="calc_pts_desc" colSpan="3">Punkte:</td>
+              <td id="calc_pts_desc" colSpan="2">Punkte:</td>
               <td id="calc_points" className={(gradeVal.points < 0) ? "failed td_points" : "td_points"}>{gradeVal.points}</td>
         </tr>
         </tfoot>

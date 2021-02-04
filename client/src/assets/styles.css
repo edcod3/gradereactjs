@@ -489,7 +489,9 @@ table .edit-td {
 
 .none {
   background-color: white !important;
-  border: none !important; 
+  /*border: none !important;*/ 
+  border-bottom-color: white !important;
+  border-left-color: white !important;
 }
 
 .ungenügend {
@@ -662,7 +664,9 @@ table .edit-td {
 
 #inputTable input {
   background-color: rgba(255, 255, 255, 0.1);
-  width: 100%;
+  text-align: center;
+  width: 99%;
+  height: 38px;
   margin: 0;
   border: none;
 }
@@ -676,6 +680,12 @@ table .edit-td {
   height: 40px;
 }
 
+#inputTable .subjdata {
+  background-color: rgba(255, 255, 255, 0.6);
+  color: black;
+  opacity: 0.7;
+}
+
 .average {
   color: black;
   display: none;
@@ -686,9 +696,15 @@ table .edit-td {
   background-color: #eaf7ff !important;
   color: black;
 }
+#calc_avg_desc p {
+  margin: 0;
+  padding-left: 80px;
+  font-weight: 600;
+}
 
 #calc_avg_grade {
   color: black;
   background-color: #d9f0ff !important;
+  font-weight: 600;
 }
 
