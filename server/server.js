@@ -121,7 +121,17 @@ app.get('/', function (req, res) {
     res.redirect('/login');
 })
 app.get('/login', function (req, res) {
-    res.sendFile(__dirname + "/public/" + "login.html");
+    //res.sendFile(__dirname + "/public/" + "login.html");
+    if (req.session.loggedin) {
+        res.redirect('/home');
+    } else {
+        const notloggedin_json = {
+            message: "You are not logged in",
+            type: "not_loggedin",
+            bool: true
+        }
+        res.status(400).json(notloggedin_json)
+    }
 })
 app.post('/login', function(req, res) {
     Login(req, res);
@@ -132,7 +142,7 @@ app.post('/register', function (req, res) {
 app.get('/logout', function (req, res) {
     //Implement Logout JSON response
     req.session.destroy();
-    res.redirect("/login");
+    res.json({type: "loggedout", bool: true})
 })
 app.get('/home', function(req, res) {
     console.log(req.session);
@@ -228,17 +238,30 @@ app.get('/calculator', function (req, res) {
 
 //Subject/Grade Upload
 app.post('/subj_upload', function (req, res) {
-    UploadGrades(req, res);
+    if (req.session.loggedin) {
+        UploadGrades(req, res);
+    } else {
+        res.redirect("/login");
+    }
 })
 
 //Grade Update
 app.post('/subj_update', function(req, res) {
-    UpdateGrades(req, res);
+    if (req.session.loggedin) {
+        UpdateGrades(req, res);
+    } else {
+        res.redirect("/login");
+    }
+    
 })
 
 //Grade Deletion
 app.post('/subj_delete', function(req, res) {
-    DeleteGrade(req, res);
+    if (req.session.loggedin) {
+        DeleteGrade(req, res);
+    } else {
+        res.redirect("/login");
+    }
 })
 
 /* ----------------- */

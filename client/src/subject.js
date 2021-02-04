@@ -3,7 +3,7 @@ import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { confirmAlert } from 'react-confirm-alert'
 import CalcGradeAvg from './utils/calcgrade'
-import { SubjName } from './utils/scripts'
+import { SubjName, SessionLogout } from './utils/scripts'
 import AddGrade from './addgrade'
 import UpdateGrade from './updategrade'
 //Import react-confirm-alert CSS
@@ -51,7 +51,7 @@ export default function Subject(props) {
                 GetAvg(res.data.response)
                 setsubjData(res.data.response)
             })
-            .catch(err => console.log(err))
+            .catch(err => SessionLogout(err))
     }, [subj_url, reload])
 
     function deleteRow(row_index) {
@@ -66,7 +66,7 @@ export default function Subject(props) {
                 alert.error("Note konnte nicht gelöscht werden. Versuche es nochmals!")
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => SessionLogout(err))
     }
 
     function confirmDelete(index, rowid) {

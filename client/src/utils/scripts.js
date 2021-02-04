@@ -28,3 +28,13 @@ export function SubjName (rawsubj) {
                     }
     return tables[rawsubj]
 }
+
+export function SessionLogout(err) {
+    if (err.response.data.type === "not_loggedin" && err.response.data.bool === true) {
+        console.log("not logged in")
+        sessionStorage.setItem('user', '')
+        window.location.reload()
+    } else {
+        console.log(err.response.data)
+    }
+}

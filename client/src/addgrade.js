@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
-import { SubjName } from './utils/scripts'
+import { SubjName, SessionLogout } from './utils/scripts'
 
 export default function AddGrade(props) {
 
@@ -48,7 +48,7 @@ export default function AddGrade(props) {
                 alert.error("Note konnte nicht hinzugefügt werden. Versuche es nochmals!")
             }
         })
-        .catch(err => console.log(err))
+        .catch(err => SessionLogout(err))
     }
 
     /*const testAlert = (type) => {

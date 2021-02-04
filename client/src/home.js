@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
+import {SessionLogout} from './utils/scripts'
 
 
 export default function Home() {
@@ -35,7 +36,7 @@ export default function Home() {
                 setgradeVals(grade_arr)
             }
         })
-        
+        .catch(err => SessionLogout(err))
     }, [])
 
     /*function GetGrades() {

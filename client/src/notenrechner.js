@@ -1,16 +1,18 @@
-import React, {useState, useRef} from "react";
-import TInput from "./calcInput";
+import React, {useState} from 'react'
+//import {useRef} from 'react'
+//import TInput from "./redundatn/calcInput";
+import CalcGradeAvg from './utils/calcgrade.js'
 
 export default function Calculator() {
-    const [gradeVal, setgradeVal] = useState("Noch nicht berechnet worden!")
-    const gradeInps = useRef({})
+    const [gradeVal, setgradeVal] = useState({avg: 0, points: 'Keine Punkte'})
+    //const gradeInps = useRef({})
     //const [gradeInputs, setgradeInputs] = useState([])
     //const [weightInputs, setweightInputs] = useState([])
     const [displayGrade, setDG] = useState(false);
-    const [rows, setRows] = useState([{id: 1}, {id: 2}])
+    const [rows, setRows] = useState([{id: 1, weight: '', grade: ''}, {id: 2, weight: '', grade: ''}])
     const [addval, calcval]=["Reihe hinzufügen", "Calculate Grade!"]
 
-    const GetVals = () => {
+    /*const GetVals = () => {
         const ValArray = [];
         for (let i=1; i <= rows.length; i++) {
             const singID = "grade" + i;
@@ -28,11 +30,42 @@ export default function Calculator() {
         setgradeVal(Avg)
         DisplayCopy = true;
         setDG(DisplayCopy);
+    }*/
+
+    function CalcGrade() {
+      const weights = rows.map(row => (!row.weight) ? 1 : parseFloat(row.weight))
+      const grades = rows.map(row => parseFloat(row.grade));
+      console.log(weights)
+      console.log(grades)
+      const [avg, points] = CalcGradeAvg(weights, grades);
+      setgradeVal({avg: avg, points: points})
+      setDG(true);
     }
+
+    const SetGrade = (name, index) => {
+        return ({target: {value}}) => {
+          const newrows = rows.map(row => {
+            if (row.id === index && name === "weight") {
+              return {id: row.id, [name]: value, grade: row.grade}
+            } else if (row.id === index && name === "grade") {
+              return {id: row.id, weight: row.weight, [name]: value}
+            } else {
+              return row
+            }
+          })
+          setRows(newrows)
+        }
+      }
+
+    /*const setWeight = (event) => {
+      setweightInputs(prevVal => {
+        return [...prevVal, event.target.value]
+      })
+    }*/
 
     function AddRow() {
         setRows(prevRows => {
-            return [...prevRows, {id: rows.length + 1}]
+            return [...prevRows, {id: rows.length + 1, weight: '', grade: ''}]
         })
     }
 
@@ -56,19 +89,25 @@ export default function Calculator() {
             </tr>
             {rows.map(row => {
                 return(<tr key={"row" + row.id}>
-                        <TInput id={row.id}/>
-                        <td><input type="text" ref={el => gradeInps.current["grade" + row.id] = el}></input></td>
+                        <td><input type="text" id={"subj" + row.id}></input></td>
+                        <td><input type="text" id={"desc" + row.id}></input></td>
+                        <td><input type="text" id={"weight" + row.id} value={row.weight} onChange={SetGrade("weight", row.id)}></input></td>
+                        <td><input type="text" id={"grade" + row.id} value={row.grade} onChange={SetGrade("grade", row.id)}></input></td>
                     </tr>
             )})}
         </tbody>
         <tfoot className="average" id="average_tfoot" style={displayGrade ? {"display": "table-footer-group"}: {"display": "none"} }>
         <tr>
             <td colSpan="3" id="calc_avg_desc">Deine Durchschnittsnote ist: </td>
-            <td id="calc_avg_grade">{gradeVal}</td>
+            <td id="calc_avg_grade">{(!gradeVal.avg) ? "Kein Durchschnitt" : gradeVal.avg.toFixed(2)}</td>
+        </tr>
+        <tr className="average">
+              <td id="calc_pts_desc" colSpan="3">Punkte:</td>
+              <td id="calc_points" className={(gradeVal.points < 0) ? "failed td_points" : "td_points"}>{gradeVal.points}</td>
         </tr>
         </tfoot>
         </table>
-        <button value={calcval} onClick={Calculate} className="calc_btn"><span>Durchschnitt</span></button>
+        <button value={calcval} onClick={CalcGrade} className="calc_btn"><span>Durchschnitt</span></button>
         <input className="add_btn" type="button" value={addval} onClick={AddRow}></input>
         </div>
     )

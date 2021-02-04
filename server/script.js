@@ -50,6 +50,7 @@ function DateFormat (date) {
 module.exports.GetSQLValues = function (result2) {
     //var sqldate = JSON.stringify(result2.date);
     var sqldate = DateFormat(result2.date);
+    //console.log(result2.date)
     var sqldesc = JSON.stringify(result2.desc);
     var sqldate2 = sqldate.replace(/['"]+/g, "").split("T")[0].split("-");
     var trueValues = {

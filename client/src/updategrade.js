@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
-import { FormatDate } from './utils/scripts'
+import { FormatDate, SessionLogout } from './utils/scripts'
 
 export default function UpdateGrade(props) {
 
@@ -39,7 +39,7 @@ export default function UpdateGrade(props) {
                     alert.error("Eintrag konnte nicht aktualisiert werden. Versuche es nochmals!")
                 }
             })
-            .catch(err => console.log(err))
+            .catch(err => SessionLogout(err))
         //props.close();
     }
 
