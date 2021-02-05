@@ -29,6 +29,22 @@ export function SubjName (rawsubj) {
     return tables[rawsubj]
 }
 
+export function ReverseSubjName (rawsubj) {
+    const tables =  {
+                    "App Entwicklung": "app_development",
+                    "Wirtschaft/Recht": "economics",
+                    "Englisch": "english"  ,
+                    "Finanz-/Rechnungswesen": "finances",
+                    "Französisch": "french" ,
+                    "Deutsch": "german" ,
+                    "Geschichte": "history",
+                    "Mathematik": "mathematics",
+                    "Sport": "sports" ,
+                    "Systemtechnik": "system_technology"
+                    }
+    return tables[rawsubj]
+}
+
 export function SessionLogout(err) {
     if (err.response.data.type === "not_loggedin" && err.response.data.bool === true) {
         console.log("not logged in")

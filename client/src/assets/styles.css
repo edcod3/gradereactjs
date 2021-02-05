@@ -198,6 +198,17 @@ html {
   background-color: rgba(0,0,0,0.2);
 }
 
+.topnav .mobile_menu_hide {
+  display: none;
+}
+
+.mobile_menu_show, .mobile_menu_show a {
+  width: 100%;
+  transition: 0.4s;
+  display: inline-block;
+  float: none !important;
+}
+
 .user, .logout {
   float: right !important; 
   display: block;
@@ -235,6 +246,12 @@ html {
 }
 
 .topnav a.active {background-color: #4bb1f5;}
+
+.topnav button.active {
+  background-color: #4bb1f5;
+  float: left;
+  padding: 16px 12px;
+}
 
 .topnav a.active:hover {background-color: #0698fa;}
 
@@ -308,9 +325,67 @@ html {
   background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content, .dropdown:active .dropdown-content, .dropdown:focus .dropdown-content {
   display: block;
 }
+/* ---------- */
+/* Navbar Media Queries */
+@media screen and (max-width: 551px) {
+  .topnav a, .user, .logout, .dropdown .dropbtn {
+    padding: 16px 12px;
+  }
+  .dropdown-content {
+    margin-top: 51px;
+  }
+}
+
+@media screen and (max-width: 434px) {
+
+  .topnav .active_nav {
+    display: block;
+  }
+
+  .topnav .active {
+    width: 53.3px;
+    height: 50.4px;
+    padding-top: 14px !important;
+  }
+
+  .topnav .material-icons {
+    margin: 0;
+  }
+
+  .dropdown {
+    width: 100%;
+    text-align: end;
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    background-color: rgb(80, 80, 80);
+    /*background-color: #f9f9f9; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-top: 0px;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: rgb(216, 215, 215);
+    padding: 10px 12px;
+    text-decoration: none;
+    border: 1px #333 solid;
+    display: block;
+    text-align: center;
+  }
+  
+  .dropdown-content a:hover, .dropdown-content a:active {
+    background-color: rgb(151, 151, 151);
+
+  }
+
+}
+
 
 /* ------------- */
 
@@ -357,7 +432,8 @@ html {
   font-weight: 100;
   font-size: 20px;
 }
-/* ---------- */
+
+/* ----------- */
 
 /* grades.html */
 
@@ -366,8 +442,6 @@ html {
 #nav {
   text-align: center;
 }
-
-
 
 li {
   float: center;
@@ -417,6 +491,8 @@ li {
 .unneccessary {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+
 /* ---------------------------- */
 
 
@@ -560,6 +636,20 @@ table .edit-td {
 .grade_btn:hover span:after {
   opacity: 1;
   right: 0;
+}
+
+.update_btn {
+  border-radius: 4px;
+  background-color: #3ea4f8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 13px;
+  padding: 3px;
+  height: inherit;
+  width: inherit;
+  cursor: pointer;
+  margin: 0;
 }
 
 /* Erfolreiche Hochladung */

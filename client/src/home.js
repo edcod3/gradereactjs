@@ -1,9 +1,9 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {SessionLogout} from './utils/scripts'
+import {ReverseSubjName, SessionLogout} from './utils/scripts'
 
 
-export default function Home() {
+export default function Home(props) {
 
     //Enable express-session persistence
     axios.defaults.withCredentials = true;
@@ -63,7 +63,7 @@ export default function Home() {
             </thead>
             <tbody>
             {gradeVals.map((subj, i) => {
-                return(<tr key={"home_row" + i}>
+                return(<tr key={"home_row" + i} onClick={() => props.redirect(`/${ReverseSubjName(subj.subject)}`)}>
                 <td key={"home_subject" + i}>{subj.subject}</td>
                 <td className="grade" key={"home_grade" + i}>{(subj.grade !== "NaN") ? subj.grade : "Keine Noten gefunden!"}</td>
                 <td className="weight" key={"home_points" + i}>{(!subj.points) ? "0" : subj.points}</td>

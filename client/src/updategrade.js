@@ -45,7 +45,7 @@ export default function UpdateGrade(props) {
 
     return (
         <tr id="subj_row1_update">
-            <td><button onClick={() => handleUpdate()}>Eintrag aktualisieren</button></td>
+            <td><button onClick={() => handleUpdate()} className="update_btn">Eintrag aktualisieren</button></td>
             <td><input type="date" value={updateVal.date} onChange={gradeUpdateVal("date")} required/></td>
             <td><input type="text" value={updateVal.desc} onChange={gradeUpdateVal("desc")} required/></td>
             <td><input type="number" min="0" max="1" step="0.01" value={updateVal.weight} onChange={gradeUpdateVal("weight")} required/></td>

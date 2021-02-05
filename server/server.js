@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 //const allowHosts = ["http://localhost:3000" , /http:\/\/localhost.*/]
 //const HostsAllowed = ["http://localhost:3000", "http://localhost:3000/home", "http://localhost:3000/login"]
 const corsOpts = {
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "http://localhost:5000"],
     methods: ["GET","HEAD","PUT","POST","DELETE", "OPTIONS"],
     credentials: true
 }
@@ -142,7 +142,7 @@ app.post('/register', function (req, res) {
 app.get('/logout', function (req, res) {
     //Implement Logout JSON response
     req.session.destroy();
-    res.json({type: "loggedout", bool: true})
+    res.status(200).json({type: "loggedout", bool: true})
 })
 app.get('/home', function(req, res) {
     console.log(req.session);
