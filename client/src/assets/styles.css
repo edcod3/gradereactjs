@@ -884,11 +884,6 @@ table .edit-td {
 
 /* ---------------------- */ 
 
-
-/* Subject Table */
-
-
-
 /* Add Grade Table */
 
 @media screen and (max-width: 685px) {
@@ -903,4 +898,27 @@ table .edit-td {
     padding-left: 40px;
     font-weight: 600;
   }
+}
+
+/* 
+To-Do
+  - Styling for grade changing table
+*/
+
+/* Subject Table (& Add Grade Table)*/
+
+@media screen and (max-width: 400px) {
+  #row_head, #row_head_add {
+    font-size: 14px;
+  }
+
+  #subj_table tbody, #subj_table_add tbody, #subj_table tfoot {
+    font-size: 12px;
+  }
+
+  .edit-td button {
+    margin: 0px;
+    display: inline-block;
+  }
+
 }

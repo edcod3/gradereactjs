@@ -70,7 +70,7 @@ export default function AddGrade(props) {
                 <tr id="row_head_add">
                     <th id="th_date_add">Datum</th>
                     <th id="th_desc_add">Beschreibung</th>
-                    <th id="th_weight_add">Gewicht (als Dezimalzahl)</th>
+                    <th id="th_weight_add">{(window.innerWidth <= 365 ) ? "Gewicht" : "Gewicht (als Dezimalzahl)"}</th>
                     <th className="grade" id="th_grade_add">Note</th>
                 </tr>
             </thead>
