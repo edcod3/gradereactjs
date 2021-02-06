@@ -88,13 +88,13 @@ var alertStyle = {
   alignItems: 'center',
   boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.03)',
   fontFamily: 'Arial',
-  width: '600px',
+  width: '80%',
   height: '60px',
   boxSizing: 'border-box'
 };
 
 var buttonStyle = {
-  marginLeft: '20px',
+  marginLeft: '10px',
   border: 'none',
   backgroundColor: 'transparent',
   cursor: 'pointer',

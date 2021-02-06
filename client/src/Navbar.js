@@ -6,14 +6,15 @@ export default function Navbar(props) {
     const [MobileDropdown, setMobileDropdown] = useState(false)
     return (
         <div className="topnav" id="topnav">
-        {(window.innerWidth < 434) ? <button className="link-button active" onClick={() => setMobile(!showMobile)}><i class="material-icons">{showMobile ? "expand_less" : "expand_more"}</i></button> : <Link to="/home" className="active">Start</Link> }
-        {(window.innerWidth < 434) 
+        {(window.innerWidth <= 480) ? <button className="link-button active" onClick={() => setMobile(!showMobile)}><i className="material-icons" id="nav_arrow">{showMobile ? "expand_less" : "expand_more"}</i></button> : <Link to="/home" className="active">Start</Link> }
+        {(window.innerWidth <= 480) 
           ?  <>
             <button className="logout link-button" onClick={() => props.logout()}>Ausloggen</button>
             <p className="user user-p">{props.uname}</p>
             <div className={showMobile ? "mobile_menu_show" : "mobile_menu_hide"}>
+            <Link to="/home" className="mobile_active">Start</Link>
             <div className="dropdown">
-                <Link to="/home" className="dropbtn" onClick={() => setMobileDropdown(!MobileDropdown)}>Deine Noten</Link>
+                <button className="dropbtn link-button" onClick={() => setMobileDropdown(!MobileDropdown)}>Deine Noten<i className="material-icons" id="dropdown_arrow">{MobileDropdown ? "arrow_drop_up" : "arrow_drop_down"}</i></button>
                 <div className="dropdown-content" style={MobileDropdown ? {display: "block"} : {display: "none"}}>
                     <Link to="/german">Deutsch</Link>
                     <Link to="/english">Englisch</Link>

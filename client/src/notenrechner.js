@@ -128,7 +128,7 @@ export default function Calculator() {
                         )
                       } else {
                         return(<tr key={"row" + row.id}>
-                          <td style={{color: "black"}}>{`Notenrechner (Note ${row.id})`}</td>
+                          <td style={{color: "black"}}>Notenrechner{(window.innerWidth <= 488) ? <br /> : " "}{`(Note ${row.id})`}</td>
                           <td><input type="text" id={"weight" + row.id} value={row.weight} onChange={SetGrade("weight", row.id)}></input></td>
                           <td><input type="text" id={"grade" + row.id} value={row.grade} onChange={SetGrade("grade", row.id)}></input></td>
                         </tr>
@@ -136,7 +136,7 @@ export default function Calculator() {
         </tbody>
         <tfoot className="average" id="average_tfoot" style={displayGrade ? {"display": "table-footer-group"}: {"display": "none"} }>
         <tr>
-            <td colSpan="2" id="calc_avg_desc"><p>Deine Durchschnittsnote ist: </p></td>
+            <td colSpan="2" id="calc_avg_desc"><p>{(window.innerWidth <= 475) ? "Deine Durchschnittsnote: " : "Deine Durchschnittsnote ist:"}</p></td>
             <td id="calc_avg_grade">{(!gradeVal.avg) ? "Kein Durchschnitt" : gradeVal.avg.toFixed(2)}</td>
         </tr>
         <tr className="average">

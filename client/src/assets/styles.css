@@ -198,16 +198,6 @@ html {
   background-color: rgba(0,0,0,0.2);
 }
 
-.topnav .mobile_menu_hide {
-  display: none;
-}
-
-.mobile_menu_show, .mobile_menu_show a {
-  width: 100%;
-  transition: 0.4s;
-  display: inline-block;
-  float: none !important;
-}
 
 .user, .logout {
   float: right !important; 
@@ -329,62 +319,22 @@ html {
   display: block;
 }
 /* ---------- */
-/* Navbar Media Queries */
-@media screen and (max-width: 551px) {
-  .topnav a, .user, .logout, .dropdown .dropbtn {
-    padding: 16px 12px;
-  }
-  .dropdown-content {
-    margin-top: 51px;
-  }
+/* Navbar Mobile Development  */
+
+.topnav .mobile_menu_hide {
+  display: none;
 }
 
-@media screen and (max-width: 434px) {
-
-  .topnav .active_nav {
-    display: block;
-  }
-
-  .topnav .active {
-    width: 53.3px;
-    height: 50.4px;
-    padding-top: 14px !important;
-  }
-
-  .topnav .material-icons {
-    margin: 0;
-  }
-
-  .dropdown {
-    width: 100%;
-    text-align: end;
-  }
-
-  .dropdown-content {
-    display: none;
-    position: relative;
-    background-color: rgb(80, 80, 80);
-    /*background-color: #f9f9f9; */
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    margin-top: 0px;
-  }
-  
-  .dropdown-content a {
-    float: none;
-    color: rgb(216, 215, 215);
-    padding: 10px 12px;
-    text-decoration: none;
-    border: 1px #333 solid;
-    display: block;
-    text-align: center;
-  }
-  
-  .dropdown-content a:hover, .dropdown-content a:active {
-    background-color: rgb(151, 151, 151);
-
-  }
-
+.mobile_menu_show, .mobile_menu_show a {
+  width: 100%;
+  transition: 0.4s;
+  display: inline-block;
+  float: none !important;
 }
+
+.mobile_active {background-color: #4bb1f5;}
+
+.mobile_active:hover {background-color: #0698fa;}
 
 
 /* ------------- */
@@ -798,3 +748,159 @@ table .edit-td {
   font-weight: 600;
 }
 
+/* Add Grade Table */
+#subj_table {
+  width: 100%;
+  margin: 10px auto;
+}
+
+/* Media Queries */
+
+/* Navbar */
+
+@media screen and (max-width: 551px) {
+  .topnav a, .user, .logout, .dropdown .dropbtn {
+    padding: 16px 12px;
+  }
+  .dropdown-content {
+    margin-top: 51px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+
+  .topnav .active_nav {
+    display: block;
+  }
+
+  .topnav .active {
+    width: 53.3px;
+    height: 50.4px;
+    padding-top: 14px !important;
+    background-color: #333 !important;
+  }
+
+  .topnav #nav_arrow {
+    margin: 0;
+  }
+
+  .topnav #dropdown_arrow {
+    color: white;
+    height: 0px;
+    width: 0px;
+  }
+
+  .dropdown {
+    width: 100%;
+  }
+
+  .dropdown .dropbtn {
+    width: 100%;
+    text-align: center;
+    padding: 11.25px 0px 11.25px 12px;
+
+  }
+
+  .dropdown-content {
+    display: none;
+    position: relative;
+    background-color: rgb(80, 80, 80);
+    /*background-color: #f9f9f9; */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    margin-top: 0px;
+  }
+  
+  .dropdown-content a {
+    float: none;
+    color: rgb(216, 215, 215);
+    padding: 10px 12px;
+    text-decoration: none;
+    border: 1px #333 solid;
+    display: block;
+    text-align: center;
+  }
+  
+  .dropdown-content a:hover, .dropdown-content a:active {
+    background-color: rgb(151, 151, 151);
+
+  }
+
+}
+
+/* ------------------- */
+
+/* Home (& some Subject) Table Media Query Styles */
+
+@media screen and (max-width: 460px) {
+  table, tr {
+    margin: 0px auto;
+  }
+
+  th, td {
+    max-width: 200px !important;
+    padding: 6px;
+    text-overflow: ellipsis;
+  }
+
+  .wrapper {
+    padding: 6px !important;
+  }
+}
+
+@media screen and (max-width: 430px) {
+  table, tr {
+    margin: 0px auto;
+    width: 80%;
+  }
+
+  th, td {
+    max-width: 150px !important;
+    padding: 4px;
+  }
+
+  .wrapper {
+    padding: 5px !important;
+  }
+
+  #home_grades {
+    margin-left: 7.5%;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  table {
+    width: 100%;
+  }
+
+  .wrapper {
+    padding-left: 2px !important;
+  }
+
+  #home_grades {
+    margin-left: 0;
+  }
+
+}
+
+/* ---------------------- */ 
+
+
+/* Subject Table */
+
+
+
+/* Add Grade Table */
+
+@media screen and (max-width: 685px) {
+  #subj_table_add input{
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 440px) {
+  #calc_avg_desc p {
+    margin: 0;
+    padding-left: 40px;
+    font-weight: 600;
+  }
+}

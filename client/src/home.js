@@ -64,7 +64,7 @@ export default function Home(props) {
             <tbody>
             {gradeVals.map((subj, i) => {
                 return(<tr key={"home_row" + i} onClick={() => props.redirect(`/${ReverseSubjName(subj.subject)}`)}>
-                <td key={"home_subject" + i}>{subj.subject}</td>
+                <td key={"home_subject" + i}>{(window.innerWidth <= 430) ? subj.subject.replace("/", " / ") : subj.subject}</td>
                 <td className="grade" key={"home_grade" + i}>{(subj.grade !== "NaN") ? subj.grade : "Keine Noten gefunden!"}</td>
                 <td className="weight" key={"home_points" + i}>{(!subj.points) ? "0" : subj.points}</td>
                 </tr>

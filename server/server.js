@@ -42,7 +42,7 @@ app.use(bodyParser.json());
 //const allowHosts = ["http://localhost:3000" , /http:\/\/localhost.*/]
 //const HostsAllowed = ["http://localhost:3000", "http://localhost:3000/home", "http://localhost:3000/login"]
 const corsOpts = {
-    origin: ["http://localhost:3000", "http://localhost:5000"],
+    origin: ["http://localhost:3000", "http://localhost:5000", "http://192.168.0.33:3000"],
     methods: ["GET","HEAD","PUT","POST","DELETE", "OPTIONS"],
     credentials: true
 }
