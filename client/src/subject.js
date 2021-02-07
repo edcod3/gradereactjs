@@ -92,9 +92,9 @@ export default function Subject(props) {
                 <table id="subj_table">
                 <thead>
                 <tr id="row_head">
-                    <th id="th_edit">Eintrag editieren</th>
+                    <th id="th_edit">{(window.innerWidth <= 400) ? "Editiere Eintrag" : "Eintrag editieren"}</th>
                     <th id="th_date">Datum</th>
-                    <th id="th_desc">Beschreibung</th>
+                    <th id="th_desc">{(window.innerWidth <= 400) ? "Bemerkung" : "Beschreibung"}</th>
                     <th id="th_weight" className="weight">Gewicht</th>
                     <th className="grade" id="th_grade">Note</th>
                 </tr>

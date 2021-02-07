@@ -754,6 +754,18 @@ table .edit-td {
   margin: 10px auto;
 }
 
+/* Update Grade Table */
+.update_row input {
+  min-width: 10px;
+  max-width: 90%;
+  width: 90%;
+}
+
+.update_row td {
+  min-width: 10px;
+  max-width: 100%;
+  width: 100%;
+}
 /* Media Queries */
 
 /* Navbar */
@@ -832,7 +844,7 @@ table .edit-td {
 /* Home (& some Subject) Table Media Query Styles */
 
 @media screen and (max-width: 460px) {
-  table, tr {
+  table, tr, #subj_row1_update {
     margin: 0px auto;
   }
 
@@ -848,7 +860,7 @@ table .edit-td {
 }
 
 @media screen and (max-width: 430px) {
-  table, tr {
+  table, tr, #subj_row1_update {
     margin: 0px auto;
     width: 80%;
   }
@@ -867,7 +879,7 @@ table .edit-td {
   }
 }
 
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 485px) {
   table {
     width: 100%;
   }
@@ -887,8 +899,8 @@ table .edit-td {
 /* Add Grade Table */
 
 @media screen and (max-width: 685px) {
-  #subj_table_add input{
-    width: 100%;
+  #subj_table_add input, #subj_row1_update input{
+    width: 90%;
   }
 }
 
@@ -897,6 +909,16 @@ table .edit-td {
     margin: 0;
     padding-left: 40px;
     font-weight: 600;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  #subj_table_add input {
+    width: 70%;
+  }
+
+  #subj_table_add th, #subj_table_add td {
+    max-width: 90px !important;
   }
 }
 
@@ -921,4 +943,40 @@ To-Do
     display: inline-block;
   }
 
+}
+
+/* Subject Update Table */
+
+@media screen and (max-width: 511px) {
+  .update_row td {
+    padding: 2px;
+  }
+
+}
+
+@media screen and (max-width: 485px) {
+  #subj_row1_update input{
+    width: 70%;
+  }
+
+  .update_row td {
+    max-width: 90px !important;
+  }
+
+  .update_btn {
+    font-size: 10px;
+    width: min-content;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  #subj_table th, #subj_table td {
+    padding: 2px;
+  }
+  #th_date {
+    max-width: 70px !important;
+  }
+  .subj_date {
+    width: 60% !important;
+  }
 }
