@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { FormatDate, SessionLogout } from './utils/scripts'
+import {GetApiUrl} from './utils/apiurl'
 
 export default function UpdateGrade(props) {
 
@@ -29,14 +30,16 @@ export default function UpdateGrade(props) {
     function handleUpdate() {
         console.log(updateVal)
         console.log(props.table)
-        axios.post('http://localhost:8000/subj_update', updateVal, {headers: {'Content-Type': 'application/json'}})
+        axios.post(`http://${GetApiUrl()}/subj_update`, updateVal, {headers: {'Content-Type': 'application/json'}})
             .then(res => {
                 console.log(res.data)
                 if (res.data.type === "updated_grade" && res.data.bool === true) {
                     props.close()
-                    alert.success("Eintrag wurde erfolgreich aktualisiert!")
+                    const succ_msg = (window.innerWidth <= 600) ? "Eintrag aktualisiert!" : "Eintrag wurde erfolgreich aktualisiert!"
+                    alert.success(succ_msg)
                 } else {
-                    alert.error("Eintrag konnte nicht aktualisiert werden. Versuche es nochmals!")
+                    const err_msg = (window.innerWidth <= 600) ? "Aktualisierung fehlgeschlagen!" : "Eintrag konnte nicht aktualisiert werden. Versuche es nochmals!"
+                    alert.error(err_msg)
                 }
             })
             .catch(err => SessionLogout(err))

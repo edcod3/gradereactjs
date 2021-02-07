@@ -77,29 +77,59 @@ var _extends = Object.assign || function (target) {
   return target;
 };
 
-var alertStyle = {
-  backgroundColor: '#333'/*'black''rgba(86, 91, 95, 0.5)'*/,
-  color: 'white',
-  padding: '10px',
-  textTransform: 'uppercase',
-  borderRadius: '3px',
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.03)',
-  fontFamily: 'Arial',
-  width: '80%',
-  height: '60px',
-  boxSizing: 'border-box'
-};
+function GetAlertStyle () {
+  if (window.innerWidth <= 600) {
+    var alertStyle = {
+      backgroundColor: '#333'/*'black''rgba(86, 91, 95, 0.5)'*/,
+      color: 'white',
+      padding: '10px',
+      textTransform: 'uppercase',
+      borderRadius: '3px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.03)',
+      fontSize: "14px",
+      fontFamily: 'Arial',
+      width: '300px',
+      height: '60px',
+      boxSizing: 'border-box'
+    };
 
-var buttonStyle = {
-  marginLeft: '10px',
-  border: 'none',
-  backgroundColor: 'transparent',
-  cursor: 'pointer',
-  color: 'black'
-};
+    var buttonStyle = {
+      marginLeft: '0px',
+      border: 'none',
+      backgroundColor: 'transparent',
+      cursor: 'pointer',
+      color: 'black'
+    };
+  } else {
+    alertStyle = {
+      backgroundColor: '#333'/*'black''rgba(86, 91, 95, 0.5)'*/,
+      color: 'white',
+      padding: '10px',
+      textTransform: 'uppercase',
+      borderRadius: '3px',
+      display: 'flex',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      boxShadow: '0px 2px 2px 2px rgba(0, 0, 0, 0.03)',
+      fontFamily: 'Arial',
+      width: '200px',
+      height: '60px',
+      boxSizing: 'border-box'
+    };
+
+    buttonStyle = {
+      marginLeft: '20px',
+      border: 'none',
+      backgroundColor: 'transparent',
+      cursor: 'pointer',
+      color: 'black'
+    };
+  }
+  return [alertStyle, buttonStyle]
+}
 
 var AlertTemplate = function AlertTemplate(_ref) {
   var message = _ref.message,
@@ -109,7 +139,7 @@ var AlertTemplate = function AlertTemplate(_ref) {
 
   return React.createElement(
     'div',
-    { style: _extends({}, alertStyle, style) },
+    { style: _extends({}, GetAlertStyle()[0], style) },
     options.type === 'info' && React.createElement(InfoIcon, null),
     options.type === 'success' && React.createElement(SuccessIcon, null),
     options.type === 'error' && React.createElement(ErrorIcon, null),
@@ -120,7 +150,7 @@ var AlertTemplate = function AlertTemplate(_ref) {
     ),
     React.createElement(
       'button',
-      { onClick: close, style: buttonStyle },
+      { onClick: close, style: GetAlertStyle()[1] },
       React.createElement(CloseIcon, null)
     )
   );

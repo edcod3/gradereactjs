@@ -8,6 +8,7 @@ import Home from './home';
 import Subject from './subject';
 import Calculator from './notenrechner'
 import { subjtables } from './utils/scripts'
+import {GetApiUrl} from './utils/apiurl'
 
 function App() {
 
@@ -44,14 +45,14 @@ function App() {
   }
 
   const logout = () => {
-    axios.get("http://localhost:8000/logout")
+    axios.get(`http://${GetApiUrl()}/logout`)
     .then(res => {
       if (res.status === 200) {
         sessionStorage.setItem('user', '')
         setloggedIn(false)
-        alert.success("Erfolgreicht abgemeldet")
+        alert.success("Erfolgreich abgemeldet!")
       } else {
-        alert.error("Abmledung fehlgeschlagen.  Versuche es nochmals!")
+        alert.error("Abmeldung fehlgeschlagen. Versuche es nochmals!")
       }
     })
     .catch(err => console.log(err))

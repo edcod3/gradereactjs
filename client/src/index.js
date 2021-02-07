@@ -23,7 +23,7 @@ function PageLocation () {
 const alert_opts = {
     // you can also just use 'bottom center'
     position: positions.TOP_CENTER,
-    timeout: 6000,
+    timeout: 100000,
     offset: '80px',
     //type: types.SUCCESS,
     // you can also just use 'scale'

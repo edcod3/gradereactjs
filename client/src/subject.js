@@ -4,6 +4,7 @@ import { useAlert } from 'react-alert'
 import { confirmAlert } from 'react-confirm-alert'
 import CalcGradeAvg from './utils/calcgrade'
 import { SubjName, SessionLogout } from './utils/scripts'
+import {GetApiUrl} from './utils/apiurl'
 import AddGrade from './addgrade'
 import UpdateGrade from './updategrade'
 //Import react-confirm-alert CSS
@@ -22,7 +23,7 @@ export default function Subject(props) {
 
     //Enable express-session persistence
     axios.defaults.withCredentials = true;
-    const subj_url = 'http://localhost:8000/' + props.subj;
+    const subj_url = `http://${GetApiUrl()}/${props.subj}`;
 
     function GetAvg(array) {
         const grades = array.map((row) => parseFloat(row.grade))
@@ -55,15 +56,17 @@ export default function Subject(props) {
     }, [subj_url, reload])
 
     function deleteRow(row_index) {
-        axios.post("http://localhost:8000/subj_delete", {index: row_index, table: props.subj}, {headers: {'Content-Type': 'application/json'}})
+        axios.post(`http://${GetApiUrl()}/subj_delete`, {index: row_index, table: props.subj}, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
             if (res.data.type === "deleted_grade" && res.data.bool === true) {
                 //console.log(res.data);
                 ReloadPage()
-                alert.success("Note wurde erfolgreich gelöscht!")
+                const succ_msg = (window.innerWidth <= 500) ? "Note gelöscht!" : "Note wurde erfolgreich gelöscht!"
+                alert.success(succ_msg)
             } else {
                 //console.log("didn't add grade. Response: " + res.data);
-                alert.error("Note konnte nicht gelöscht werden. Versuche es nochmals!")
+                const err_msg = (window.innerWidth <= 500) ? "Entfernung fehlgeschlagen!" : "Note konnte nicht gelöscht werden. Versuche es nochmals!"
+                alert.error(err_msg)
             }
         })
         .catch(err => SessionLogout(err))
@@ -71,7 +74,7 @@ export default function Subject(props) {
 
     function confirmDelete(index, rowid) {
         confirmAlert({
-            title: 'Sollte diese Note gelöscht werden?',
+            title: (window.innerWidth <= 500) ? 'Folgende Note löschen?' : 'Sollte diese Note gelöscht werden?',
             message:  `Note: ${subjData[index].grade} (${subjData[index].desc})`,
             buttons: [
               {

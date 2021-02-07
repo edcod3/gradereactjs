@@ -2,6 +2,7 @@ import React, {useState} from 'react'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
 import { SubjName, SessionLogout } from './utils/scripts'
+import {GetApiUrl} from './utils/apiurl'
 
 export default function AddGrade(props) {
 
@@ -35,17 +36,19 @@ export default function AddGrade(props) {
             subject: props.subj
 
         }
-        axios.post("http://localhost:8000/subj_upload", req_body, { headers: {'Content-Type': 'application/json'} })
+        axios.post(`http://${GetApiUrl()}/subj_upload`, req_body, { headers: {'Content-Type': 'application/json'} })
         .then(res => {
             if (res.data.type === "inserted_grade" || res.data.bool === true) {
                 //console.log(res.data);
                 //const subj_path = "/" + res.data.subject
                 setgradeInput(initialgradeInp)
                 props.reload()
-                alert.success("Note wurde erfolgreich hochgeladen!")
+                const succ_msg = (window.innerWidth <= 500) ? "Note hochgeladen!" : "Note wurde erfolgreich hochgeladen!"
+                alert.success(succ_msg)
             } else {
                 //console.log("didn't add grade. Response: " + res.data);
-                alert.error("Note konnte nicht hinzugefügt werden. Versuche es nochmals!")
+                const err_msg = (window.innerWidth <= 500) ? "Note nicht hinzugefügt!" : "Note konnte nicht hinzugefügt werden. Versuche es nochmals!"
+                alert.error(err_msg)
             }
         })
         .catch(err => SessionLogout(err))

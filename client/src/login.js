@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios';
+import {GetApiUrl} from './utils/apiurl'
 
 export default function Login(props) {
 
@@ -34,7 +35,7 @@ export default function Login(props) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(loginjson)
       }*/
-      axios.post("http://localhost:8000/login", loginjson, { headers: {'Content-Type': 'application/json'} })
+      axios.post(`http://${GetApiUrl()}/login`, loginjson, { headers: {'Content-Type': 'application/json'} })
       .then(res => {
         console.log(res.data)
         if (res.data.type === "login_success") {
@@ -63,7 +64,7 @@ export default function Login(props) {
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify(regjson)
       }*/
-      axios.post("http://localhost:8000/login", regjson, { headers: {'Content-Type': 'application/json'} })
+      axios.post(`http://${GetApiUrl()}/login`, regjson, { headers: {'Content-Type': 'application/json'} })
       .then(res => {
         console.log(res.data)
         setMsg(showMsgOriginal);

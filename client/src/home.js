@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import {ReverseSubjName, SessionLogout} from './utils/scripts'
+import {GetApiUrl} from './utils/apiurl'
 
 
 export default function Home(props) {
@@ -19,7 +20,7 @@ export default function Home(props) {
     }
 
     useEffect(() => {
-        axios.get('http://localhost:8000/home', {headers: {'Content-Type': 'application/json'}})
+        axios.get(`http://${GetApiUrl()}/home`, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
             let grade_arr = res.data.response
             let grades = grade_arr.filter(subj => subj.grade !== "NaN").map(subj => parseFloat(subj.grade))

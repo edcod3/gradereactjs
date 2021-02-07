@@ -4,6 +4,7 @@ import axios from 'axios'
 //import TInput from "./redundatn/calcInput";
 import CalcGradeAvg from './utils/calcgrade.js'
 import {subjtables, SubjName, SessionLogout} from './utils/scripts'
+import {GetApiUrl} from './utils/apiurl'
 
 export default function Calculator() {
 
@@ -86,7 +87,7 @@ export default function Calculator() {
     function GetSubjData(event) {
       console.log(`${event.target.value}`)
       if (`${event.target.value}` !== "" ) {
-        const subj_url = 'http://localhost:8000/' + event.target.value
+        const subj_url = `http://${GetApiUrl()}/${event.target.value}`
         axios.get(subj_url, {headers: {'Content-Type': 'application/json'}})
         .then(res => {
           const newarray = res.data.response.concat(intialRows)
