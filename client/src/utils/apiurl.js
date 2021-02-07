@@ -1,9 +1,9 @@
 export function GetApiUrl () {
     const api_url = process.env.REACT_APP_API_URL
-    if (api_url !== "localhost" || api_url || api_url !== "network") {
-        return  api_url + ":8000"
-    } else {
+    if (api_url === "localhost" || api_url === undefined || api_url !== "network") {
         return "localhost:8000"
+    } else {
+        return  api_url + ":8000"
     }
 }
 
