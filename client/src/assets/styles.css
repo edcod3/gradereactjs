@@ -295,6 +295,7 @@ html {
 
 
 .dropdown-content {
+  z-index: 10;
   display: none;
   position: fixed;
   background-color: #f9f9f9;
@@ -770,7 +771,7 @@ table .edit-td {
 
 /* Navbar */
 
-@media screen and (max-width: 551px) {
+@media screen and (max-width: 640px) {
   .topnav a, .user, .logout, .dropdown .dropbtn {
     padding: 16px 12px;
   }
@@ -779,7 +780,7 @@ table .edit-td {
   }
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 520px) {
 
   .topnav .active_nav {
     display: block;
@@ -984,4 +985,41 @@ To-Do
 /* React Big Calender Override */
 .rbc-event-allday {
   background-color: rgb(153, 0, 0) !important;
+}
+
+.rbc-agenda-table {
+  margin: auto;
+}
+
+@media screen and (max-width: 635px) {
+  .rbc-toolbar button {
+    padding: 0.1875rem 0.5rem;
+  }
+}
+
+@media screen and (max-width: 520px) {
+  .rbc-btn-group {
+    flex: 100%;
+    display:table;
+    margin: 10px auto 10px auto;
+  }
+  .rbc-toolbar button {
+    padding: 0.28125rem 0.75rem;
+  }
+
+  .rbc-toolbar-label {
+    flex: 100%;
+  }
+}
+
+@media screen and (max-width: 395px) {
+  .rbc-agenda-table td, .rbc-agenda-table th {
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  .rbc-agenda-table td, .rbc-agenda-table td {
+    font-size: 12px;
+  }
 }

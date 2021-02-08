@@ -72,7 +72,7 @@ export default function CalendarApp() {
       };
 
     return (
-        <div style={{paddingTop: "30px"}}>
+        <div style={(window.innerWidth <= 520) ? {paddingTop: "10px"} : {paddingTop: "30px"}}>
             <Calendar 
             popup
             localizer={localizer}
@@ -82,7 +82,7 @@ export default function CalendarApp() {
             endAccessor="end"
             messages={messages}
             events={apiResponse}
-            style={{height: "600px", margin: "10px 30px 10px 30px"}}
+            style={(window.innerWidth) ? {height: "600px", margin: "2px 10px 2px 10px"} : {height: "600px", margin: "10px 30px 10px 30px"}}
             />
         </div>
     )

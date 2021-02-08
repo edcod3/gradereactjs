@@ -6,8 +6,8 @@ export default function Navbar(props) {
     const [MobileDropdown, setMobileDropdown] = useState(false)
     return (
         <div className="topnav" id="topnav">
-        {(window.innerWidth <= 480) ? <button className="link-button active" onClick={() => setMobile(!showMobile)}><i className="material-icons" id="nav_arrow">{showMobile ? "expand_less" : "expand_more"}</i></button> : <Link to="/home" className="active">Start</Link> }
-        {(window.innerWidth <= 480) 
+        {(window.innerWidth <= 520) ? <button className="link-button active" onClick={() => setMobile(!showMobile)}><i className="material-icons" id="nav_arrow">{showMobile ? "expand_less" : "expand_more"}</i></button> : <Link to="/home" className="active">Start</Link> }
+        {(window.innerWidth <= 520) 
           ?  <>
             <button className="logout link-button" onClick={() => props.logout()}>Ausloggen</button>
             <p className="user user-p">{props.uname}</p>
