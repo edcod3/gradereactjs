@@ -334,7 +334,7 @@ html {
 
 .mobile_active {background-color: #4bb1f5;}
 
-.mobile_active:hover {background-color: #0698fa;}
+.mobile_active:hover {background-color: #0698fa !important;}
 
 
 /* ------------- */
@@ -979,4 +979,9 @@ To-Do
   .subj_date {
     width: 60% !important;
   }
+}
+
+/* React Big Calender Override */
+.rbc-event-allday {
+  background-color: rgb(153, 0, 0) !important;
 }

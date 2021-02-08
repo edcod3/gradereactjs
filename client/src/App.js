@@ -7,6 +7,7 @@ import Login from './login';
 import Home from './home';
 import Subject from './subject';
 import Calculator from './notenrechner'
+import CalendarApp from './calendar'
 import { subjtables } from './utils/scripts'
 import {GetApiUrl} from './utils/apiurl'
 
@@ -102,6 +103,12 @@ function App() {
         { (loggedIn || sessionStorage.getItem('user') !== "")
           ? <Calculator />
           : <Redirect to="/login" />
+        }
+      </Route>
+      <Route path="/calendar">
+        {(loggedIn || sessionStorage.getItem('user') !== "")
+        ? <CalendarApp />
+        : <Redirect to="/login"/>
         }
       </Route>
       <Route path="/">

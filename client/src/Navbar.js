@@ -29,6 +29,7 @@ export default function Navbar(props) {
                 </div>
             </div>
             <Link to="/calculator">Noten-Rechner</Link>
+            <Link to="/calendar">Kalender</Link>
             </div>
             </>
         :   <>
@@ -48,6 +49,7 @@ export default function Navbar(props) {
                 </div>
             </div>
             <Link to="/calculator">Noten-Rechner</Link>
+            <Link to="/calendar">Kalender</Link>
             <button className="logout link-button" onClick={() => props.logout()}>Ausloggen</button>
             <p className="user user-p">{props.uname}</p>
             </>
