@@ -8,7 +8,7 @@ import 'react-big-calendar/lib/css/react-big-calendar.css'
 
 export default function CalendarApp() {
 
-    const [apiResponse, setapiResponse] = useState([{id: 0, start: moment().toDate(), end: moment().add(1, "days").toDate(), title: "Test Event"}])
+    const [apiResponse, setapiResponse] = useState([{id: 0, start: moment().toDate(), end: moment().add(7, "days").toDate(), title: "Termine werden geladen..."}])
 
     const api_key = process.env.REACT_APP_TEAMUP_API_KEY
     const cal_key = process.env.REACT_APP_TEAMUP_CALKEY

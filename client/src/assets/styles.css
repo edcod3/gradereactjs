@@ -765,7 +765,6 @@ table .edit-td {
 .update_row td {
   min-width: 10px;
   max-width: 100%;
-  width: 100%;
 }
 /* Media Queries */
 
@@ -989,6 +988,10 @@ To-Do
 
 .rbc-agenda-table {
   margin: auto;
+}
+
+.rbc-agenda-view {
+  flex: 0 auto;
 }
 
 @media screen and (max-width: 635px) {

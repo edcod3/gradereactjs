@@ -3,11 +3,11 @@ import { Switch, Route, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
 import Navbar from './Navbar';
-import Login from './login';
-import Home from './home';
-import Subject from './subject';
-import Calculator from './notenrechner'
-import CalendarApp from './calendar'
+import Login from './components/login';
+import Home from './components/home';
+import Subject from './components/subject';
+import Calculator from './components/notenrechner'
+import CalendarApp from './components/calendar'
 import { subjtables } from './utils/scripts'
 import {GetApiUrl} from './utils/apiurl'
 

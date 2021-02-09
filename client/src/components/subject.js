@@ -2,13 +2,13 @@ import React, {useState, useEffect} from 'react'
 import axios from 'axios' 
 import { useAlert } from 'react-alert'
 import { confirmAlert } from 'react-confirm-alert'
-import CalcGradeAvg from './utils/calcgrade'
-import { SubjName, SessionLogout } from './utils/scripts'
-import {GetApiUrl} from './utils/apiurl'
+import CalcGradeAvg from '../utils/calcgrade'
+import { SubjName, SessionLogout } from '../utils/scripts'
+import {GetApiUrl} from '../utils/apiurl'
 import AddGrade from './addgrade'
 import UpdateGrade from './updategrade'
 //Import react-confirm-alert CSS
-import './assets/react-confirm-alert.css';
+import '../assets/react-confirm-alert.css';
 
 export default function Subject(props) {
 

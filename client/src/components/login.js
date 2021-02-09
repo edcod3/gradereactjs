@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 import axios from 'axios';
-import {GetApiUrl} from './utils/apiurl'
+import {GetApiUrl} from '../utils/apiurl'
 
 export default function Login(props) {
 

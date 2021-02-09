@@ -1,10 +1,10 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 //import {useRef} from 'react'
-//import TInput from "./redundatn/calcInput";
-import CalcGradeAvg from './utils/calcgrade.js'
-import {subjtables, SubjName, SessionLogout} from './utils/scripts'
-import {GetApiUrl} from './utils/apiurl'
+//import TInput from "./redundant/calcInput";
+import CalcGradeAvg from '../utils/calcgrade.js'
+import {subjtables, SubjName, SessionLogout} from '../utils/scripts'
+import {GetApiUrl} from '../utils/apiurl'
 
 export default function Calculator() {
 

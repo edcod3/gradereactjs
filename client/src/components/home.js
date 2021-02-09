@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react'
 import axios from 'axios'
-import {ReverseSubjName, SessionLogout} from './utils/scripts'
-import {GetApiUrl} from './utils/apiurl'
+import {ReverseSubjName, SessionLogout} from '../utils/scripts'
+import {GetApiUrl} from '../utils/apiurl'
 
 
 export default function Home(props) {

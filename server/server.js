@@ -5,9 +5,9 @@ const session = require('express-session');
 var bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
-var jsdom = require('jsdom');
+//var jsdom = require('jsdom');
 require('dotenv').config()
-const { JSDOM } = jsdom;
+//const { JSDOM } = jsdom;
 
 
 
@@ -19,7 +19,7 @@ const db = require("./db");
 //Express Usages
 //app.use(bodyParser.urlencoded({ extended: true }));
 app.disable('x-powered-by');
-app.use('/assets', express.static("public/assets", {extensions:['html']}));
+//app.use('/assets', express.static("public/assets", {extensions:['html']}));
 /*app.use((req, res, next) => {
     res.set('Cache-Control', 'no-store');
     next();
@@ -74,7 +74,7 @@ app.use(session({
 }));
 
 
-//JSDOM Variables
+/*JSDOM Variables
 var uri_grades = "public/grades.html";
 var uri_home = "public/home.html";
 var uri_login = "public/login.html";
@@ -114,6 +114,7 @@ var dom_homerow = new JSDOM(
 </table>
 </body>
 `);
+*/
 
 //Routing
 /* Subjects */
@@ -526,6 +527,7 @@ function ShowGrades (req, res) {
     });
 }
 
+/*
 function Calculator(req, res) {
     JSDOM.fromFile(uri_calc, options).then( function (dom) {
         var document = dom.window.document;
@@ -533,7 +535,7 @@ function Calculator(req, res) {
         uname.innerHTML = req.session.username;
         res.send(document.documentElement.innerHTML);
     })
-}
+}*/
 
 function UploadGrades(req, res) {
         console.log(req.body);
