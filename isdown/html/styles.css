@@ -1,0 +1,34 @@
+body {
+    background: #d9f0ff; /* fallback for old browsers */
+    background: -webkit-linear-gradient(right, #d9f0ff, #9ed8ff);
+    background: -moz-linear-gradient(right, #d9f0ff, #9ed8ff);
+    background: -o-linear-gradient(right, #d9f0ff, #9ed8ff);
+    background: linear-gradient(to left, #d9f0ff, #9ed8ff);
+    font-family: "Roboto", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-align: center;
+    padding: 150px; 
+}
+  
+h1 {
+    font-size: 50px;
+}
+body { 
+    font: 20px Helvetica, sans-serif;
+    color: #333;
+}
+article { 
+    display: block; 
+    text-align: left; 
+    width: 650px;
+    margin: 0 auto; 
+}
+a { 
+    color: #dc8100;
+    text-decoration: none;
+}
+a:hover {
+    color: #333;
+    text-decoration: none;
+}

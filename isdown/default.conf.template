@@ -1,0 +1,161 @@
+log_format acme_logging '[$time_local] $remote_addr - $remote_user "$request" $status $body_bytes_sent "$http_referer" "$http_user_agent"';
+map $status $condition {
+	~^[4] 1;
+    default 0;
+}
+server {
+    listen 80;
+    listen [::]:80;
+    error_log /var/www/logs/nginx-error.log warn;
+    # Server-Name of Domain
+#   server_name ${NGINX_DOM} ${NGINX_WWWDOM};
+
+    server_tokens off;
+
+    ## Start: Size Limits & Buffer Overflows ##
+    client_body_buffer_size  1K;
+    client_header_buffer_size 1k;
+    client_max_body_size 1k;
+    large_client_header_buffers 2 1k;
+    ## END: Size Limits & Buffer Overflows ##
+
+    ## Start: Timeouts ##
+    client_body_timeout   10;
+    client_header_timeout 10;
+    keepalive_timeout     5 5;
+    send_timeout          10;
+    ## End: Timeouts ##
+
+    access_log /var/www/logs/nginx-block.log combined if=$condition;
+
+    ## User Agent Blocking ##
+    if ($http_user_agent ~* LWP::Simple|BBBike|wget) {
+            return 403;
+    }
+    ## Block some robots ##
+    if ($http_user_agent ~* msnbot|scrapbot) {
+            return 403;
+    }
+    ##
+    ## Deny certain Referers ###
+    if ( $http_referer ~* (babes|forsale|girl|jewelry|love|nudit|organic|poker|porn|sex|teen|malicious|bot|backdoor|crawler|bandit|censys) ) {
+            return 403;
+    }
+
+    ## Block unwanted Request Methods ##
+    if ($request_method !~ ^(GET|HEAD|POST)$ ) {
+            return 405; 
+    }
+
+    # Enable to redirect to HTTPS
+#    location / {
+#        ${CH_ONLY}
+#        return 301 https://$host$request_uri;
+#    }
+
+    #Allow LetsEncrypt to access TOKEN (HTTP-01 Challenge)
+    location /.well-known/acme-challenge {
+        access_log /var/www/logs/acme-access.log acme_logging;
+        allow all;
+        root /var/www/certbot;
+    }
+
+    location / {
+        ${CH_ONLY}
+        root /usr/share/nginx/html;
+        access_log /var/www/logs/nginx-access.log combined;
+        try_files $uri /index.html;
+        add_header X-Frame-Options "SAMEORIGIN";
+        add_header X-XSS-Protection "1; mode=block";
+        add_header X-Content-Type-Options "nosniff";
+        add_header Referrer-Policy "no-referrer-when-downgrade";
+        add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'";
+        server_tokens off;
+        add_header Upgrade $http_upgrade;
+        add_header Connection 'upgrade';
+        add_header Host $host;
+    }
+
+}
+
+#HTTPS Server
+#server {
+#    listen 443 ssl;
+#    server_name ${NGINX_DOM} ${NGINX_WWWDOM};
+#    
+#    error_log /var/www/logs/nginx-error.log warn;
+#
+    #SSL Stuff (for nice SSL Rating)
+
+#    server_tokens off;
+#
+#    ssl_certificate ${CERT_PATH};
+#    ssl_certificate_key ${CERTKEY_PATH};
+#
+#
+#    ssl_buffer_size 8k;
+#
+
+#    ssl_protocols TLSv1.2 TLSv1.1 TLSv1;
+#    ssl_prefer_server_ciphers on;
+
+#    ssl_ciphers ECDH+AESGCM:ECDH+AES256:ECDH+AES128:DH+3DES:!ADH:!AECDH:!MD5;
+
+#    ssl_ecdh_curve secp384r1;
+#    ssl_session_tickets off;
+#    ssl_stapling on;
+#    ssl_stapling_verify on;    
+#    resolver 8.8.8.8;
+#
+#    ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
+#
+## Start: Size Limits & Buffer Overflows ##
+#        client_body_buffer_size  1K;
+#        client_header_buffer_size 1k;
+#        client_max_body_size 1k;
+#        large_client_header_buffers 2 1k;
+## END: Size Limits & Buffer Overflows ##
+#
+#
+## Start: Timeouts ##
+#        client_body_timeout   10;
+#        client_header_timeout 10;
+#        keepalive_timeout     5 5;
+#        send_timeout          10;
+## End: Timeouts ##
+#
+## User Agent Blocking ##
+#        if ($http_user_agent ~* LWP::Simple|BBBike|wget) {
+#                return 403;
+#        }
+## Block some robots ##
+#        if ($http_user_agent ~* msnbot|scrapbot) {       
+#                return 403;
+#        }
+##
+## Deny certain Referers ###
+#        if ( $http_referer ~* (babes|forsale|girl|jewelry|love|nudit|organic|poker|porn|sex|teen|malicious|bot|backdoor|crawler|bandit) ) {
+#                return 403;
+#        }
+#
+#        if ($request_method !~ ^(GET|HEAD|POST)$ ) {
+#                return 405; 
+#        }
+#       
+#
+#    location / {  
+#        ${CH_ONLY}  
+#        root /usr/share/nginx/html;
+#        access_log /var/www/logs/nginx-access.log combined;
+#        try_files $uri /index.html;
+#        add_header X-Frame-Options "SAMEORIGIN";
+#        add_header X-XSS-Protection "1; mode=block";
+#        add_header X-Content-Type-Options "nosniff";
+#        add_header Referrer-Policy "no-referrer-when-downgrade";
+#        add_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'";
+#        server_tokens off;
+#        add_header Upgrade $http_upgrade;
+#        add_header Connection 'upgrade';
+#        add_header Host $host;
+#    }
+#}

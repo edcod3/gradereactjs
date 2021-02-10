@@ -1,8 +1,8 @@
 import React, {useState} from 'react'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
-import { FormatDate, SessionLogout } from '../utils/scripts'
-import {GetApiUrl} from '../utils/apiurl'
+import { FormatDate, SessionLogout } from '../../utils/scripts'
+import {GetApiUrl} from '../../utils/apiurl'
 
 export default function UpdateGrade(props) {
 

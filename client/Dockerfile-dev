@@ -1,0 +1,11 @@
+FROM node:alpine
+
+
+RUN mkdir ./reactjs
+WORKDIR /reactjs
+
+COPY . .
+RUN npm install --only=production
+RUN npm run build
+
+CMD ["npm", "run", "dev"]

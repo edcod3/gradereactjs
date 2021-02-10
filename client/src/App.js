@@ -2,10 +2,10 @@ import React, {useState, useEffect} from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { useAlert } from 'react-alert'
-import Navbar from './Navbar';
-import Login from './components/login';
-import Home from './components/home';
-import Subject from './components/subject';
+import Navbar from './Navbar'
+import Login from './components/login'
+import Home from './components/home'
+import Subject from './components/subject'
 import Calculator from './components/notenrechner'
 import CalendarApp from './components/calendar'
 import { subjtables } from './utils/scripts'

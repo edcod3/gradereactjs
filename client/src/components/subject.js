@@ -5,8 +5,8 @@ import { confirmAlert } from 'react-confirm-alert'
 import CalcGradeAvg from '../utils/calcgrade'
 import { SubjName, SessionLogout } from '../utils/scripts'
 import {GetApiUrl} from '../utils/apiurl'
-import AddGrade from './addgrade'
-import UpdateGrade from './updategrade'
+import AddGrade from './subj_comp/addgrade'
+import UpdateGrade from './subj_comp/updategrade'
 //Import react-confirm-alert CSS
 import '../assets/react-confirm-alert.css';
 

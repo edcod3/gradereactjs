@@ -1,0 +1,86 @@
+version: "3.9"
+
+services: 
+  mysql:
+    build:  
+      context: ./mysql
+      dockerfile: Dockerfile
+    image: gradejs_mysql_dev
+    container_name: mysql-gradejs_dev
+    networks:
+      - gradejsnet
+    environment: 
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}
+  nodejs:
+    restart: on-failure
+    build: 
+      context: ./server
+      dockerfile: Dockerfile-dev
+    image: gradejs_node_dev
+    volumes:
+      - ./server/server.js:/nodejs/server.js
+      - ./server/db.js:/nodejs/db.js
+      - ./config/.env.nodejs-dev:/nodejs/.env
+      - ./server/logs/pm2_output.log:/var/log/pm2_output.log
+      - ./server/logs/pm2_error.log:/var/log/pm2_error.log
+    depends_on: 
+      - mysql
+    links:
+      - "mysql:mysql"
+    ports: 
+      - "8000:8000"
+    container_name: node-gradejs_dev
+    networks:
+      - gradejsnet
+    environment: 
+      - MYSQL_HOST=mysql
+      - NODE_ENV=${NODE_ENV}
+      - SID_SECRET=${SID_SECRET}
+      - MYSQL_PORT=${MYSQL_PORT}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASS=${MYSQL_PASS}
+      - MYSQL_DB=${MYSQL_DB}
+  reactjs:
+    build: 
+      context: ./client
+      dockerfile: Dockerfile-dev
+    image: gradejs_react_dev
+    container_name: react-gradejs_dev
+    volumes: 
+      - ./config/.env.react-dev:/reactjs/.env.development
+    depends_on: 
+      - nodejs
+    ports: 
+      - "3000:3000"
+      - "5000:5000"
+    networks: 
+      - gradejsnet
+  webserver:
+    image: nginx:mainline-alpine
+    container_name: nginx-gradejs_dev
+    volumes:
+      - ./nginx/default.conf.template:/etc/nginx/conf.d/default.conf.template
+      - ./nginx/conf_other/onlych.conf:/etc/nginx/conf.d/onlych.conf
+      - ./nginx/logs:/var/www/logs
+    depends_on: 
+      - reactjs
+    ports: 
+      - "80:80"
+      #Enable for HTTPS
+#      - "443:443"
+    networks:
+      - gradejsnet
+    environment: 
+      - NGINX_DOM=${MY_DOMAIN}
+      - NGINX_WWWDOM=${MY_WWW_DOMAIN}
+      - CERT_PATH=${SSL_CERT_PATH}
+      - CERTKEY_PATH=${SSL_CERTKEY_PATH}
+      - TEST_IP=${TEST_HOST}
+      - CH_ONLY=${CH_ONLY}
+    command: /bin/sh -c "envsubst '$$NGINX_DOM $$NGINX_WWWDOM $$CERT_PATH $$CERTKEY_PATH $$TEST_IP $$CH_ONLY' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+
+networks:
+  gradejsnet:
+    driver: bridge    
+
+

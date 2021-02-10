@@ -146,11 +146,11 @@ app.get('/logout', function (req, res) {
     res.status(200).json({type: "loggedout", bool: true})
 })
 app.get('/home', function(req, res) {
-    console.log(req.session);
+    //console.log(req.session);
     if (req.session.loggedin) {
         Home(req, res);
     } else {
-        console.log("Auth didnt work");
+        //console.log("Auth didnt work");
         res.redirect("/login");
     }
 })
@@ -399,7 +399,7 @@ function Login (req, res) {
                     username: result.user
                 }
                 res.json(login_success);
-                console.log(result.user + "logged in!")
+                //console.log(result.user + "logged in!")
             } else {
                 const login_failed = {
                     type: "login_failed", 
@@ -454,7 +454,7 @@ function Home (req, res) {
         const json = {
             response: outputs
         }
-        console.log(json);
+        //console.log(json);
         res.json(json);
         /*
         var newhtmls = [];
@@ -508,7 +508,7 @@ function ShowGrades (req, res) {
             const json_output = {
                 response: subj_row_output
             }
-            console.log(json_output)
+            //console.log(json_output)
             res.json(json_output)
             /*
             JSDOM.fromFile(uri_grades, options).then( function (dom) {
@@ -538,7 +538,7 @@ function Calculator(req, res) {
 }*/
 
 function UploadGrades(req, res) {
-        console.log(req.body);
+        //console.log(req.body);
         var ins = {
             date: req.body.date,
             desc: req.body.desc,
@@ -555,7 +555,7 @@ function UploadGrades(req, res) {
                 bool: true,
                 subject: table_name
             }
-            console.log(success_json);
+            //console.log(success_json);
             res.json(success_json);
             //console.log(result);
             /*
@@ -571,7 +571,7 @@ function UploadGrades(req, res) {
 }
 
 function UpdateGrades(req, res) {
-    console.log(req.body);
+    //console.log(req.body);
     let updarray = [req.body.table, req.body.date, req.body.desc, req.body.weight, req.body.grade, req.body.id, req.session.token]
     res.locals.con.query("UPDATE ?? SET `date`=?, `desc`=?, `weight`=?, `grade`=? WHERE `id`=? AND `token`=?", updarray, function (err, result) {
         if (err) {return ErrHandler(res, err)}
@@ -579,13 +579,13 @@ function UpdateGrades(req, res) {
             type: "updated_grade",
             bool: true
         };
-        console.log(updated_json);
+        //console.log(updated_json);
         res.json(updated_json);
     })
 }
 
 function DeleteGrade (req, res) {
-    console.log(req.body);
+    //console.log(req.body);
     let sqldelarray = [req.body.table, req.body.index, req.session.token];
     res.locals.con.query("DELETE FROM ?? WHERE `id`=? AND `token`=?", sqldelarray, function (err, result) {
         if (err) {return ErrHandler(res, err)}
@@ -593,7 +593,7 @@ function DeleteGrade (req, res) {
             type: "deleted_grade",
             bool: true
         };
-        console.log(deleted_json);
+        //console.log(deleted_json);
         res.json(deleted_json);
     })
 }
