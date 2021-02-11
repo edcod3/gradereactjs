@@ -32,7 +32,7 @@ export default function Home(props) {
                 setgradeVals(grade_arr)
             } else {
                 let totpoints = "Keine Punkte"
-                let avg = GetAvg(grades)
+                let avg = (grades.length >= 1) ? GetAvg(grades) : 0 
                 setAvgPoints({avg: avg, points: totpoints})
                 setgradeVals(grade_arr)
             }

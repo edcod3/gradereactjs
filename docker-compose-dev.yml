@@ -5,10 +5,10 @@ services:
     build:  
       context: ./mysql
       dockerfile: Dockerfile
-    image: gradejs_mysql_dev
-    container_name: mysql-gradejs_dev
+    image: gradereactjs_mysql_dev
+    container_name: mysql-gradereactjs_dev
     networks:
-      - gradejsnet
+      - gradereactjsnet
     environment: 
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASS}
   nodejs:
@@ -16,10 +16,11 @@ services:
     build: 
       context: ./server
       dockerfile: Dockerfile-dev
-    image: gradejs_node_dev
+    image: gradereactjs_node_dev
     volumes:
       - ./server/server.js:/nodejs/server.js
       - ./server/db.js:/nodejs/db.js
+      - ./server/script.js:/nodejs/script.js
       - ./config/.env.nodejs-dev:/nodejs/.env
       - ./server/logs/pm2_output.log:/var/log/pm2_output.log
       - ./server/logs/pm2_error.log:/var/log/pm2_error.log
@@ -29,35 +30,32 @@ services:
       - "mysql:mysql"
     ports: 
       - "8000:8000"
-    container_name: node-gradejs_dev
+    container_name: node-gradereactjs_dev
     networks:
-      - gradejsnet
+      - gradereactjsnet
     environment: 
       - MYSQL_HOST=mysql
-      - NODE_ENV=${NODE_ENV}
-      - SID_SECRET=${SID_SECRET}
-      - MYSQL_PORT=${MYSQL_PORT}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASS=${MYSQL_PASS}
-      - MYSQL_DB=${MYSQL_DB}
   reactjs:
     build: 
       context: ./client
       dockerfile: Dockerfile-dev
-    image: gradejs_react_dev
-    container_name: react-gradejs_dev
+    image: gradereactjs_react_dev
+    container_name: react-gradereactjs_dev
     volumes: 
       - ./config/.env.react-dev:/reactjs/.env.development
+      - ./client/src:/reactjs/src
     depends_on: 
       - nodejs
     ports: 
-      - "3000:3000"
       - "5000:5000"
     networks: 
-      - gradejsnet
+      - gradereactjsnet
   webserver:
-    image: nginx:mainline-alpine
-    container_name: nginx-gradejs_dev
+    build: 
+      context: ./nginx
+      dockerfile: Dockerfile
+    image: gradereactjs_nginx_dev
+    container_name: nginx-gradereactjs_dev
     volumes:
       - ./nginx/default.conf.template:/etc/nginx/conf.d/default.conf.template
       - ./nginx/conf_other/onlych.conf:/etc/nginx/conf.d/onlych.conf
@@ -69,7 +67,7 @@ services:
       #Enable for HTTPS
 #      - "443:443"
     networks:
-      - gradejsnet
+      - gradereactjsnet
     environment: 
       - NGINX_DOM=${MY_DOMAIN}
       - NGINX_WWWDOM=${MY_WWW_DOMAIN}
@@ -77,10 +75,10 @@ services:
       - CERTKEY_PATH=${SSL_CERTKEY_PATH}
       - TEST_IP=${TEST_HOST}
       - CH_ONLY=${CH_ONLY}
-    command: /bin/sh -c "envsubst '$$NGINX_DOM $$NGINX_WWWDOM $$CERT_PATH $$CERTKEY_PATH $$TEST_IP $$CH_ONLY' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+    #command: [/bin/sh, -c, "envsubst '$$NGINX_DOM $$NGINX_WWWDOM $$CERT_PATH $$CERTKEY_PATH $$TEST_IP $$CH_ONLY' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"]
 
 networks:
-  gradejsnet:
+  gradereactjsnet:
     driver: bridge    
 
 

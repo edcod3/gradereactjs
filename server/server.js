@@ -40,9 +40,9 @@ app.use(bodyParser.json());
 */
 //Enable CORS-Policy request (ReactJS fetch)
 //const allowHosts = ["http://localhost:3000" , /http:\/\/localhost.*/]
-//const HostsAllowed = ["http://localhost:3000", "http://localhost:3000/home", "http://localhost:3000/login"]
+//const HostsAllowed = ["http://localhost:3000", "http://localhost:5000", `http://${process.env.REACT_URL}`]
 const corsOpts = {
-    origin: ["http://localhost:3000", "http://localhost:5000", "http://192.168.0.33:3000"],
+    origin: [`http://${process.env.REACT_URL}`, `https://${process.env.REACT_URL}`],
     methods: ["GET","HEAD","PUT","POST","DELETE", "OPTIONS"],
     credentials: true
 }

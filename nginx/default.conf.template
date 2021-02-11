@@ -5,13 +5,13 @@ map $status $condition {
     	default 0;
 } 
 
-upstream reactjs {
-        server reactjs:5000;
-}
+#upstream reactjs {
+#        server reactjs:5000;
+#}
 
-upstream nodejs {
-        server nodejs:8000;
-}
+#upstream nodejs {
+#        server nodejs:8000;
+#}
 
 server {
         listen 80;
@@ -73,8 +73,8 @@ server {
                 #${CH_ONLY}
                 access_log /var/www/logs/nginx-access.log upstream_logging;
 
-                set $upstream http://client;
-                proxy_pass http://client;
+                set $upstream http://reactjs:5000;
+                proxy_pass http://reactjs:5000;
                 proxy_set_header X-Frame-Options "SAMEORIGIN";
                 proxy_set_header X-XSS-Protection "1; mode=block";
                 proxy_set_header X-Content-Type-Options "nosniff";
@@ -97,8 +97,8 @@ server {
 
                 rewrite /api/(.*) /$1 break;
                 
-                set $upstream http://reactjs;
-                proxy_pass http://reactjs;
+                set $upstream http://nodejs:8000;
+                proxy_pass http://nodejs:8000;
         }
 
 }
