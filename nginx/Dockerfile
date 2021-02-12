@@ -12,4 +12,4 @@ RUN envsubst '$$NGINX_DOM $$NGINX_WWWDOM $$CERT_PATH $$CERTKEY_PATH $$TEST_IP $$
 EXPOSE 80
 
 RUN chmod +x wait-for-react.sh
-CMD ["./wait-for-react.sh", "reactjs:5000", "--timeout=30", "--strict", "--", "nginx", "-g", "daemon off;"]
+CMD ["./wait-for-react.sh", "nodejs:8000", "--timeout=30", "--strict", "--", "nginx", "-g", "daemon off;"]

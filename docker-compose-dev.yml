@@ -62,10 +62,14 @@ services:
       - ./nginx/logs:/var/www/logs
     depends_on: 
       - reactjs
+      - nodejs
     ports: 
       - "80:80"
       #Enable for HTTPS
 #      - "443:443"
+    links:
+      - "nodejs:nodejs"
+      - "reactjs:reactjs"
     networks:
       - gradereactjsnet
     environment: 

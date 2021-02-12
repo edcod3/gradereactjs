@@ -1,6 +1,7 @@
 //Modules
 var express = require('express');
 const app = express();
+const router = express.Router();
 const session = require('express-session');
 var bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -25,8 +26,8 @@ app.disable('x-powered-by');
     next();
 });*/
 
-app.use(cookieParser());
-app.use(bodyParser.json());
+router.use(cookieParser());
+router.use(bodyParser.json());
 
 /*app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', 'http://localhost:3000');
@@ -46,12 +47,12 @@ const corsOpts = {
     methods: ["GET","HEAD","PUT","POST","DELETE", "OPTIONS"],
     credentials: true
 }
-app.use(cors(corsOpts));
+router.use(cors(corsOpts));
 
 
 //DB Stuff
 const tables = new Array("app_development","economics","english","finances","french","german","history","mathematics","sports","system_technology");
-app.use(function (req, res, next) {
+router.use(function (req, res, next) {
     res.locals.con = db.con_pool;
     //res.locals.con.connect(function (err) {if (err) throw err;});
     next();
@@ -63,7 +64,7 @@ if (process.env.NODE_ENV == "production") {
 }
 
 //Session Creation
-app.use(session({
+router.use(session({
     name: "sid",
     secret: process.env.SID_SECRET,
     store: db.sessionStore,
@@ -118,10 +119,10 @@ var dom_homerow = new JSDOM(
 
 //Routing
 /* Subjects */
-app.get('/', function (req, res) {
+router.get('/', function (req, res) {
     res.redirect('/login');
 })
-app.get('/login', function (req, res) {
+router.get('/login', function (req, res) {
     //res.sendFile(__dirname + "/public/" + "login.html");
     if (req.session.loggedin) {
         res.redirect('/home');
@@ -134,101 +135,101 @@ app.get('/login', function (req, res) {
         res.status(400).json(notloggedin_json)
     }
 })
-app.post('/login', function(req, res) {
+router.post('/login', function(req, res) {
     Login(req, res);
 })
-app.post('/register', function (req, res) {
+router.post('/register', function (req, res) {
     Register(req, res);
 })
-app.get('/logout', function (req, res) {
+router.get('/logout', function (req, res) {
     //Implement Logout JSON response
     req.session.destroy();
     res.status(200).json({type: "loggedout", bool: true})
 })
-app.get('/home', function(req, res) {
+router.get('/home', function(req, res) {
     //console.log(req.session);
     if (req.session.loggedin) {
         Home(req, res);
     } else {
         //console.log("Auth didnt work");
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
-app.get('/german', function(req, res) {
+router.get('/german', function(req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
-app.get('/english', function (req, res) {
+router.get('/english', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/french', function (req, res) {
+router.get('/french', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/history', function (req, res) {
+router.get('/history', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/economics', function (req, res) {
+router.get('/economics', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/finances', function (req, res) {
+router.get('/finances', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/mathematics', function (req, res) {
+router.get('/mathematics', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/system_technology', function (req, res) {
+router.get('/system_technology', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
-app.get('/app_development', function (req, res) {
+router.get('/app_development', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/sports', function (req, res) {
+router.get('/sports', function (req, res) {
     if (req.session.loggedin) {
         ShowGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 }) 
-app.get('/calculator', function (req, res) {
+router.get('/calculator', function (req, res) {
     if (req.session.loggedin) {
         Calculator(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
 
@@ -238,48 +239,48 @@ app.get('/calculator', function (req, res) {
 /* GradeJS Managment*/
 
 //Subject/Grade Upload
-app.post('/subj_upload', function (req, res) {
+router.post('/subj_upload', function (req, res) {
     if (req.session.loggedin) {
         UploadGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
 
 //Grade Update
-app.post('/subj_update', function(req, res) {
+router.post('/subj_update', function(req, res) {
     if (req.session.loggedin) {
         UpdateGrades(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
     
 })
 
 //Grade Deletion
-app.post('/subj_delete', function(req, res) {
+router.post('/subj_delete', function(req, res) {
     if (req.session.loggedin) {
         DeleteGrade(req, res);
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
 
 /* ----------------- */
 
 /* Test Stuff */
-app.get('/test', function (req, res) {
+router.get('/test', function (req, res) {
     if (req.session.loggedin && req.session.username == "eddie") {
         ShowGrades(req, res);
     } else {
-        res.redirect("/home");
+        res.redirect("/api/home");
     }
 }) 
-app.get('/hometest', function(req, res) {
+router.get('/hometest', function(req, res) {
     if (req.session.loggedin && req.session.username == "eddie") {
         Home(req, res);
     } else {
-        res.redirect("/home");
+        res.redirect("/api/home");
     }
 })
 
@@ -603,28 +604,29 @@ function DeleteGrade (req, res) {
 
 function ErrHandler (res, err) {
     console.error("Fuck, there was an error...\n", err);
-    res.redirect("/home");
+    res.redirect("/api/home");
     return;
 }
 
 //-----------------------------------------//
 
 /* Robots.txt */
-app.get("/robots.txt", function (req, res) {
+router.get("/robots.txt", function (req, res) {
     res.sendFile(__dirname + "/public/assets/" + "robots.txt");
 })
 
 /* Redirect missing routes to home */
-app.get("/*", function (req, res) {
+router.get("/*", function (req, res) {
     if (req.session.loggedin) {
-        res.redirect("/home");
+        res.redirect("/api/home");
     } else {
-        res.redirect("/login");
+        res.redirect("/api/login");
     }
 })
 
 //--------------------------------//
 
+app.use('/api', router);
 
 //Server Start
 var server = app.listen(8000, function () {

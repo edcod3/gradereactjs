@@ -5,13 +5,13 @@ map $status $condition {
     	default 0;
 } 
 
-#upstream reactjs {
-#        server reactjs:5000;
-#}
+upstream react {
+        server reactjs:5000;
+}
 
-#upstream nodejs {
-#        server nodejs:8000;
-#}
+upstream node {
+        server nodejs:8000;
+}
 
 server {
         listen 80;
@@ -69,12 +69,29 @@ server {
         }
 
         #Proxy NodeJS traffic (HTTP) 
+        location /api {
+                #${CH_ONLY}
+                access_log /var/www/logs/nginx-access.log upstream_logging;
+                set $upstream http://node;
+                proxy_pass http://node;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection 'upgrade';
+                proxy_set_header Host $host;
+        }
+
+        location /sockjs-node {
+                proxy_pass http://react;
+                proxy_http_version 1.1;
+                proxy_set_header Upgrade $http_upgrade;
+                proxy_set_header Connection "Upgrade";
+        }
+
         location / {  
                 #${CH_ONLY}
                 access_log /var/www/logs/nginx-access.log upstream_logging;
 
-                set $upstream http://reactjs:5000;
-                proxy_pass http://reactjs:5000;
+                set $upstream http://react;
+                proxy_pass http://react;
                 proxy_set_header X-Frame-Options "SAMEORIGIN";
                 proxy_set_header X-XSS-Protection "1; mode=block";
                 proxy_set_header X-Content-Type-Options "nosniff";
@@ -82,23 +99,13 @@ server {
                 proxy_set_header Content-Security-Policy "default-src * data: 'unsafe-eval' 'unsafe-inline'";
                 proxy_hide_header X-Powered-By;  
                 server_tokens off;
-                proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-                proxy_set_header X-Forwarded-Proto $scheme;
+                #proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+                #proxy_set_header X-Forwarded-Proto $scheme;
                 proxy_set_header Upgrade $http_upgrade;
                 proxy_set_header Connection 'upgrade';
                 proxy_set_header Host $host;
                 proxy_set_header X-Real-IP $remote_addr; 
-                proxy_redirect off;
-        }
-
-        location /api {
-                #${CH_ONLY}
-                access_log /var/www/logs/nginx-access.log upstream_logging;
-
-                rewrite /api/(.*) /$1 break;
-                
-                set $upstream http://nodejs:8000;
-                proxy_pass http://nodejs:8000;
+                #proxy_redirect off;
         }
 
 }
