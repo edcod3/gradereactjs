@@ -20,7 +20,9 @@ services:
     volumes:
       - ./server/server.js:/nodejs/server.js
       - ./server/db.js:/nodejs/db.js
-      - ./server/script.js:/nodejs/script.js
+      - ./server/functions/index.js:/nodejs/functions/index.js
+      - ./server/routes/index.js:/nodejs/routes/index.js
+      - ./server/utils/script.js:/nodejs/utils/script.js
       - ./config/.env.nodejs-dev:/nodejs/.env
       - ./server/logs/pm2_output.log:/var/log/pm2_output.log
       - ./server/logs/pm2_error.log:/var/log/pm2_error.log

@@ -616,6 +616,24 @@ table .edit-td {
 /* ---------------------- */
 
 /** calculator.html **/
+
+#calc_wrapper {
+  margin-top: 5%;
+}
+
+#calc_wrapper h2 {
+  margin: 2rem 0rem 1.5rem;
+}
+
+#calc_wrapper h3 {
+  font-weight: 500;
+  margin: 1rem 0rem;
+}
+
+#calc_wrapper select {
+  margin: 0.25rem 0rem 1.25rem;
+}
+
 /** Button Effects**/
 .calc_btn {
     border-radius: 4px;
@@ -630,6 +648,7 @@ table .edit-td {
     transition: all 0.5s;
     cursor: pointer;
     margin: 5px;
+    margin-top: 0px;
     float: right;
   }
   
@@ -838,10 +857,112 @@ table .edit-td {
   }
 
 }
+/* ------------- */
+
+/* Calendar Menu */
+
+#cal_wrapper {
+  font-family: "Roboto", sans-serif;
+  margin-top: 50px;
+}
+
+#cal_wrapper h2 {
+  font-weight: 500;
+}
+
+#cal_wrapper p {
+  font-size: 17px;
+}
+
+.cal_form {
+  margin-top: 4rem;
+}
+
+.cal_form label {
+  margin: 20px 5px 10px 5px;
+  font-size: 14px;
+  display: block;
+}
+
+.cal_form input {
+  background-color: #fbfbfb;
+  padding:10px;
+  width: 15rem;
+  margin:10px 0;
+  border: none;
+  box-shadow:0 0 10px 2px rgba(0,0,0,0.09);
+}
+
+.cal_btn {
+  display: block;
+  margin-top: 30px;
+  border-radius: 4px;
+  background-color: #3ea4f8;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  width: 150px;
+  padding: 10px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.cal_btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.cal_btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.cal_btn:hover span {
+  padding-right: 25px;
+}
+
+.cal_btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
 
 /* ------------------- */
 
 /* Home (& some Subject) Table Media Query Styles */
+
+@media screen and (max-width: 485px) {
+  table {
+    width: 100%;
+  }
+
+  .wrapper {
+    padding-left: 2px !important;
+  }
+
+  #home_grades {
+    margin-left: 0;
+  }
+
+  /* Calendar Menu */
+
+  #cal_wrapper {
+    text-align: center;
+  }
+
+  .cal_btn {
+    margin: 0 auto;
+    margin-top: 30px;
+  }
+
+}
 
 @media screen and (max-width: 460px) {
   table, tr, #subj_row1_update {
@@ -877,21 +998,6 @@ table .edit-td {
   #home_grades {
     margin-left: 7.5%;
   }
-}
-
-@media screen and (max-width: 485px) {
-  table {
-    width: 100%;
-  }
-
-  .wrapper {
-    padding-left: 2px !important;
-  }
-
-  #home_grades {
-    margin-left: 0;
-  }
-
 }
 
 /* ---------------------- */ 
@@ -980,6 +1086,9 @@ To-Do
     width: 60% !important;
   }
 }
+
+/* --------------------------- */
+
 
 /* React Big Calender Override */
 .rbc-event-allday {

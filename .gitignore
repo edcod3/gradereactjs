@@ -34,6 +34,11 @@ mysql/*.sql
 config/*
 !config/.gitkeep
 
+#Prettier
+.prettierignore
+server/.prettierrc.json
+client/.prettierrc.json
+
 # Other
 other/dbbackup/*
 !other/dbbackup/.gitkeep

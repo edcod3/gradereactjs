@@ -1,0 +1,13 @@
+Reset Auto-Increment:
+
+--
+SQL Command:
+SELECT MAX( `id` ) FROM `your_table`;
+
+Outputs: max_id
+--
+
+--
+SQL Command:
+ALTER TABLE `your_table` AUTO_INCREMENT = max_id;
+--

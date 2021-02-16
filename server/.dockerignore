@@ -4,3 +4,5 @@ Dockerfile
 Dockerfile-dev
 .dockerignore
 node_modules
+.prettierrc.json
+auto_increment.txt
