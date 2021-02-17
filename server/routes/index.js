@@ -167,6 +167,15 @@ router.get("/sports", function (req, res) {
 		res.redirect("/api/login");
 	}
 });
+/* -------------- */
+/* ReactJS Calendar Authentication */
+router.get("/cal_auth", function (req, res) {
+	if (req.session.loggedin) {
+		services.GetCalAuth(req, res);
+	} else {
+		res.redirect("/api/login");
+	}
+});
 
 /* ----------------- */
 

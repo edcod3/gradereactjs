@@ -260,6 +260,11 @@ module.exports.DeleteGrade = function (req, res) {
 	);
 };
 
+module.exports.GetCalAuth = function (req, res) {
+	//fetch()
+	console.log("Hi");
+};
+
 //Error Handling
 
 function ErrHandler(res, err) {

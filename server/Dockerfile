@@ -2,6 +2,9 @@ FROM node:alpine
 
 RUN apk update && apk add bash && apk add --no-cache coreutils
 
+COPY ./logs/pm2_output.log /var/log
+COPY ./logs/pm2_error.log /var/log
+
 RUN mkdir ./nodejs
 WORKDIR /nodejs
 

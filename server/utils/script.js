@@ -148,6 +148,15 @@ module.exports.GetDomain = function () {
 			secure: true,
 			domain: sess_domain
 		};
+	} else if (process.env.NODE_ENV == "production-test") {
+		var sess_domain = process.env.SESS_DOMAIN;
+		var sess_opts = {
+			maxAge: 1800000,
+			httpOnly: true,
+			sameSite: false,
+			secure: false,
+			domain: sess_domain
+		};
 	} else if (process.env.NODE_ENV == "reactdev") {
 		var sess_domain = process.env.SESS_DOMAIN || "";
 		var sess_opts = {

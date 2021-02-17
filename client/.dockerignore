@@ -1,4 +1,7 @@
 Dockerfile
+Dockerfile-dev
+README.md
 .dockerignore
 node_modules
 .eslintcache
+.prettierrc.json
