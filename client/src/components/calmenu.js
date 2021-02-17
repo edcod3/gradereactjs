@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from "react"
+import axios from "axios"
 import CalendarApp from "./calendar"
-import { capitalize, setInput } from "../utils/scripts"
+import { setInput, SessionLogout } from "../utils/scripts"
+import { GetApiUrl } from "../utils/apiurl"
 import useLocalStorage from "../utils/customHooks"
 
 export default function CalendarMenu() {
+	//Enable express-session persistence
+	axios.defaults.withCredentials = true
+
 	//Authentication States & Input
 	const [authInp, setauthInp] = useState({ first_name: "", last_name: "" })
 	const [authed, setAuthed] = useState({ auth: false, msg: "" })
@@ -11,45 +16,34 @@ export default function CalendarMenu() {
 	//Persist Authentication for Calendar Access
 	const [persAuth, setpersAuth] = useLocalStorage("cal", "")
 
-	//API Keys
-	const api_key = process.env.REACT_APP_TEAMUP_API_KEY
-	const cal_key = process.env.REACT_APP_TEAMUP_CALKEY
-
 	useEffect(() => {
-		fetch(`https://api.teamup.com/${cal_key}/configuration`, {
-			credentials: "omit",
-			method: "get",
-			headers: { "Teamup-Token": api_key }
-		})
-			.then((response) => response.json())
-			.then((data) =>
-				persAuth === data.configuration.identity.title
+		axios
+			.get(`http://${GetApiUrl()}/cal_auth`, {
+				headers: { "Content-Type": "application/json" }
+			})
+			.then((res) =>
+				persAuth === res.data.auth_check
 					? setAuthed({ auth: true, msg: "" })
 					: setAuthed({ auth: false, msg: "" })
 			)
-	}, [api_key, cal_key, persAuth])
+			.catch((err) => SessionLogout(err))
+	}, [persAuth])
 
 	//Authenticate User based on API Configuration
 	const GetAuth = (event) => {
 		event.preventDefault()
-		fetch(`https://api.teamup.com/${cal_key}/configuration`, {
-			credentials: "omit",
-			method: "get",
-			headers: { "Teamup-Token": api_key }
-		})
-			.then((response) => response.json())
-			.then((data) => {
-				const raw = data.configuration.general_settings.admin_email
-				const [firstname, lastname] = raw.split("@")[0].split(".")
-				if (
-					(authInp.first_name === capitalize(firstname) ||
-						authInp.first_name === firstname) &&
-					(authInp.last_name === capitalize(lastname) ||
-						authInp.last_name === lastname)
-				) {
-					//console.log("auth_success")
+		const auth_body = {
+			cal_login: `${authInp.first_name.toLowerCase()}.${authInp.last_name.toLowerCase()}`
+		}
+		axios
+			.post(`http://${GetApiUrl()}/cal_auth`, auth_body, {
+				headers: { "Content-Type": "application/json" }
+			})
+			.then((res) => {
+				if (res.data.auth_succ) {
+					console.log("auth_success: " + res.data.auth_succ)
 					setAuthed({ auth: true, msg: "" })
-					setpersAuth(data.configuration.identity.title)
+					setpersAuth(res.data.auth_check)
 				} else {
 					//console.log("auth_failed")
 					let auth_msg =
@@ -57,7 +51,7 @@ export default function CalendarMenu() {
 					setAuthed({ auth: false, msg: auth_msg })
 				}
 			})
-			.catch((err) => console.log(err))
+			.catch((err) => SessionLogout(err))
 	}
 
 	return (

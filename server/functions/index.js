@@ -1,3 +1,4 @@
+const fetch = require("node-fetch");
 const script = require("../utils/script");
 
 module.exports.DuplUser = function (res, uname) {
@@ -261,8 +262,48 @@ module.exports.DeleteGrade = function (req, res) {
 };
 
 module.exports.GetCalAuth = function (req, res) {
-	//fetch()
-	console.log("Hi");
+	fetch(`https://api.teamup.com/${process.env.TEAMUP_CALKEY}/configuration`, {
+		credentials: "omit",
+		method: "get",
+		headers: { "Teamup-Token": process.env.TEAMUP_API_KEY }
+	})
+		.then((response) => response.json())
+		.then(async (json) => {
+			const auth_res = json.configuration.general_settings.admin_email.split(
+				"@"
+			)[0];
+			const hashres = await script.Hash(auth_res);
+			const checklogin = await script.Verify(req.body.cal_login, hashres);
+			if (checklogin) {
+				const json_success = {
+					auth_succ: checklogin,
+					auth_check: json.configuration.identity.title
+				};
+				res.json(json_success);
+			} else {
+				const json_fail = {
+					auth_succ: checklogin
+				};
+				res.json(json_fail);
+			}
+		})
+		.catch((err) => ErrHandler(err));
+};
+
+module.exports.CheckCalAuth = function (req, res) {
+	fetch(`https://api.teamup.com/${process.env.TEAMUP_CALKEY}/configuration`, {
+		credentials: "omit",
+		method: "get",
+		headers: { "Teamup-Token": process.env.TEAMUP_API_KEY }
+	})
+		.then((response) => response.json())
+		.then((json) => {
+			const json_check = {
+				auth_check: json.configuration.identity.title
+			};
+			res.json(json_check);
+		})
+		.catch((err) => ErrHandler(err));
 };
 
 //Error Handling

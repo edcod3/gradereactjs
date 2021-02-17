@@ -168,16 +168,6 @@ router.get("/sports", function (req, res) {
 	}
 });
 /* -------------- */
-/* ReactJS Calendar Authentication */
-router.get("/cal_auth", function (req, res) {
-	if (req.session.loggedin) {
-		services.GetCalAuth(req, res);
-	} else {
-		res.redirect("/api/login");
-	}
-});
-
-/* ----------------- */
 
 /* GradeJS Managment */
 
@@ -207,6 +197,24 @@ router.post("/subj_delete", function (req, res) {
 		res.redirect("/api/login");
 	}
 });
+
+//ReactJS Calendar Authentication
+router.get("/cal_auth", function (req, res) {
+	if (req.session.loggedin) {
+		services.CheckCalAuth(req, res);
+	} else {
+		res.redirect("/api/login");
+	}
+});
+router.post("/cal_auth", function (req, res) {
+	if (req.session.loggedin) {
+		services.GetCalAuth(req, res);
+	} else {
+		res.redirect("/api/login");
+	}
+});
+
+/* ----------------- */
 
 //-----------------------------------------//
 
