@@ -277,7 +277,7 @@ module.exports.GetCalAuth = function (req, res) {
 			if (checklogin) {
 				const json_success = {
 					auth_succ: checklogin,
-					auth_check: json.configuration.identity.title
+					auth_check_hash: json.configuration.identity.title
 				};
 				res.json(json_success);
 			} else {
@@ -298,10 +298,19 @@ module.exports.CheckCalAuth = function (req, res) {
 	})
 		.then((response) => response.json())
 		.then((json) => {
-			const json_check = {
-				auth_check: json.configuration.identity.title
-			};
-			res.json(json_check);
+			if (
+				req.header("Check-Token") == json.configuration.identity.title
+			) {
+				const json_check_succ = {
+					auth_check: true
+				};
+				res.json(json_check_succ);
+			} else {
+				const json_check_fail = {
+					auth_check: false
+				};
+				res.json(json_check_fail);
+			}
 		})
 		.catch((err) => ErrHandler(err));
 };

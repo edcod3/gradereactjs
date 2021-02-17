@@ -19,10 +19,13 @@ export default function CalendarMenu() {
 	useEffect(() => {
 		axios
 			.get(`http://${GetApiUrl()}/cal_auth`, {
-				headers: { "Content-Type": "application/json" }
+				headers: {
+					"Content-Type": "application/json",
+					"Check-Token": persAuth
+				}
 			})
 			.then((res) =>
-				persAuth === res.data.auth_check
+				res.data.auth_check
 					? setAuthed({ auth: true, msg: "" })
 					: setAuthed({ auth: false, msg: "" })
 			)
@@ -43,7 +46,7 @@ export default function CalendarMenu() {
 				if (res.data.auth_succ) {
 					console.log("auth_success: " + res.data.auth_succ)
 					setAuthed({ auth: true, msg: "" })
-					setpersAuth(res.data.auth_check)
+					setpersAuth(res.data.auth_check_hash)
 				} else {
 					//console.log("auth_failed")
 					let auth_msg =
