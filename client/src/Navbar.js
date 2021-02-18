@@ -14,7 +14,7 @@ export default function Navbar(props) {
 	useEffect(() => {
 		// Get Current Location
 		let subj = location.pathname.replace("/", "")
-		console.log(subj)
+		//console.log(subj)
 		//Only apply sticky navbar to subject locations
 		if (subjtables.includes(subj)) {
 			setnavclass("topnav sticky")

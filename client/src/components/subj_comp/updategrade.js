@@ -24,7 +24,7 @@ export default function UpdateGrade(props) {
 		//console.log(updateVal)
 		//console.log(props.table)
 		axios
-			.post(`http://${GetApiUrl()}/subj_update`, updateVal, {
+			.post(`${GetApiUrl()}/subj_update`, updateVal, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {

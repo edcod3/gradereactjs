@@ -8,6 +8,6 @@ export function GetApiUrl() {
 	) {
 		return "localhost:8000"
 	} else {
-		return api_url
+		return api_url + "/api"
 	}
 }

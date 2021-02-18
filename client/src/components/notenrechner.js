@@ -63,7 +63,7 @@ export default function Calculator() {
 	function GetSubjData(event) {
 		//console.log(`${event.target.value}`)
 		if (`${event.target.value}` !== "") {
-			const subj_url = `http://${GetApiUrl()}/${event.target.value}`
+			const subj_url = `${GetApiUrl()}/${event.target.value}`
 			axios
 				.get(subj_url, {
 					headers: { "Content-Type": "application/json" }

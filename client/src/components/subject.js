@@ -50,7 +50,7 @@ export default function Subject(props) {
 		setAvgPoints({ avg: 0, points: 0 })
 		//console.log(subj_url)
 		axios
-			.get(`http://${GetApiUrl()}/${props.subj}`, {
+			.get(`${GetApiUrl()}/${props.subj}`, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {
@@ -65,7 +65,7 @@ export default function Subject(props) {
 	function deleteRow(row_index) {
 		axios
 			.post(
-				`http://${GetApiUrl()}/subj_delete`,
+				`${GetApiUrl()}/subj_delete`,
 				{ index: row_index, table: props.subj },
 				{ headers: { "Content-Type": "application/json" } }
 			)

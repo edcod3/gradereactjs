@@ -287,7 +287,7 @@ module.exports.GetCalAuth = function (req, res) {
 				res.json(json_fail);
 			}
 		})
-		.catch((err) => ErrHandler(err));
+		.catch((err) => ErrHandler(res, err));
 };
 
 module.exports.CheckCalAuth = function (req, res) {
@@ -312,7 +312,7 @@ module.exports.CheckCalAuth = function (req, res) {
 				res.json(json_check_fail);
 			}
 		})
-		.catch((err) => ErrHandler(err));
+		.catch((err) => ErrHandler(res, err));
 };
 
 //Error Handling

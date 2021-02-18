@@ -46,7 +46,7 @@ function App() {
 	//Logout on NodeJS API & remove user from SessionStorage
 	const logout = () => {
 		axios
-			.get(`http://${GetApiUrl()}/logout`)
+			.get(`${GetApiUrl()}/logout`)
 			.then((res) => {
 				if (res.status === 200) {
 					sessionStorage.setItem("user", "")

@@ -26,7 +26,7 @@ export default function AddGrade(props) {
 			subject: props.subj
 		}
 		axios
-			.post(`http://${GetApiUrl()}/subj_upload`, req_body, {
+			.post(`${GetApiUrl()}/subj_upload`, req_body, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {
@@ -54,16 +54,6 @@ export default function AddGrade(props) {
 			})
 			.catch((err) => SessionLogout(err))
 	}
-
-	/*const testAlert = (type) => {
-        if (type === "success") {
-            alert.success("Note wurde erfolgreich hochgeladen!")
-        } else if (type === "error") {
-            alert.error("Note konnte nicht hinzugefügt werden. Versuche es nochmals!")
-        } else {
-            alert.info("That didn't work")
-        }
-    }*/
 
 	return (
 		<div id="wrapper_add" className="wrapper">

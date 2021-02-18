@@ -18,7 +18,7 @@ export default function CalendarMenu() {
 
 	useEffect(() => {
 		axios
-			.get(`http://${GetApiUrl()}/cal_auth`, {
+			.get(`${GetApiUrl()}/cal_auth`, {
 				headers: {
 					"Content-Type": "application/json",
 					"Check-Token": persAuth
@@ -39,7 +39,7 @@ export default function CalendarMenu() {
 			cal_login: `${authInp.first_name.toLowerCase()}.${authInp.last_name.toLowerCase()}`
 		}
 		axios
-			.post(`http://${GetApiUrl()}/cal_auth`, auth_body, {
+			.post(`${GetApiUrl()}/cal_auth`, auth_body, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {

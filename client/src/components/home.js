@@ -21,7 +21,7 @@ export default function Home(props) {
 	//Get all grades & points from NodeJS API
 	useEffect(() => {
 		axios
-			.get(`http://${GetApiUrl()}/home`, {
+			.get(`${GetApiUrl()}/home`, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {

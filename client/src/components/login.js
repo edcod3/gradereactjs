@@ -53,7 +53,7 @@ export default function Login(props) {
 		}
 		//console.log(loginjson)
 		axios
-			.post(`http://${GetApiUrl()}/login`, loginjson, {
+			.post(`${GetApiUrl()}/login`, loginjson, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {
@@ -83,7 +83,7 @@ export default function Login(props) {
 			password_reg: formInput.password_reg
 		}
 		axios
-			.post(`http://${GetApiUrl()}/register`, regjson, {
+			.post(`${GetApiUrl()}/register`, regjson, {
 				headers: { "Content-Type": "application/json" }
 			})
 			.then((res) => {
