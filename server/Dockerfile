@@ -10,8 +10,8 @@ WORKDIR /nodejs
 
 COPY package*.json ./
 
-RUN npm install --only=production
-RUN npm install pm2 -g
+RUN npm install --only=production --no-optional
+RUN npm install pm2 -g --no-optional
 RUN npm install express-mysql-session
 
 COPY ./ .
