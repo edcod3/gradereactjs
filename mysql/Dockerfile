@@ -1,6 +1,6 @@
 FROM mysql:latest
 
-COPY ./gradejs.sql /docker-entrypoint-initdb.d/
+COPY ./*.sql /docker-entrypoint-initdb.d/
 
 
 
