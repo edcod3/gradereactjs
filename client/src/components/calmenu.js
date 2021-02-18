@@ -44,7 +44,7 @@ export default function CalendarMenu() {
 			})
 			.then((res) => {
 				if (res.data.auth_succ) {
-					console.log("auth_success: " + res.data.auth_succ)
+					//console.log("auth_success: " + res.data.auth_succ)
 					setAuthed({ auth: true, msg: "" })
 					setpersAuth(res.data.auth_check_hash)
 				} else {
