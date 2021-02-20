@@ -18,7 +18,7 @@ router.use(bodyParser.json());
 
 //Enable CORS-Policy request (ReactJS fetch)
 const corsOpts = {
-	origin: process.env.REACT_URL,
+	origin: [process.env.REACT_URL, process.env.REACT_WWW_URL],
 	methods: ["GET", "HEAD", "PUT", "POST", "DELETE", "OPTIONS"],
 	credentials: true
 };

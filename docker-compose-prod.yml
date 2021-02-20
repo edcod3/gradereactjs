@@ -37,6 +37,7 @@ services:
       - SESS_DOMAIN=${TEST_DOMAIN}
 #      - SESS_DOMAIN=${MY_DOMAIN}
       - REACT_URL={HOST_URL}
+      - REACT_WWW_URL={HOST_WWW_URL}
   reactjs:
     build: 
       context: ./client
