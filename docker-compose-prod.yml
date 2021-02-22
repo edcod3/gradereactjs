@@ -56,6 +56,12 @@ services:
     build: 
       context: ./nginx
       dockerfile: Dockerfile
+      args:
+        - NGINX_DOM=${MY_DOMAIN}
+        - NGINX_WWWDOM=${MY_WWW_DOMAIN}
+        - CERT_PATH=${SSL_CERT_PATH}
+        - CERTKEY_PATH=${SSL_CERTKEY_PATH}
+        - CH_ONLY=${CH_ONLY}
     container_name: nginx-gradereactjs
     volumes:
       - ./nginx/conf_other/onlych.conf:/etc/nginx/conf.d/onlych.conf
@@ -74,12 +80,6 @@ services:
       - "nodejs:nodejs"
     networks:
       - gradereactjsnet
-    environment: 
-      - NGINX_DOM=${MY_DOMAIN}
-      - NGINX_WWWDOM=${MY_WWW_DOMAIN}
-      - CERT_PATH=${SSL_CERT_PATH}
-      - CERTKEY_PATH=${SSL_CERTKEY_PATH}
-      - CH_ONLY=${CH_ONLY}
 
 #  certbot:
 #    image: certbot/certbot

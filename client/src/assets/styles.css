@@ -644,7 +644,7 @@ table .edit-td {
     font-size: 15px;
     padding: 5px;
     width: 151.43px;
-    height: 42.4px;
+    height: 38px;
     transition: all 0.5s;
     cursor: pointer;
     margin: 5px;
@@ -983,7 +983,6 @@ table .edit-td {
 @media screen and (max-width: 430px) {
   table, tr, #subj_row1_update {
     margin: 0px auto;
-    width: 80%;
   }
 
   th, td {
@@ -995,9 +994,6 @@ table .edit-td {
     padding: 5px !important;
   }
 
-  #home_grades {
-    margin-left: 7.5%;
-  }
 }
 
 /* ---------------------- */ 
@@ -1130,8 +1126,13 @@ To-Do
   }
 }
 
-@media screen and (max-width: 360px) {
+/* Calendar & Calculator */
+@media screen and (max-width: 361px) {
   .rbc-agenda-table td, .rbc-agenda-table td {
     font-size: 12px;
+  }
+
+  .calc_btn, .add_btn {
+    margin: 0;
   }
 }

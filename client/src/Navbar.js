@@ -16,7 +16,7 @@ export default function Navbar(props) {
 		let subj = location.pathname.replace("/", "")
 		//console.log(subj)
 		//Only apply sticky navbar to subject locations
-		if (subjtables.includes(subj)) {
+		if (subjtables.includes(subj) && window.innerWidth > 520) {
 			setnavclass("topnav sticky")
 		} else {
 			setnavclass("topnav")
