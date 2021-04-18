@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const script = require("../utils/script");
 
-module.exports.DuplUser = function (res, uname) {
+function DuplUser(res, uname) {
 	return new Promise((resolve, reject) => {
 		res.locals.con.query(
 			"SELECT uname FROM users WHERE uname = ?",
@@ -18,7 +18,7 @@ module.exports.DuplUser = function (res, uname) {
 			}
 		);
 	});
-};
+}
 
 module.exports.Register = function (req, res) {
 	//console.log("async started");
@@ -323,4 +323,5 @@ function ErrHandler(res, err) {
 	return;
 }
 
+module.exports.DuplUser = DuplUser;
 module.exports.ErrHandler = ErrHandler;

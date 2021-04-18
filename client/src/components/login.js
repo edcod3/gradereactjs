@@ -187,6 +187,7 @@ export default function Login(props) {
 					<p className="message">
 						Bereits registriert?{" "}
 						<button
+							type="button"
 							className="formchange-button"
 							onClick={() => ChangeForm(registerForm)}>
 							Log dich ein
@@ -218,6 +219,7 @@ export default function Login(props) {
 					<p className="message">
 						Noch nicht registriert?{" "}
 						<button
+							type="button"
 							className="formchange-button"
 							onClick={() => ChangeForm(loginForm)}>
 							Erstelle ein Konto
