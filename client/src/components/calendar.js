@@ -46,7 +46,7 @@ export default function CalendarApp() {
 
 	useEffect(() => {
 		fetch(
-			`https://api.teamup.com/${cal_key}/events?startDate=2020-02-08&endDate=2021-08-12`,
+			`https://api.teamup.com/${cal_key}/events?startDate=2021-08-15&endDate=2022-08-12`,
 			{
 				credentials: "omit",
 				method: "get",
