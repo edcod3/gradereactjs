@@ -6,6 +6,8 @@ html {
 .main-body {
   margin: 0;
   padding: 0;
+  background-color: var(--main-bg);
+  color: var(--main-font-color);
 }
 
 /* Login CSS */
@@ -378,7 +380,7 @@ html {
 }
 
 #wrapper_home h2 {
-  color: black;
+  /*color: black;*/
   float: left;
   font-weight: 100;
   font-size: 20px;
@@ -458,7 +460,7 @@ li {
 }
 
 #wrapper_show h2, #wrapper_add h2 {
-  color: black;
+  /*color: black;*/
   float: left;
   font-weight: 100;
   font-size: 20px;
@@ -474,19 +476,23 @@ table {
 
 
 th, td {
-  border: 1px solid #ddd;
+  border: var(--border-outline);
   padding: 8px;
 }
 
-table tr:nth-child(even){background-color: #f2f2f2;}
+table tr:nth-child(even){
+  background-color: var(--even-child-bg);
+}
 
-table tr:hover {background-color: #ddd;}
+table tr:hover {
+  background-color: var(--hover-bg);
+}
 
 th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: center;
-  background-color: #4bb1f5;
+  background-color: var(--header-bg);
   color: white;
 }
 
@@ -502,11 +508,11 @@ table .edit-td {
 }
 
 .subj_row_foot, .home_row_foot {
-  background-color: #eaf7ff !important;
+  background-color: var(--row-foot-bg) !important;
 }
 
 .td_points, .td_avg {
-  background-color: #d9f0ff !important;
+  background-color: var(--row-points-avg) !important;
 }
 
 
@@ -515,10 +521,10 @@ table .edit-td {
 }
 
 .none {
-  background-color: white !important;
+  background-color: var(--none-color) !important;
   /*border: none !important;*/ 
-  border-bottom-color: white !important;
-  border-left-color: white !important;
+  border-bottom-color: var(--none-color) !important;
+  border-left-color: var(--none-color) !important;
 }
 
 .ungenügend {
@@ -1134,5 +1140,63 @@ To-Do
 
   .calc_btn, .add_btn {
     margin: 0;
+  }
+}
+
+/* Color Themes */
+
+/* Light theme (default) */
+body {
+  --main-bg: white;
+}
+
+th, td {
+  --border-outline: 1px solid #ddd; 
+  --header-bg: #4bb1f5;
+}
+
+table {
+  --even-child-bg: #f2f2f2;
+  --hover-bg: #ddd;
+}
+
+.none {
+  --none-color: white;
+}
+
+.subj_row_foot, .home_row_foot {
+  --row-foot-bg: #eaf7ff;
+}
+
+.td_points, .td_avg {
+  --row-points-avg: #d9f0ff;
+}
+
+/* Dark theme */
+@media (prefers-color-scheme: dark) {
+  body {
+    --main-bg: #1f1f1f;
+    --main-font-color: white;
+  }
+
+  th, td {
+    --border-outline: 1px solid black; 
+    --header-bg: #0a5fb4;
+  }
+
+  table {
+    --even-child-bg: #0d0d0d;
+    --hover-bg: #222222;
+  }
+
+  .none {
+    --none-color: #1f1f1f;
+  }
+  .subj_row_foot, .home_row_foot {
+    --row-foot-bg: #000f15;
+  }
+  
+  .td_points, .td_avg {
+    --row-points-avg: #001126;
   }
 }
