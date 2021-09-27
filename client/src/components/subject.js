@@ -161,7 +161,7 @@ export default function Subject(props) {
 														setupdateRow(i)
 													}>
 													<i
-														className="material-icons"
+														className="material-icons md-edit"
 														style={{
 															fontSize: "22px"
 														}}>

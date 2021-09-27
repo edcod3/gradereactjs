@@ -114,7 +114,7 @@ export default function Calculator() {
 						} else {
 							return (
 								<tr key={"row" + row.id}>
-									<td style={{ color: "black" }}>
+									<td>
 										Notenrechner
 										{window.innerWidth <= 488 ? (
 											<br />

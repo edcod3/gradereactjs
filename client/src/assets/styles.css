@@ -30,18 +30,19 @@ html {
 .form {
   position: relative;
   z-index: 1;
-  background: #FFFFFF;
+  background: var(--login-form-bg);
   max-width: 360px;
   margin: 0 auto 100px;
   padding: 45px;
   padding-top: 10px;
   text-align: center;
+  color: var(--main-font-color);
   box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
 }
 .form input {
   font-family: "Roboto", sans-serif;
   outline: 0;
-  background: #f2f2f2;
+  background: var(--login-form-text-bg);
   width: 100%;
   border: 0;
   margin: 0 0 15px;
@@ -53,7 +54,7 @@ html {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
   outline: 0;
-  background:#43b1fa;
+  background: var(--form-button);
   width: 100%;
   border: 0;
   padding: 15px;
@@ -64,7 +65,7 @@ html {
   cursor: pointer;
 }
 .form-button:hover,.form-button:active,.form-button:focus {
-  background:#0698fa;
+  background: var(--form-button);
 }
 .form .message {
   margin: 15px 0 0;
@@ -163,13 +164,60 @@ html {
 .login-body {
   margin: 0;
   background: #d9f0ff; /* fallback for old browsers */
-  background: -webkit-linear-gradient(right, #d9f0ff, #9ed8ff);
-  background: -moz-linear-gradient(right, #d9f0ff, #9ed8ff);
-  background: -o-linear-gradient(right, #d9f0ff, #9ed8ff);
-  background: linear-gradient(to left, #d9f0ff, #9ed8ff);
+  background: var(--login-bg-fallback); /* fallback for old browsers */
+  background: var(--login-bg-webkit); /* Webkit */
+  background: var(--login-bg-moz); /* Mozilla */
+  background: var(--login-bg-o); /* Opera? */
+  background: var(--login-bg-lg); /* Everthing else */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;      
 }
+
+/* Login Body Styling */
+
+.login-body {
+  --login-bg-webkit: -webkit-linear-gradient(right, #d9f0ff, #9ed8ff);
+  --login-bg-moz: -moz-linear-gradient(right, #d9f0ff, #9ed8ff);
+  --login-bg-o: -o-linear-gradient(right, #d9f0ff, #9ed8ff);
+  --login-bg-lg: linear-gradient(to left, #d9f0ff, #9ed8ff);
+  --login-bg-fallback: #d9f0ff;
+}
+
+.form {
+  --login-form-bg: #FFFFFF;
+}
+
+.form input {
+  --login-form-text-bg: #f2f2f2;
+}
+
+.form-button {
+  --form-button: #43b1fa;
+}
+
+@media (prefers-color-scheme: dark) {
+  .login-body {
+    --login-bg-webkit: -webkit-linear-gradient(right, #0072bd, #005188);
+    --login-bg-moz: -moz-linear-gradient(right, #0072bd, #005188);
+    --login-bg-o: -o-linear-gradient(right, #0072bd, #005188);
+    --login-bg-lg: linear-gradient(to left, #0072bd, #005188);
+    --login-bg-fallback: #d9f0ff;
+  }
+
+  .form {
+    --login-form-bg: #404040;
+  }
+
+  .form input {
+    --login-form-text-bg: #626262;
+    color: white;
+  }
+
+  .form-button {
+    --form-button: #0571b9;
+  }
+}
+
 
 /*html, body { margin: 0 !important; padding: 0 !important}*/
 
@@ -300,14 +348,14 @@ html {
   z-index: 10;
   display: none;
   position: fixed;
-  background-color: #f9f9f9;
+  background-color: var(--main-bg);
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   margin-top: 58.4px;
 }
 
 .dropdown-content a {
   float: none;
-  color: black;
+  color: var(--dropdown-font-color);
   padding: 20px 22px;
   text-decoration: none;
   display: block;
@@ -315,7 +363,7 @@ html {
 }
 
 .dropdown-content a:hover {
-  background-color: #ddd;
+  background-color: var(--dropdown-hover-bg);
 }
 
 .dropdown:hover .dropdown-content, .dropdown:active .dropdown-content, .dropdown:focus .dropdown-content {
@@ -442,7 +490,7 @@ li {
 }
 
 .unneccessary {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: var(--dropdown-unneccessary-bg);
 }
 
 
@@ -556,7 +604,7 @@ table .edit-td {
 /** Button Effects**/
 .grade_btn {
   border-radius: 4px;
-  background-color: #3ea4f8;
+  background-color: var(--grade-button-bg);
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -597,7 +645,7 @@ table .edit-td {
 
 .update_btn {
   border-radius: 4px;
-  background-color: #3ea4f8;
+  background-color: var(--grade-button-bg);
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -607,6 +655,12 @@ table .edit-td {
   width: inherit;
   cursor: pointer;
   margin: 0;
+}
+
+/* Update Grade (Material Icon) */
+
+.md-edit {
+  color: var(--color-edit-icon);
 }
 
 /* Erfolreiche Hochladung */
@@ -643,7 +697,7 @@ table .edit-td {
 /** Button Effects**/
 .calc_btn {
     border-radius: 4px;
-    background-color: #3ea4f8;
+    background-color: var(--grade-button-bg);
     border: none;
     color: #FFFFFF;
     text-align: center;
@@ -699,7 +753,7 @@ table .edit-td {
 }
 
 .add_btn:hover {
-  background-color: rgba(75, 177, 245, 1);
+  background-color: var(--add-button-bg);
 }
 
 /* Div */
@@ -738,12 +792,13 @@ table .edit-td {
 }
 
 #inputTable tr {
-  background-color: white;
+  background-color: var(--main-bg);
 }
 
 #inputTable td {
   padding: 0px;
   height: 40px;
+  color: var(--main-font-color);
 }
 
 #inputTable .subjdata {
@@ -759,7 +814,7 @@ table .edit-td {
 
 #calc_avg_desc {
   text-align: left;
-  background-color: #eaf7ff !important;
+  background-color: var(--calc-avg-desc) !important;
   color: black;
 }
 #calc_avg_desc p {
@@ -770,7 +825,7 @@ table .edit-td {
 
 #calc_avg_grade {
   color: black;
-  background-color: #d9f0ff !important;
+  background-color: var(--calc-avg) !important;
   font-weight: 600;
 }
 
@@ -891,19 +946,20 @@ table .edit-td {
 }
 
 .cal_form input {
-  background-color: #fbfbfb;
+  background-color: var(--cal-form-bg);
+  color: var(--cal-form-font-color);
   padding:10px;
   width: 15rem;
   margin:10px 0;
   border: none;
-  box-shadow:0 0 10px 2px rgba(0,0,0,0.09);
+  box-shadow: var(--cal-form-box-shadow);
 }
 
 .cal_btn {
   display: block;
   margin-top: 30px;
   border-radius: 4px;
-  background-color: #3ea4f8;
+  background-color: var(--grade-button-bg);
   border: none;
   color: #FFFFFF;
   text-align: center;
@@ -1146,8 +1202,18 @@ To-Do
 /* Color Themes */
 
 /* Light theme (default) */
+
+/* Home & Subject Color Scheme */
 body {
   --main-bg: white;
+  --main-font-color: black;
+}
+
+.dropdown-content {
+  --dropdown-bg: #f9f9f9;
+  --dropdown-font-color: black;
+  --dropdown-hover-bg: #ddd;
+  --dropdown-unneccessary-bg: rgba(255, 255, 255, 0.3);
 }
 
 th, td {
@@ -1172,11 +1238,47 @@ table {
   --row-points-avg: #d9f0ff;
 }
 
+.md-edit {
+  --color-edit-icon: black;
+}
+
+/* Add Grade Color Styling */
+
+button {
+  --grade-button-bg: #3ea4f8;
+}
+
+/* Calculator Color Styling */
+
+.add_btn {
+  --add-button-bg: #4bb1f5;
+}
+
+#inputTable td {
+  --calc-avg-desc: #eaf7ff;
+  --calc-avg: #d9f0ff;
+}
+
+.cal_form input {
+  --cal-form-bg: #fbfbfb;
+  --cal-form-font-color: black;
+  --cal-form-box-shadow: 0 0 10px 2px rgba(0,0,0,0.09);
+}
+
 /* Dark theme */
 @media (prefers-color-scheme: dark) {
+
+  /* Home & Subject Color Scheme */
   body {
     --main-bg: #1f1f1f;
     --main-font-color: white;
+  }
+
+  .dropdown-content {
+    --dropdown-bg: #060606;
+    --dropdown-font-color: white;
+    --dropdown-hover-bg: #2e2e2e;
+    --dropdown-unneccessary-bg: rgba(0, 0, 0, 0.3);
   }
 
   th, td {
@@ -1186,7 +1288,7 @@ table {
 
   table {
     --even-child-bg: #0d0d0d;
-    --hover-bg: #222222;
+    --hover-bg: #2e2e2e;
   }
 
   .none {
@@ -1198,5 +1300,68 @@ table {
   
   .td_points, .td_avg {
     --row-points-avg: #001126;
+  }
+
+  .md-edit {
+    --color-edit-icon: white;
+  }
+
+
+  /*Add Grade Color Styling */
+
+  td input, select {
+    color: white;
+    background-color: #313131;
+    border: 1px solid #575757;
+  }
+
+  button {
+    --grade-button-bg: #0a5eb3;
+  }
+
+
+  /* Calculator Styling */
+
+  .add_btn {
+    --add-button-bg: #0c67c2;
+  }
+
+  #inputTable td {
+    --calc-avg-desc: #000f15;
+    --calc-avg: #001126;
+  }
+
+  /* Calendar Styling */
+
+  .cal_form input {
+    --cal-form-bg: #040404;
+    --cal-form-font-color: white;
+    --cal-form-box-shadow: 0 0 10px 2px rgba(255,255,255,0.09);
+  }
+
+  .rbc-off-range-bg {
+    background: #363636;
+  }
+
+  .rbc-today {
+    background-color: #022b3a;
+  }
+
+  .rbc-toolbar button {
+    color: #c8c5c3;
+  }
+
+  .rbc-toolbar button.rbc-active {
+    background-color: #474747;
+  }
+
+  .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus {
+    background-color: #3b3b3b;
+    color: #c8c5c3;
+  }
+
+  .rbc-toolbar button:hover, .rbc-toolbar button:focus {
+    background-color: #3b3b3b;
+    color: #c8c5c3;
   }
 }
