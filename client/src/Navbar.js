@@ -1,7 +1,6 @@
 import { React, useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { subjtables } from "./utils/scripts"
-import { useMediaQuery } from "./utils/customHooks"
 import Toggle  from "react-toggle"
 import "./assets/react-toggle.css"
 
@@ -11,13 +10,8 @@ export default function Navbar(props) {
 	//State for mobile formatting
 	const [showMobile, setMobile] = useState(false)
 	const [MobileDropdown, setMobileDropdown] = useState(false)
-	const [isDark, setIsDark] = useState(true)
 	//Location for conditional sticky navbar
 	let location = useLocation()
-
-	const systemPrefersDark = useMediaQuery('(prefers-color-scheme: dark)');
-
-	console.log("System dark preference: "+systemPrefersDark);
 
 	useEffect(() => {
 		// Get Current Location
@@ -137,9 +131,10 @@ export default function Navbar(props) {
 					<label>
 						<Toggle
 							className="dark-mode-toggle logout"
-							checked={isDark}
-							onChange={({ target }) => setIsDark(target.checked)}
-							icons={{ checked: "🌙", unchecked: "🔆" }}
+							checked={(props.isDark === "dark") ? true : false}
+							//onChange={({ target }) => setIsDark(target.checked)}
+							onChange={({ target }) => {props.setIsDark(target.checked ? "dark": "light"); console.log(props.isDark)}}
+							icons={{ checked: "🌙", unchecked: "☀️" }}
 							aria-label="Dark mode toggle"
 						/>
 					</label>

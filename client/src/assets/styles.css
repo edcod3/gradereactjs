@@ -173,7 +173,7 @@ html {
   -moz-osx-font-smoothing: grayscale;      
 }
 
-/* Login Body Styling */
+/* Login Body Color Scheme */
 
 .login-body {
   --login-bg-webkit: -webkit-linear-gradient(right, #d9f0ff, #9ed8ff);
@@ -195,6 +195,29 @@ html {
   --form-button: #43b1fa;
 }
 
+.login-body[data-theme="dark"] {
+  --login-bg-webkit: -webkit-linear-gradient(right, #0072bd, #005188);
+  --login-bg-moz: -moz-linear-gradient(right, #0072bd, #005188);
+  --login-bg-o: -o-linear-gradient(right, #0072bd, #005188);
+  --login-bg-lg: linear-gradient(to left, #0072bd, #005188);
+  --login-bg-fallback: #d9f0ff;
+}
+
+[data-theme="dark"] .form {
+  --login-form-bg: #404040;
+}
+
+[data-theme="dark"] .form input {
+  --login-form-text-bg: #626262;
+  color: white;
+}
+
+[data-theme="dark"] .form-button {
+  --form-button: #0571b9;
+}
+
+
+/*
 @media (prefers-color-scheme: dark) {
   .login-body {
     --login-bg-webkit: -webkit-linear-gradient(right, #0072bd, #005188);
@@ -217,7 +240,7 @@ html {
     --form-button: #0571b9;
   }
 }
-
+*/
 
 /*html, body { margin: 0 !important; padding: 0 !important}*/
 
@@ -1266,9 +1289,108 @@ button {
 }
 
 /* Dark theme */
+
+body[data-theme="dark"] {
+  --main-bg: #1f1f1f;
+  --main-font-color: white;
+}
+
+[data-theme="dark"] .dropdown-content {
+  --dropdown-bg: #060606;
+  --dropdown-font-color: white;
+  --dropdown-hover-bg: #2e2e2e;
+  --dropdown-unneccessary-bg: rgba(0, 0, 0, 0.3);
+}
+
+[data-theme="dark"] th, td {
+  --border-outline: 1px solid black; 
+  --header-bg: #0a5fb4;
+}
+
+[data-theme="dark"] table {
+  --even-child-bg: #0d0d0d;
+  --hover-bg: #2e2e2e;
+}
+
+[data-theme="dark"] .none {
+  --none-color: #1f1f1f;
+}
+[data-theme="dark"] .subj_row_foot, .home_row_foot {
+  --row-foot-bg: #000f15;
+}
+  
+[data-theme="dark"] .td_points, .td_avg {
+  --row-points-avg: #001126;
+}
+
+[data-theme="dark"] .md-edit {
+  --color-edit-icon: white;
+}
+
+
+/*Add Grade Color Styling*/ 
+
+[data-theme="dark"] td input, select {
+  color: white;
+  background-color: #313131;
+  border: 1px solid #575757;
+}
+
+[data-theme="dark"] button {
+  --grade-button-bg: #0a5eb3;
+}
+
+
+/* Calculator Styling */ 
+
+[data-theme="dark"] .add_btn {
+  --add-button-bg: #0c67c2;
+}
+
+[data-theme="dark"] #inputTable td {
+  --calc-avg-desc: #000f15;
+  --calc-avg: #001126;
+}
+
+/* Calendar Styling */ 
+
+[data-theme="dark"] .cal_form input {
+  --cal-form-bg: #040404;
+  --cal-form-font-color: white;
+  --cal-form-box-shadow: 0 0 10px 2px rgba(255,255,255,0.09);
+}
+
+[data-theme="dark"] .rbc-off-range-bg {
+  background: #363636;
+}
+
+[data-theme="dark"] .rbc-today {
+  background-color: #022b3a;
+}
+
+[data-theme="dark"] .rbc-toolbar button {
+  color: #c8c5c3;
+}
+
+[data-theme="dark"] .rbc-toolbar button.rbc-active {
+  background-color: #474747;
+}
+
+[data-theme="dark"] .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus {
+  background-color: #3b3b3b;
+  color: #c8c5c3;
+}
+
+[data-theme="dark"] .rbc-toolbar button:hover, .rbc-toolbar button:focus {
+  background-color: #3b3b3b;
+  color: #c8c5c3;
+}
+
+/* Dark theme */
+/*
 @media (prefers-color-scheme: dark) {
 
-  /* Home & Subject Color Scheme */
+  // Home & Subject Color Scheme 
   body {
     --main-bg: #1f1f1f;
     --main-font-color: white;
@@ -1307,7 +1429,7 @@ button {
   }
 
 
-  /*Add Grade Color Styling */
+  //Add Grade Color Styling 
 
   td input, select {
     color: white;
@@ -1320,7 +1442,7 @@ button {
   }
 
 
-  /* Calculator Styling */
+  // Calculator Styling 
 
   .add_btn {
     --add-button-bg: #0c67c2;
@@ -1331,7 +1453,7 @@ button {
     --calc-avg: #001126;
   }
 
-  /* Calendar Styling */
+  // Calendar Styling 
 
   .cal_form input {
     --cal-form-bg: #040404;
@@ -1365,3 +1487,4 @@ button {
     color: #c8c5c3;
   }
 }
+*/
