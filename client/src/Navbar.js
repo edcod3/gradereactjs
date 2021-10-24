@@ -1,6 +1,7 @@
 import { React, useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
 import { subjtables } from "./utils/scripts"
+import { useTheme } from "./utils/ThemeProvider"
 import Toggle  from "react-toggle"
 import "./assets/react-toggle.css"
 
@@ -10,6 +11,8 @@ export default function Navbar(props) {
 	//State for mobile formatting
 	const [showMobile, setMobile] = useState(false)
 	const [MobileDropdown, setMobileDropdown] = useState(false)
+	//Color Theme Styling
+	const {theme, setTheme} = useTheme()
 	//Location for conditional sticky navbar
 	let location = useLocation()
 
@@ -131,9 +134,8 @@ export default function Navbar(props) {
 					<label>
 						<Toggle
 							className="dark-mode-toggle logout"
-							checked={(props.isDark === "dark") ? true : false}
-							//onChange={({ target }) => setIsDark(target.checked)}
-							onChange={({ target }) => {props.setIsDark(target.checked ? "dark": "light"); console.log(props.isDark)}}
+							checked={(theme === "dark") ? true : false}
+							onChange={({ target }) => setTheme(target.checked ? "dark" : "light")}
 							icons={{ checked: "🌙", unchecked: "☀️" }}
 							aria-label="Dark mode toggle"
 						/>

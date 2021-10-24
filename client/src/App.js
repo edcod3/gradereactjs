@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Switch, Route, Redirect } from "react-router-dom"
 import axios from "axios"
 import { useAlert } from "react-alert"
+import { ThemeProvider } from "./utils/ThemeProvider"
 import Navbar from "./Navbar"
 import Login from "./components/login"
 import Home from "./components/home"
@@ -12,7 +13,7 @@ import { subjtables, SessionLogout } from "./utils/scripts"
 import { GetApiUrl } from "./utils/apiurl"
 import CalendarMenu from "./components/calmenu"
 
-function App(props) {
+function App() {
 	//Enable express-session persistence
 	axios.defaults.withCredentials = true
 
@@ -62,12 +63,11 @@ function App(props) {
 	}
 
 	return (
-		<>
+		<ThemeProvider>
 			{loggedIn ? (
 				<Navbar
 					uname={sessionStorage.getItem("user")}
 					logout={logout}
-					{...props}
 				/>
 			) : (
 				<div></div>
@@ -127,7 +127,7 @@ function App(props) {
 					)}
 				</Route>
 			</Switch>
-		</>
+		</ThemeProvider>
 	)
 }
 

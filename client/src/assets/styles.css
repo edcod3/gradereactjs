@@ -825,7 +825,7 @@ table .edit-td {
 }
 
 #inputTable .subjdata {
-  background-color: rgba(255, 255, 255, 0.6);
+  background-color: var(--subjdata-bg-color);
   color: black;
   opacity: 0.7;
 }
@@ -1282,6 +1282,10 @@ button {
   --calc-avg: #d9f0ff;
 }
 
+#inputTable .subjdata {
+  --subjdata-bg-color: rgba(255, 255, 255, 0.6); 
+}
+
 .cal_form input {
   --cal-form-bg: #fbfbfb;
   --cal-form-font-color: black;
@@ -1302,7 +1306,7 @@ body[data-theme="dark"] {
   --dropdown-unneccessary-bg: rgba(0, 0, 0, 0.3);
 }
 
-[data-theme="dark"] th, td {
+[data-theme="dark"] th, [data-theme="dark"] td {
   --border-outline: 1px solid black; 
   --header-bg: #0a5fb4;
 }
@@ -1315,11 +1319,11 @@ body[data-theme="dark"] {
 [data-theme="dark"] .none {
   --none-color: #1f1f1f;
 }
-[data-theme="dark"] .subj_row_foot, .home_row_foot {
+[data-theme="dark"] .subj_row_foot, [data-theme="dark"] .home_row_foot {
   --row-foot-bg: #000f15;
 }
   
-[data-theme="dark"] .td_points, .td_avg {
+[data-theme="dark"] .td_points, [data-theme="dark"] .td_avg {
   --row-points-avg: #001126;
 }
 
@@ -1330,7 +1334,7 @@ body[data-theme="dark"] {
 
 /*Add Grade Color Styling*/ 
 
-[data-theme="dark"] td input, select {
+[data-theme="dark"] td input, [data-theme="dark"] select {
   color: white;
   background-color: #313131;
   border: 1px solid #575757;
@@ -1350,6 +1354,10 @@ body[data-theme="dark"] {
 [data-theme="dark"] #inputTable td {
   --calc-avg-desc: #000f15;
   --calc-avg: #001126;
+}
+
+[data-theme="dark"] #inputTable .subjdata {
+  --subjdata-bg-color: rgba(255, 255, 255, 0.01); 
 }
 
 /* Calendar Styling */ 
@@ -1376,12 +1384,12 @@ body[data-theme="dark"] {
   background-color: #474747;
 }
 
-[data-theme="dark"] .rbc-toolbar button.rbc-active:hover, .rbc-toolbar button.rbc-active:focus {
+[data-theme="dark"] .rbc-toolbar button.rbc-active:hover, [data-theme="dark"] .rbc-toolbar button.rbc-active:focus {
   background-color: #3b3b3b;
   color: #c8c5c3;
 }
 
-[data-theme="dark"] .rbc-toolbar button:hover, .rbc-toolbar button:focus {
+[data-theme="dark"] .rbc-toolbar button:hover, [data-theme="dark"] .rbc-toolbar button:focus {
   background-color: #3b3b3b;
   color: #c8c5c3;
 }
