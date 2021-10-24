@@ -6,7 +6,6 @@ WORKDIR /reactjs
 
 COPY . .
 RUN npm install --only=production
-RUN npm install react-toggle 
 #RUN npm run build
 
 CMD ["npm", "run", "start"]
