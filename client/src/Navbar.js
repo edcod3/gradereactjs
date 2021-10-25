@@ -51,6 +51,15 @@ export default function Navbar(props) {
 						Ausloggen
 					</button>
 					<p className="user user-p">{props.uname}</p>
+					<label>
+						<Toggle
+							className="dark-mode-toggle logout"
+							checked={(theme === "dark") ? true : false}
+							onChange={({ target }) => setTheme(target.checked ? "dark" : "light")}
+							icons={{ checked: "🌙", unchecked: "☀️" }}
+							aria-label="Dark mode toggle"
+						/>
+					</label>
 					<div
 						className={
 							showMobile ? "mobile_menu_show" : "mobile_menu_hide"

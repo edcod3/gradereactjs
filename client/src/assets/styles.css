@@ -872,18 +872,31 @@ table .edit-td {
 /* Media Queries */
 
 /* Navbar */
+@media screen and (max-width: 718px) {
+  .topnav a, .user, .logout, .dropdown .dropbtn {
+    padding: 20px 12px;
+  }
+}
 
 @media screen and (max-width: 640px) {
   .topnav a, .user, .logout, .dropdown .dropbtn {
     padding: 16px 12px;
   }
   .dropdown-content {
-    margin-top: 51px;
+    margin-top: 50px;
+  }
+}
+
+@media screen and (max-width: 580px) {
+  .topnav a, .user, .logout, .dropdown .dropbtn {
+    padding: 16px 7px;
   }
 }
 
 @media screen and (max-width: 520px) {
-
+  .topnav a, .user, .logout, .dropdown .dropbtn {
+    padding: 16px 12px;
+  }
   .topnav .active_nav {
     display: block;
   }
@@ -901,8 +914,8 @@ table .edit-td {
 
   .topnav #dropdown_arrow {
     color: white;
-    height: 0px;
     width: 0px;
+    vertical-align: middle;
   }
 
   .dropdown {
