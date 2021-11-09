@@ -1071,6 +1071,7 @@ table .edit-td {
     max-width: 200px !important;
     padding: 6px;
     text-overflow: ellipsis;
+    font-size: 13px;
   }
 
   .wrapper {

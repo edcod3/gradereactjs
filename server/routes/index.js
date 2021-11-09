@@ -164,6 +164,15 @@ router.get("/sports", function (req, res) {
 		res.redirect("/api/login");
 	}
 });
+
+router.get("/t_u", function (req, res) {
+	if (req.session.loggedin) {
+		services.ShowGrades(req, res);
+	} else {
+		res.redirect("/api/login");
+	}
+});
+
 /* -------------- */
 
 /* GradeJS Managment */

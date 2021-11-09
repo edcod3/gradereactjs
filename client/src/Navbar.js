@@ -102,6 +102,9 @@ export default function Navbar(props) {
 								<Link to="/app_development">
 									App Entwicklung
 								</Link>
+								<Link to="/t_u">
+									Technik & Umwelt
+								</Link>
 								<Link className="unneccessary" to="/sports">
 									Sport
 								</Link>
@@ -127,6 +130,7 @@ export default function Navbar(props) {
 							<Link to="/mathematics">Mathematik</Link>
 							<Link to="/system_technology">Systemtechnik</Link>
 							<Link to="/app_development">App Entwicklung</Link>
+							<Link to="/t_u">Technik & Umwelt</Link>
 							<Link className="unneccessary" to="/sports">
 								Sport
 							</Link>

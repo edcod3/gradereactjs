@@ -39,7 +39,8 @@ export function SubjName(rawsubj) {
 		history: "Geschichte",
 		mathematics: "Mathematik",
 		sports: "Sport",
-		system_technology: "Systemtechnik"
+		system_technology: "Systemtechnik",
+		t_u: "Technik & Umwelt"
 	}
 	return tables[rawsubj]
 }
@@ -56,7 +57,8 @@ export function ReverseSubjName(rawsubj) {
 		Geschichte: "history",
 		Mathematik: "mathematics",
 		Sport: "sports",
-		Systemtechnik: "system_technology"
+		Systemtechnik: "system_technology",
+		"Technik & Umwelt": "t_u"
 	}
 	return tables[rawsubj]
 }
@@ -86,5 +88,6 @@ export const subjtables = [
 	"history",
 	"mathematics",
 	"sports",
-	"system_technology"
+	"system_technology",
+	"t_u"
 ]

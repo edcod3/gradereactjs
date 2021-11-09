@@ -114,7 +114,8 @@ const tables = new Array(
 	"history",
 	"mathematics",
 	"sports",
-	"system_technology"
+	"system_technology",
+	"t_u"
 );
 const germtables = new Array(
 	"App Entwicklung",
@@ -126,7 +127,8 @@ const germtables = new Array(
 	"Geschichte",
 	"Mathematik",
 	"Sport",
-	"Systemtechnik"
+	"Systemtechnik",
+	"Technik & Umwelt"
 );
 
 function OutputSubj(rawsubj) {
