@@ -1,6 +1,6 @@
 import { React, useState, useEffect } from "react"
 import { Link, useLocation } from "react-router-dom"
-import { subjtables } from "./utils/scripts"
+import { subjtables, SubjName } from "./utils/scripts"
 import { useTheme } from "./utils/ThemeProvider"
 import Toggle  from "react-toggle"
 import "./assets/react-toggle.css"
@@ -89,25 +89,17 @@ export default function Navbar(props) {
 										? { display: "block" }
 										: { display: "none" }
 								}>
-								<Link to="/german">Deutsch</Link>
-								<Link to="/english">Englisch</Link>
-								<Link to="/french">Französisch</Link>
-								<Link to="/history">Geschichte</Link>
-								<Link to="/economics">WIR</Link>
-								<Link to="/finances">FRW</Link>
-								<Link to="/mathematics">Mathematik</Link>
-								<Link to="/system_technology">
-									Systemtechnik
-								</Link>
-								<Link to="/app_development">
-									App Entwicklung
-								</Link>
-								<Link to="/t_u">
-									Technik & Umwelt
-								</Link>
-								<Link className="unneccessary" to="/sports">
-									Sport
-								</Link>
+								{subjtables.map((subj, i) => {
+									if (subj !== "sports") {
+										return (
+											<Link to={subj} key={"subj"+i}>{SubjName(subj)}</Link>
+										)
+									} else {
+										return (
+											<Link className="unneccessary" to="/sports" key={"subj"+i}>Sport</Link>
+										)
+									}
+								})}
 							</div>
 						</div>
 						<Link to="/calculator">Noten-Rechner</Link>
@@ -121,19 +113,17 @@ export default function Navbar(props) {
 							Deine Noten
 						</Link>
 						<div className="dropdown-content">
-							<Link to="/german">Deutsch</Link>
-							<Link to="/english">Englisch</Link>
-							<Link to="/french">Französisch</Link>
-							<Link to="/history">Geschichte</Link>
-							<Link to="/economics">WIR</Link>
-							<Link to="/finances">FRW</Link>
-							<Link to="/mathematics">Mathematik</Link>
-							<Link to="/system_technology">Systemtechnik</Link>
-							<Link to="/app_development">App Entwicklung</Link>
-							<Link to="/t_u">Technik & Umwelt</Link>
-							<Link className="unneccessary" to="/sports">
-								Sport
-							</Link>
+							{subjtables.map((subj, i) => {
+								if (subj !== "sports") {
+									return (
+										<Link to={subj} key={"subj"+i}>{SubjName(subj)}</Link>
+									)
+								} else {
+									return (
+										<Link className="unneccessary" to="/sports" key={"subj"+i}>Sport</Link>
+									)
+								}
+							})}
 						</div>
 					</div>
 					<Link to="/calculator">Noten-Rechner</Link>

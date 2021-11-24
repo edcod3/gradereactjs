@@ -118,7 +118,7 @@ const tables = new Array(
 	"t_u"
 );
 const germtables = new Array(
-	"App Entwicklung",
+	"App Entwicklung (St)",
 	"Wirtschaft/Recht",
 	"Englisch",
 	"Finanz-/Rechnungswesen",
@@ -127,7 +127,7 @@ const germtables = new Array(
 	"Geschichte",
 	"Mathematik",
 	"Sport",
-	"Systemtechnik",
+	"App Entwicklung (Lu)",
 	"Technik & Umwelt"
 );
 

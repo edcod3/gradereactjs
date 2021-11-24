@@ -30,7 +30,7 @@ export function setInput(setState, event) {
 //Get formatted subject name from raw subject name
 export function SubjName(rawsubj) {
 	const tables = {
-		app_development: "App Entwicklung",
+		app_development: "App Entwicklung (St)",
 		economics: "Wirtschaft/Recht",
 		english: "Englisch",
 		finances: "Finanz-/Rechnungswesen",
@@ -39,7 +39,7 @@ export function SubjName(rawsubj) {
 		history: "Geschichte",
 		mathematics: "Mathematik",
 		sports: "Sport",
-		system_technology: "Systemtechnik",
+		system_technology: "App Entwicklung (Lu)",
 		t_u: "Technik & Umwelt"
 	}
 	return tables[rawsubj]
@@ -48,7 +48,7 @@ export function SubjName(rawsubj) {
 //Get raw subject name from formatted subject name
 export function ReverseSubjName(rawsubj) {
 	const tables = {
-		"App Entwicklung": "app_development",
+		"App Entwicklung (St)": "app_development",
 		"Wirtschaft/Recht": "economics",
 		Englisch: "english",
 		"Finanz-/Rechnungswesen": "finances",
@@ -57,7 +57,7 @@ export function ReverseSubjName(rawsubj) {
 		Geschichte: "history",
 		Mathematik: "mathematics",
 		Sport: "sports",
-		Systemtechnik: "system_technology",
+		"App Entwicklung (Lu)": "system_technology",
 		"Technik & Umwelt": "t_u"
 	}
 	return tables[rawsubj]
