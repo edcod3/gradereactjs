@@ -1,0 +1,86 @@
+.tu-wrapper {
+	margin: 1rem;
+}
+
+.tu-wrapper input {
+  --cal-form-bg: #fbfbfb;
+  --cal-form-font-color: black;
+  --cal-form-box-shadow: 0 0 10px 2px rgba(0,0,0,0.09);
+}
+
+[data-theme="dark"] .tu-wrapper input {
+  --cal-form-bg: #040404;
+  --cal-form-font-color: white;
+  --cal-form-box-shadow: 0 0 10px 2px rgba(255,255,255,0.09);
+}
+
+.tu-wrapper input{
+	width: 75%;
+	background-color: #272733;
+	border: none;
+	padding: 0.75rem 0.5rem;
+	margin: 0.75rem 0.25rem;
+	font-size: medium;
+	color: white;
+	background-color: var(--cal-form-bg);
+  	color: var(--cal-form-font-color);
+  	box-shadow: var(--cal-form-box-shadow);
+}
+
+.tu-wrapper label {
+	width: 20%;
+	display: inline-block;
+}
+.tu_btn {
+  display: block;
+  margin-top: 30px;
+  border-radius: 4px;
+  background-color: var(--grade-button-bg);
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 15px;
+  width: 150px;
+  padding: 10px;
+  transition: all 0.5s;
+  cursor: pointer;
+}
+
+.tu_btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.tu_btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.tu_btn:hover span {
+  padding-right: 25px;
+}
+
+.tu_btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+#check-div {
+	margin-top: 3rem;
+	padding-top: 0;
+}
+
+#tu-check-msg {
+	margin-left: 5rem;
+}
+
+.tu-wrapper svg, #tu-check-msg {
+	display: inline-block;
+	vertical-align: middle;
+}

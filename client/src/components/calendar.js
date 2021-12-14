@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react"
 //import axios from 'axios'
+import EventForm from "./calendar/EventForm"
 import { Calendar, momentLocalizer } from "react-big-calendar"
 import moment from "moment"
 import "moment/locale/de-ch"
@@ -87,6 +88,7 @@ export default function CalendarApp() {
 	}
 
 	return (
+		<>
 		<Calendar
 			popup
 			localizer={localizer}
@@ -102,5 +104,7 @@ export default function CalendarApp() {
 					: { height: "600px", margin: "10px 30px 10px 30px" }
 			}
 		/>
+		<EventForm />
+		</>
 	)
 }
