@@ -1,6 +1,9 @@
 export default function ConvertButton(props) {
+    //Adjust newline based on OS
     const platform = window.navigator.platform
     const delimiter = (platform.includes("Win")) ? "\r\n" : "\n";
+
+    //ICS header
     let icsBlob = [
         "BEGIN:VCALENDAR",
         "VERSION:2.0",
@@ -31,6 +34,7 @@ export default function ConvertButton(props) {
     const isoToIcsDate = (date) => date.replaceAll("-", "").replaceAll(":", "").split(".")[0]+"Z"
     const removeHtmlDesc = (text) => text.replaceAll("<p>", "").replaceAll("</p>", "")
 
+    //Convert event to ics format
     const getEventIcs = (event) => {
        let timestamp = new Date(event.creation_dt)
 
@@ -51,16 +55,28 @@ export default function ConvertButton(props) {
         return eventIcs + delimiter 
     }
 
+    //Save ICS file with filename
+    const save = (fileName, data) => {
+        let link = document.createElement('a')
+        link.download = fileName
+        link.href = "data:text/calendar;charset=utf8,"+data
+        link.click()
+    }
+
+    //Team-Up to ICS file
     const converter = () => {
         const events = props.events
         for (let i = 0; i < events.length; i++) {
             icsBlob += getEventIcs(events[i]);
         }
         icsBlob += "END:VCALENDAR"
-        window.open("data:text/calendar;charset=utf8,"+icsBlob)
-    }   
+        save("calendar.ics", icsBlob)
+   }   
 
     return (
-        <button className="tu_btn converter" onClick={converter}><i className="fa fa-download"></i>.ics herunterladen</button>
+        <button className="tu_btn converter" onClick={converter}>
+            <span className="material-icons">file_download</span>
+            <p> .ics herunterladen</p>
+        </button>
     )
 }

@@ -40,7 +40,7 @@
   color: #FFFFFF;
   text-align: center;
   font-size: 15px;
-  width: 150px;
+  width: auto;
   padding: 10px;
   transition: all 0.5s;
   cursor: pointer;
@@ -51,9 +51,21 @@
   display: inline-block;
   position: relative;
   transition: 0.5s;
+  vertical-align: middle;
 }
 
-.tu_btn span:after {
+.tu_btn p {
+  display: inline-block;
+  margin: 0;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+}
+
+.btn_export {
+  width: 150px;
+}
+
+.tu_btn #export:after {
   content: '\00bb';
   position: absolute;
   opacity: 0;
@@ -62,18 +74,13 @@
   transition: 0.5s;
 }
 
-.tu_btn:hover span {
+.tu_btn:hover #export {
   padding-right: 25px;
 }
 
-.tu_btn:hover span:after {
+.tu_btn:hover #export:after {
   opacity: 1;
   right: 0;
-}
-
-#check-div {
-	margin-top: 3rem;
-	padding-top: 0;
 }
 
 #tu-check-msg {

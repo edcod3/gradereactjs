@@ -24,10 +24,14 @@ export default function CalendarMenu() {
 					"Check-Token": persAuth
 				}
 			})
-			.then((res) =>
-				res.data.auth_check
-					? setAuthed({ auth: true, msg: "" })
-					: setAuthed({ auth: false, msg: "" })
+			.then((res) => {
+				if (res.data.auth_check) {
+					setAuthed({ auth: true, msg: "" })
+				} else {
+					setAuthed({ auth: false, msg: "" })
+					setpersAuth("")
+				}
+			}
 			)
 			.catch((err) => SessionLogout(err))
 	}, [persAuth])
@@ -57,48 +61,67 @@ export default function CalendarMenu() {
 			.catch((err) => SessionLogout(err))
 	}
 
+	const showAuth = () => {
+		return (
+			<div className="wrapper" id="cal_wrapper">
+				<h2 className="title">Kalender: Authentifizierung</h2>
+				<p>
+					Gib den Namen der <b>Klassenlehrperson</b> ein, um
+					Zugriff zum Kalender zu erhalten.
+				</p>
+				<br />
+				<p style={{ color: "red" }}>{authed.msg}</p>
+				<form onSubmit={GetAuth} className="cal_form">
+					<label>Vorname: </label>
+					<input
+						type="text"
+						placeholder="Vorname"
+						name="first_name"
+						value={authInp.first_name}
+						onChange={(evnt) => setInput(setauthInp, evnt)}
+					/>
+					<br />
+					<label>Nachname: </label>
+					<input
+						type="text"
+						placeholder="Nachname"
+						name="last_name"
+						value={authInp.last_name}
+						onChange={(evnt) => setInput(setauthInp, evnt)}
+					/>
+					<button type="submit" className="cal_btn">
+						<span>Authentifizieren</span>
+					</button>
+				</form>
+			</div>
+		)
+	}
+
+	const showLoader = () => {
+		return (
+			<div className="wrapper" id="cal_wrapper">
+				<div className="loader-wrapper">
+					<h2 className="title">Authentifiziere...</h2>
+					<div className="cal-loader">
+					</div>
+				</div>
+			</div>
+		)
+	}
+
 	return (
 		<div
 			style={
 				window.innerWidth <= 520
 					? { paddingTop: "10px" }
-					: { paddingTop: "30px" }
+					: { marginTop: "5.5rem" }
 			}>
-			{authed.auth ? (
-				<CalendarApp />
-			) : (
-				<div className="wrapper" id="cal_wrapper">
-					<h2 className="title">Kalender: Authentifizierung</h2>
-					<p>
-						Gib den Namen der <b>Klassenlehrperson</b> ein, um
-						Zugriff zum Kalender zu erhalten.
-					</p>
-					<br />
-					<p style={{ color: "red" }}>{authed.msg}</p>
-					<form onSubmit={GetAuth} className="cal_form">
-						<label>Vorname: </label>
-						<input
-							type="text"
-							placeholder="Vorname"
-							name="first_name"
-							value={authInp.first_name}
-							onChange={(evnt) => setInput(setauthInp, evnt)}
-						/>
-						<br />
-						<label>Nachname: </label>
-						<input
-							type="text"
-							placeholder="Nachname"
-							name="last_name"
-							value={authInp.last_name}
-							onChange={(evnt) => setInput(setauthInp, evnt)}
-						/>
-						<button type="submit" className="cal_btn">
-							<span>Authentifizieren</span>
-						</button>
-					</form>
-				</div>
-			)}
+			{(persAuth)
+			?	(authed.auth) 
+				?	<CalendarApp />
+				:	showLoader()
+			:	showAuth()
+			}
 		</div>
 	)
 }

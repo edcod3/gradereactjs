@@ -10,7 +10,7 @@ export default function Navbar(props) {
 	const [navclass, setnavclass] = useState("topnav")
 	//State for mobile formatting
 	const [showMobile, setMobile] = useState(false)
-	const [MobileDropdown, setMobileDropdown] = useState(false)
+	const [MobileDropdown, setMobileDropdown] = useState("")
 	//Color Theme Styling
 	const {theme, setTheme} = useTheme()
 	//Location for conditional sticky navbar
@@ -20,8 +20,8 @@ export default function Navbar(props) {
 		// Get Current Location
 		let subj = location.pathname.replace("/", "")
 		//console.log(subj)
-		//Only apply sticky navbar to subject locations
-		if (subjtables.includes(subj) && window.innerWidth > 520) {
+		//Only apply sticky navbar to subject locations & calendar
+		if ((subjtables.includes(subj) || subj.includes("calendar")) && window.innerWidth > 520) {
 			setnavclass("topnav sticky")
 		} else {
 			setnavclass("topnav")
@@ -71,13 +71,13 @@ export default function Navbar(props) {
 							<button
 								className="dropbtn link-button"
 								onClick={() =>
-									setMobileDropdown(!MobileDropdown)
+									(MobileDropdown === "subj") ? setMobileDropdown("") : setMobileDropdown("subj")
 								}>
 								Deine Noten
 								<i
 									className="material-icons"
 									id="dropdown_arrow">
-									{MobileDropdown
+									{(MobileDropdown === "subj")
 										? "arrow_drop_up"
 										: "arrow_drop_down"}
 								</i>
@@ -85,25 +85,50 @@ export default function Navbar(props) {
 							<div
 								className="dropdown-content"
 								style={
-									MobileDropdown
+									(MobileDropdown === "subj")
 										? { display: "block" }
 										: { display: "none" }
 								}>
 								{subjtables.map((subj, i) => {
 									if (subj !== "sports") {
 										return (
-											<Link to={subj} key={"subj"+i}>{SubjName(subj)}</Link>
+											<Link to={subj} key={"subj"+i} onClick={() => {setMobileDropdown("");setMobile(!showMobile)}}>{SubjName(subj)}</Link>
 										)
 									} else {
 										return (
-											<Link className="unneccessary" to="/sports" key={"subj"+i}>Sport</Link>
+											<Link className="unneccessary" to="/sports" key={"subj"+i} onClick={() => {setMobileDropdown("");setMobile(!showMobile)}}>Sport</Link>
 										)
 									}
 								})}
 							</div>
 						</div>
 						<Link to="/calculator">Noten-Rechner</Link>
-						<Link to="/calendar">Kalender</Link>
+						<div className="dropdown">
+							<button
+								className="dropbtn link-button"
+								onClick={() =>
+								(MobileDropdown === "cal") ? setMobileDropdown("") : setMobileDropdown("cal")
+								}>
+								Kalendar
+								<i
+									className="material-icons"
+									id="dropdown_arrow">
+									{(MobileDropdown === "cal")
+										? "arrow_drop_up"
+										: "arrow_drop_down"}
+								</i>
+							</button>
+							<div
+								className="dropdown-content"
+								style={
+									(MobileDropdown === "cal")
+										? { display: "block" }
+										: { display: "none" }
+								}>
+								<Link to="/calendar" onClick={() => {setMobileDropdown("");setMobile(!showMobile)}}>Anzeigen</Link>
+								<Link to="/calendar?export" onClick={() => {setMobileDropdown("");setMobile(!showMobile)}}>Exportieren</Link>
+							</div>
+						</div>
 					</div>
 				</>
 			) : (
@@ -127,7 +152,14 @@ export default function Navbar(props) {
 						</div>
 					</div>
 					<Link to="/calculator">Noten-Rechner</Link>
-					<Link to="/calendar">Kalender</Link>
+					<div className="dropdown">
+						<Link to="/calendar" className="dropbtn">
+							Kalendar	
+						</Link>
+						<div className="dropdown-content">
+							<Link to="/calendar?export">Kalendar exportieren</Link>
+						</div>
+					</div>
 					<button
 						className="logout link-button"
 						onClick={() => props.logout()}>

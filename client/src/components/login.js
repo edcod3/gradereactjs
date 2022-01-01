@@ -119,7 +119,7 @@ export default function Login(props) {
 	return (
 		<div className="login-page">
 			<div className="form">
-				<p className="title">Notenportal I1a</p>
+				<p className="title">Notenportal IMS</p>
 				<p
 					className="registered"
 					id="registered"

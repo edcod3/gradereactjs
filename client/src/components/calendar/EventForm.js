@@ -42,11 +42,9 @@ export default function EventForm() {
         })
     }
 
-    return (
-        <>
-        <br />
-        <br />
-        <div className="tu-wrapper">
+    const showForm = () => {
+        return (
+            <div className="tu-wrapper" id="form-div">
             <h2>Kalendardaten exportieren</h2>
             <form onSubmit={handleSubmit}>
                <label htmlFor="cal-start-date">Start datum:</label>
@@ -65,24 +63,29 @@ export default function EventForm() {
                     value={inputs.endDate || ""}
                     onChange={handleChange}
                 />
-                <button type="submit" className="tu_btn">
-							<span>Exportieren</span>
-						</button>
+                <button type="submit" className="tu_btn btn_export">
+					<span id="export">Exportieren</span>
+				</button>
             </form>
         </div>
-        <div className="tu-wrapper" id="check-div">
+        )
+    }
+
+    return (
+        <>
+        <br />
+        <br />
         {(gotEvents !== null) ? 
             (gotEvents) 
             ? 
-                <>
-                <CheckEvents className="event-check" eventCount={events.length}/>
-                <ConvertButton events={events} calId={inputs.calId}/>
-                </>
+                <div className="tu-wrapper" id="check-div">
+                    <CheckEvents className="event-check" eventCount={events.length}/>
+                    <ConvertButton events={events} calId={inputs.calId}/>
+                </div>
             :
             <ErrorEvents />
         : 
-        ""}
-        </div>
+        showForm()}
         </>
     )
 }
